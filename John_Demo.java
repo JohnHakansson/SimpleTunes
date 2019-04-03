@@ -18,7 +18,7 @@ public class John_Demo extends Application {
 	private Color aquamarine = Color.AQUAMARINE;
 	private Color violet = Color.BLUEVIOLET;
 	private Rectangle rect = new Rectangle(150, 200, 120, 100);
-	private Circle circle = new Circle(200, 365, 50, violet);
+	private Circle circle = new Circle(50, violet);
 	private Polygon triangle = new Polygon();
 	private Line line500 = new Line(500, 0, 500, 600);
 	private Scene scene;
@@ -36,6 +36,8 @@ public class John_Demo extends Application {
 	
 	private double newTranslateX;
 	private double newTranslateY;
+	
+	private boolean playing = false;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -110,8 +112,12 @@ public class John_Demo extends Application {
 				((Shape) (t.getSource())).setTranslateX(newTranslateX);
 				((Shape) (t.getSource())).setTranslateY(newTranslateY);
 				
-				if(newTranslateX > 100) {
+//				 window.setX(t.getScreenX() + orgTranslateX);
+//				 window.setY(t.getScreenY() + orgTranslateY);
+				
+				if(newTranslateX > 100 && !playing) {
 					mediaPlayer = new MediaPlayer(soundFiles[sound]);
+					playing = true;
 					mediaPlayer.play();
 				}
 			}
