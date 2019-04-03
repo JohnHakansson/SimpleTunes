@@ -97,8 +97,7 @@ public class John_Demo extends Application {
 		
 		newTranslateX = 0;
 		newTranslateY = 0;
-		
-		
+			
 		EventHandler<MouseEvent> circleOnMouseDraggedEventHandler = new EventHandler<MouseEvent>() {
 
 			
@@ -117,7 +116,6 @@ public class John_Demo extends Application {
 				
 				if(newTranslateX > 100 && !playing) {
 					mediaPlayer = new MediaPlayer(soundFiles[sound]);
-					playing = true;
 					mediaPlayer.play();
 				}
 			}
