@@ -11,16 +11,11 @@ import java.util.*;
 
 public class MusicCircle extends Circle {
 	private MediaPlayer mediaPlayer;
-	private HashMap<Color, Media> drumSounds;
 	private Color[] colors = { Color.RED, Color.BLUE, Color.GREEN };
 	private Random rand = new Random();
 
-	public MusicCircle(double x, double y) {
+	public MusicCircle(double x, double y, Color color, Media sound) {
 		super(x, y, 56);
-
-		int randomColor = rand.nextInt(3);
-		mediaPlayer = new MediaPlayer(drumSounds.get(colors[randomColor]));
-		setFill(colors[randomColor]);
 	}
 
 }

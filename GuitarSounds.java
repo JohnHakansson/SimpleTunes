@@ -24,6 +24,4 @@ public class GuitarSounds {
 	public synchronized Media getGuitarSound(Color color) {
 		return guitarSounds.get(color);
 	}
-	
-	
 }

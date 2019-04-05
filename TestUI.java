@@ -85,7 +85,7 @@ public class TestUI extends Application {
 		Group shapeGroup = new Group();
 		Pane menuPane = new Pane(shapeGroup);
 		//Row #1
-		square1x1.setFill(color.BLACK);
+		square1x1.setFill(Color.BLACK);
 		square1x1.setStroke(color.GREEN);
 		square1x1.setStrokeWidth(3);
 		square1x2.setFill(color.BLACK);
@@ -288,8 +288,8 @@ public class TestUI extends Application {
 	public void addShape(Shape shape) {
 		Random rand = new Random();
 		
-		shape.setLayoutX(rand.nextInt(400));
-		shape.setLayoutY(rand.nextInt(300));
+		shape.setLayoutX(rand.nextInt(600));
+		shape.setLayoutY(rand.nextInt(800));
 		poolGroup.getChildren().add(shape);
 	}
 	

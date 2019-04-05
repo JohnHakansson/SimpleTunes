@@ -1,6 +1,5 @@
 package simpleTunes;
 
-import javafx.application.Application;
 
 public class Controller {
 //	private DrumSounds drumSounds = new DrumSounds();
