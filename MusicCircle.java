@@ -21,7 +21,6 @@ public class MusicCircle extends Circle {
 		int randomColor = rand.nextInt(3);
 		mediaPlayer = new MediaPlayer(drumSounds.get(colors[randomColor]));
 		setFill(colors[randomColor]);
-
 	}
 
 }
