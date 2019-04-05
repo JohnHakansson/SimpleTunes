@@ -15,15 +15,25 @@ public class MusicTriangle extends Polygon {
 	private Color[] colors = { Color.RED, Color.BLUE, Color.GREEN };
 	private Random rand = new Random();
 
-	public MusicTriangle(double x, double y) {
+	public MusicTriangle(double x, double y, Color color, Media media) {
 		getPoints().addAll(new Double[] { x, y-50, x + 50, y + 50, x - 50, y + 50 });
 
-		int randomColor = rand.nextInt(3);
-		mediaPlayer = new MediaPlayer(guitarSounds.get(colors[randomColor]));
-		setFill(colors[randomColor]);
-
+		
 	}
 	
+	private void setSound(Media sound) {
+		mediaPlayer = new MediaPlayer(sound);
+	}
 	
-
+	public void play() {
+		mediaPlayer.play();
+	}
+	
+	public void pause() {
+		mediaPlayer.pause();
+	}
+	
+	public void stop() {
+		mediaPlayer.stop();
+	}
 }

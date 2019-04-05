@@ -14,8 +14,25 @@ public class MusicCircle extends Circle {
 	private Color[] colors = { Color.RED, Color.BLUE, Color.GREEN };
 	private Random rand = new Random();
 
-	public MusicCircle(double x, double y, Color color, Media sound) {
-		super(x, y, 56);
+	public MusicCircle(Color color, Media sound) {
+		super(56);
+		setFill(color);
+		setSound(sound);
 	}
-
+	
+	private void setSound(Media sound) {
+		mediaPlayer = new MediaPlayer(sound);
+	}
+	
+	public void play() {
+		mediaPlayer.play();
+	}
+	
+	public void pause() {
+		mediaPlayer.pause();
+	}
+	
+	public void stop() {
+		mediaPlayer.stop();
+	}
 }
