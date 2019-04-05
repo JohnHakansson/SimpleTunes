@@ -18,52 +18,70 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.stage.Stage;
 
+
+/**
+ * 
+ * The class TestFX is a first draft of the basic estimated functionality of SimpleTunes
+ * 
+ * @author grupp 10
+ *
+ */
 public class TestFX extends Application {
-	Synthesizer synth;
-	UnitOscillator osc;
-	LineOut lineOut;
+	private Synthesizer synth;
+	private UnitOscillator osc;
+	private LineOut lineOut;
 
-	Line line500;
-	Circle circle_Red, circle_Green, circle_Blue;
-	double orgSceneX, orgSceneY;
-	double orgTranslateX, orgTranslateY;
-
+	private Line line500;
+	private Circle circleRed, circleGreen, circleBlue;
+	private double orgSceneX, orgSceneY;
+	private double orgTranslateX, orgTranslateY;
+	
+	/**
+	 * Overshadows start method in Application. Is required in order to start JavaFX program
+	 */
 	public void start(Stage primaryStage) {
 
 		// Create Circles
-		circle_Red = new Circle(50.0f, Color.RED);
-		circle_Red.setCursor(Cursor.HAND);
-		circle_Red.setOnMousePressed(circleOnMousePressedEventHandler);
-		circle_Red.setOnMouseDragged(circleOnMouseDraggedEventHandler);
+		circleRed = new Circle(50.0f, Color.RED);
+		circleRed.setCursor(Cursor.HAND);
+		circleRed.setOnMousePressed(circleOnMousePressedEventHandler);
+		circleRed.setOnMouseDragged(circleOnMouseDraggedEventHandler);
 
-		circle_Green = new Circle(50.0f, Color.GREEN);
-		circle_Green.setCursor(Cursor.MOVE);
-		circle_Green.setCenterX(150);
-		circle_Green.setCenterY(150);
-		circle_Green.setOnMousePressed(circleOnMousePressedEventHandler);
-		circle_Green.setOnMouseDragged(circleOnMouseDraggedEventHandler);
+		circleGreen = new Circle(50.0f, Color.GREEN);
+		circleGreen.setCursor(Cursor.MOVE);
+		circleGreen.setCenterX(150);
+		circleGreen.setCenterY(150);
+		circleGreen.setOnMousePressed(circleOnMousePressedEventHandler);
+		circleGreen.setOnMouseDragged(circleOnMouseDraggedEventHandler);
 
-		circle_Blue = new Circle(50.0f, Color.BLUE);
-		circle_Blue.setCursor(Cursor.CROSSHAIR);
-		circle_Blue.setTranslateX(300);
-		circle_Blue.setTranslateY(100);
-		circle_Blue.setOnMousePressed(circleOnMousePressedEventHandler);
-		circle_Blue.setOnMouseDragged(circleOnMouseDraggedEventHandler);
-
+		circleBlue = new Circle(50.0f, Color.BLUE);
+		circleBlue.setCursor(Cursor.CROSSHAIR);
+		circleBlue.setTranslateX(300);
+		circleBlue.setTranslateY(100);
+		circleBlue.setOnMousePressed(circleOnMousePressedEventHandler);
+		circleBlue.setOnMouseDragged(circleOnMouseDraggedEventHandler);
+		
+		//Create line
 		line500 = new Line(500, 0, 500, 1080);
-
+		line500.setStroke(Color.WHITESMOKE);
+		
+		//Add graphical components to scene
 		Group root = new Group();
-		root.getChildren().addAll(circle_Red, circle_Green, circle_Blue, line500);
+		root.getChildren().addAll(circleRed, circleGreen, circleBlue, line500);
+		
 
 		primaryStage.setResizable(false);
-		primaryStage.setScene(new Scene(root, 1920, 1080));
+		Scene scene = new Scene(root, 1920, 1080);
+		scene.setFill(Color.BLACK);
+		primaryStage.setScene(scene);
 
 		primaryStage.show();
-
+		
+		//Creates synthesizer to generate sounds
 		synth = JSyn.createSynthesizer();
 		synth.start();
 
-		synth.add(osc = new SawtoothOscillatorBL());
+		synth.add(osc = new SineOscillator());
 		synth.add(lineOut = new LineOut());
 		osc.output.connect(0, lineOut.input, 0);
 		osc.output.connect(0, lineOut.input, 1);
@@ -71,11 +89,13 @@ public class TestFX extends Application {
 		osc.amplitude.set(0);
 		lineOut.start();
 	}
-
+	
+	//Starts JavaFX program
 	public static void main(String[] args) {
 		launch(args);
 	}
-
+	
+	//Creates EventHandler that allows users to press the circles
 	EventHandler<MouseEvent> circleOnMousePressedEventHandler = new EventHandler<MouseEvent>() {
 
 		@Override
@@ -87,7 +107,8 @@ public class TestFX extends Application {
 
 		}
 	};
-
+	
+	//Creates EventHandler that allows users to drag the circles
 	EventHandler<MouseEvent> circleOnMouseDraggedEventHandler = new EventHandler<MouseEvent>() {
 
 		@Override
@@ -99,12 +120,14 @@ public class TestFX extends Application {
 
 			((Circle) (t.getSource())).setTranslateX(newTranslateX);
 			((Circle) (t.getSource())).setTranslateY(newTranslateY);
-
+			
+			//If circle dragged right of line: play sound
 			if (newTranslateX > 500) {
 				osc.amplitude.set(0.6f);
 
 			}
-
+			
+			//If circle dragged left of line: stop sound
 			else if (newTranslateX < 500) {
 				osc.amplitude.set(0);
 			}
