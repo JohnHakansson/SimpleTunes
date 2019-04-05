@@ -1,4 +1,6 @@
 package simpleTunes;
+import java.util.Random;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.*;
@@ -13,12 +15,14 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 
 public class TestUI extends Application {
 	private Stage window;
 	private BorderPane layout;
 	private Color color;
+	private Controller controller;
 	private Rectangle square1x1 = new Rectangle(800.0f, 30.0f, 100, 100);
 	private Rectangle square1x2 = new Rectangle(900.0f, 30.0f, 100, 100);
 	private Rectangle square1x3 = new Rectangle(1000.0f, 30.0f, 100, 100);
@@ -59,11 +63,18 @@ public class TestUI extends Application {
 	private Rectangle square8x3 = new Rectangle(1000.0f, 730.0f, 100, 100);
 	private Rectangle square8x4 = new Rectangle(1100.0f, 730.0f, 100, 100);
 	
+	
+	private Group poolGroup = new Group();
+	private Pane poolPane = new Pane(poolGroup);
+	
 
 	public void start(Stage primaryStage) throws Exception {
+		
+		Controller controller = new Controller(this);
+		
 		window = primaryStage;
 		
-		Pane poolPane = new Pane();
+//		Pane poolPane = new Pane();
 		poolPane.setPrefSize(600, 800);
 		poolPane.setStyle("-fx-background-color: Black");
 		
@@ -232,6 +243,9 @@ public class TestUI extends Application {
 		menuPane.setStyle("-fx-background-color: Grey");
 		
 		Button playButton = new Button("Play");
+		playButton.setOnAction(e -> {
+			controller.addShape();
+		});
 		playButton.setLayoutX(600);
 		playButton.setLayoutY(0);
 		Button stopButton = new Button("Stop");
@@ -251,6 +265,10 @@ public class TestUI extends Application {
 //		square1x1.setFill(color.GREEN);
 //		gridPane.getChildren().add(square1x1);
 		
+//		Pane gridPane = new Pane(shapeGroup);
+//		gridPane.setPrefSize(400, 800);
+//		gridPane.setStyle("-fx-background-color: White");
+		
 		layout = new BorderPane();
 		layout.setCenter(poolPane);
 		layout.setRight(gridPane);
@@ -265,6 +283,18 @@ public class TestUI extends Application {
 		window.setResizable(false);
 		window.show();
 		
+	}
+	
+	public void addShape(Shape shape) {
+		Random rand = new Random();
+		
+		shape.setLayoutX(rand.nextInt(400));
+		shape.setLayoutY(rand.nextInt(300));
+		poolGroup.getChildren().add(shape);
+	}
+	
+	public void setController(Controller controller) {
+		this.controller = controller;
 	}
 	
 	public static void main(String[] args) {

@@ -16,9 +16,10 @@ public class MusicSquare extends Rectangle{
 	
 	public MusicSquare(double x, double y) {
 		super(x, y, 100, 100);
+		setFill(Color.RED);
 		
-		int randomColor = rand.nextInt(3);
-		mediaPlayer = new MediaPlayer(basSounds.get(colors[randomColor]));
+//		int randomColor = rand.nextInt(3);
+//		mediaPlayer = new MediaPlayer(basSounds.get(colors[randomColor]));
 		
 	}
 	
