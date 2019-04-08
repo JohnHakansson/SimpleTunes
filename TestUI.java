@@ -1,5 +1,7 @@
 package simpleTunes;
 
+
+import java.util.ArrayList;
 import java.util.Random;
 
 import javafx.application.Application;
@@ -30,6 +32,10 @@ public class TestUI extends Application {
 	private Color color;
 	private Group poolGroup = new Group();
 	private Pane poolPane = new Pane(poolGroup);
+	private Pane gridPane;
+	private VBox vbox;
+	private ToolBar toolbar;
+	private Scene mainScene;
 	private Controller controller;
 	private Rectangle square1x1 = new Rectangle(0.0f, 1.0f, 100, 100);
 	private Rectangle square1x2 = new Rectangle(101.0f, 1.0f, 100, 100);
@@ -72,14 +78,16 @@ public class TestUI extends Application {
 	private Rectangle square8x4 = new Rectangle(300.0f, 701.0f, 100, 100);
 
 	public void start(Stage primaryStage) throws Exception {
+		
+		controller = new Controller(this);
 		window = primaryStage;
 
-		poolPane.setPrefSize(600, 800);
+		poolPane.setPrefSize(600, 848);
 		poolPane.setStyle("-fx-background-color: Black");
 
 		Group shapeGroup = new Group();
-		Pane gridPane = new Pane(shapeGroup);
-		gridPane.setPrefSize(400, 800);
+		gridPane = new Pane(shapeGroup);
+		gridPane.setPrefSize(400, 848);
 		gridPane.setStyle("-fx-background-color: White");
 
 		// Row #1
@@ -240,26 +248,31 @@ public class TestUI extends Application {
 		
 		Button playButton = new Button();
 		playButton.setGraphic(new ImageView(playImage));
+		playButton.setOnAction(e -> {
+			poolGroup.getChildren().clear();
+			controller.generateShape();
+
+		});
 		Button pauseButton = new Button();
 		pauseButton.setGraphic(new ImageView(pauseImage));
 		Button resetButton = new Button();
 		resetButton.setGraphic(new ImageView(clearImage));
-
-		ToolBar toolbar = new ToolBar(playButton, pauseButton, new Separator(), resetButton);
-
-		VBox vbox = new VBox();
-		vbox.getChildren().addAll(toolbar);
-		
-		playButton.setOnAction(e -> {
-			controller.addShape();
+		resetButton.setOnAction(e -> {
+			poolGroup.getChildren().clear();
 		});
+
+		toolbar = new ToolBar(playButton, pauseButton, new Separator(), resetButton);
+		toolbar.setPrefHeight(48);
+
+		vbox = new VBox();
+		vbox.getChildren().addAll(toolbar);
 		
 		layout = new BorderPane();
 		layout.setCenter(poolPane);
 		layout.setRight(gridPane);
 		layout.setTop(vbox);
 
-		Scene mainScene = new Scene(layout, 1200, 848);
+		mainScene = new Scene(layout, 1200, 850);
 		mainScene.setFill(color.BLACK);
 
 		window.setScene(mainScene);
@@ -269,19 +282,29 @@ public class TestUI extends Application {
 
 	}
 	
-	public void setController(Controller controller) {
-		this.controller = controller;
-		
-	}
-	
-	public void addShape(Shape shape) {
+	public void addShape(ArrayList<Shape> list) {
 		Random rand = new Random();
+		ArrayList<Shape> shapeList = list;
 		
-		shape.setLayoutX(rand.nextInt(600));
-		shape.setLayoutY(rand.nextInt(800));
-		poolGroup.getChildren().add(shape);
+		for (Shape shape : shapeList) {
+			shape.setLayoutX(rand.nextInt((int) (mainScene.getWidth() - gridPane.getWidth()) - 200));
+			shape.setLayoutY(rand.nextInt((int) (mainScene.getHeight() - toolbar.getHeight()) - 200));
+		}
+		
+//		controller.getShape().setLayoutX(rand.nextInt((int) (mainScene.getWidth() - gridPane.getWidth()) - 200));
+////		System.out.println("Width: " + (mainScene.getWidth() - gridPane.getWidth()));
+////		System.out.println("Shape X: "+ shape.getLayoutX());
+//		controller.getShape().setLayoutY(rand.nextInt((int) (mainScene.getHeight() - toolbar.getHeight()) - 200));
+////		System.out.println("Height: " + (mainScene.getHeight() - toolbar.getHeight()));
+////		System.out.println("Shape Y: " + shape.getLayoutY());
+		
+		//poolGroup.getChildren().add(controller.getShapeList().get(i));
+		poolGroup.getChildren().addAll(shapeList);
+		//System.out.println(controller.getShapeList().size());
+		
 	}
-
+	 //FXCollections.observableArrayList(views)
+	
 	public static void main(String[] args) {
 		launch(args);
 	}

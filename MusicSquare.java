@@ -18,6 +18,8 @@ public class MusicSquare extends Rectangle{
 		super(x, y, 100, 100);
 		setFill(Color.RED);
 		
+		
+		
 //		int randomColor = rand.nextInt(3);
 //		mediaPlayer = new MediaPlayer(basSounds.get(colors[randomColor]));
 		

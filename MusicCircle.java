@@ -16,6 +16,7 @@ public class MusicCircle extends Circle {
 
 	public MusicCircle(double x, double y, Color color, Media sound) {
 		super(x, y, 56);
+		setFill(color);
 	}
 
 }
