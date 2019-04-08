@@ -291,20 +291,9 @@ public class TestUI extends Application {
 			shape.setLayoutY(rand.nextInt((int) (mainScene.getHeight() - toolbar.getHeight()) - 200));
 		}
 		
-//		controller.getShape().setLayoutX(rand.nextInt((int) (mainScene.getWidth() - gridPane.getWidth()) - 200));
-////		System.out.println("Width: " + (mainScene.getWidth() - gridPane.getWidth()));
-////		System.out.println("Shape X: "+ shape.getLayoutX());
-//		controller.getShape().setLayoutY(rand.nextInt((int) (mainScene.getHeight() - toolbar.getHeight()) - 200));
-////		System.out.println("Height: " + (mainScene.getHeight() - toolbar.getHeight()));
-////		System.out.println("Shape Y: " + shape.getLayoutY());
-		
-		//poolGroup.getChildren().add(controller.getShapeList().get(i));
 		poolGroup.getChildren().addAll(shapeList);
-		//System.out.println(controller.getShapeList().size());
-		
 	}
-	 //FXCollections.observableArrayList(views)
-	
+	 
 	public static void main(String[] args) {
 		launch(args);
 	}

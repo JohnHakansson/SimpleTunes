@@ -24,10 +24,13 @@ public class Controller {
 		shapeList = new ArrayList<Shape>();
 		
 		MusicSquare square = new MusicSquare(100,100);
+		MusicSquare square2 = new MusicSquare(100,100);
+		square2.setFill(Color.GREEN);
 		MusicCircle circle = new MusicCircle(100,100, Color.RED, null);
 		MusicCircle circle2 = new MusicCircle(100,100, Color.PINK, null);
 		shapeList.add(circle);
 		shapeList.add(square);
+		shapeList.add(square2);
 		shapeList.add(circle2);
 		
 		ui.addShape(shapeList);
