@@ -243,12 +243,18 @@ public class TestUI extends Application {
 		shapeGroup.getChildren().add(square8x4);
 		
 		Image playImage = new Image(getClass().getResourceAsStream("/images/playButton.png"));
+		Image refreshImage = new Image(getClass().getResourceAsStream("/images/refreshButton.png"));
 		Image pauseImage = new Image(getClass().getResourceAsStream("/images/pauseButton.png"));
 		Image clearImage = new Image(getClass().getResourceAsStream("/images/clearButton.png"));
 		
 		Button playButton = new Button();
 		playButton.setGraphic(new ImageView(playImage));
 		playButton.setOnAction(e -> {
+
+		});
+		Button refreshButton = new Button();
+		refreshButton.setGraphic(new ImageView(refreshImage));
+		refreshButton.setOnAction(e -> {
 			poolGroup.getChildren().clear();
 			controller.generateShape();
 
@@ -261,7 +267,7 @@ public class TestUI extends Application {
 			poolGroup.getChildren().clear();
 		});
 
-		toolbar = new ToolBar(playButton, pauseButton, new Separator(), resetButton);
+		toolbar = new ToolBar(playButton, pauseButton, new Separator(), refreshButton, resetButton);
 		toolbar.setPrefHeight(48);
 
 		vbox = new VBox();
