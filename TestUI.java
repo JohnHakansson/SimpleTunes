@@ -74,7 +74,6 @@ public class TestUI extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		window = primaryStage;
 
-		poolPane = new Pane();
 		poolPane.setPrefSize(600, 800);
 		poolPane.setStyle("-fx-background-color: Black");
 
@@ -241,9 +240,6 @@ public class TestUI extends Application {
 		
 		Button playButton = new Button();
 		playButton.setGraphic(new ImageView(playImage));
-		playButton.setOnAction(e -> {
-			controller.addShape();
-		});
 		Button pauseButton = new Button();
 		pauseButton.setGraphic(new ImageView(pauseImage));
 		Button resetButton = new Button();
@@ -253,6 +249,10 @@ public class TestUI extends Application {
 
 		VBox vbox = new VBox();
 		vbox.getChildren().addAll(toolbar);
+		
+		playButton.setOnAction(e -> {
+			controller.addShape();
+		});
 		
 		layout = new BorderPane();
 		layout.setCenter(poolPane);
