@@ -34,13 +34,19 @@ public class Controller {
 		do {
 		switch(rand.nextInt(3)) {
 			
-		case 0: randomShape = new MusicSquare(colors[rand.nextInt(3)], pianoSounds.getPianoSound(colors[rand.nextInt(3)]));
+		case 0:
+			Color randomSquare =  colors[rand.nextInt(3)];
+			randomShape = new MusicSquare(randomSquare, pianoSounds.getPianoSound(randomSquare));
 			break;
 			
-		case 1: randomShape = new MusicCircle(colors[rand.nextInt(3)], guitarSounds.getGuitarSound(colors[rand.nextInt(3)]));
+		case 1:
+			Color randomCircle = colors[rand.nextInt(3)];
+			randomShape = new MusicCircle(randomCircle, guitarSounds.getGuitarSound(randomCircle));
 			break;
 			
-		case 2: randomShape = new MusicTriangle(56, 100, colors[rand.nextInt(3)], drumSounds.getDrumSounds(colors[rand.nextInt(3)]));
+		case 2:
+			Color randomTrinagle = colors[rand.nextInt(3)];
+			randomShape = new MusicTriangle(56, 100, randomTrinagle, drumSounds.getDrumSounds(randomTrinagle));
 			break;
 		}
 		
