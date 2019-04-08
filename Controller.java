@@ -35,18 +35,17 @@ public class Controller {
 		switch(rand.nextInt(3)) {
 			
 		case 0: randomShape = new MusicSquare(colors[rand.nextInt(3)], pianoSounds.getPianoSound(colors[rand.nextInt(3)]));
-			shapeList.add(randomShape);
 			break;
 			
 		case 1: randomShape = new MusicCircle(colors[rand.nextInt(3)], guitarSounds.getGuitarSound(colors[rand.nextInt(3)]));
-			shapeList.add(randomShape);
 			break;
 			
 		case 2: randomShape = new MusicTriangle(56, 100, colors[rand.nextInt(3)], drumSounds.getDrumSounds(colors[rand.nextInt(3)]));
-			shapeList.add(randomShape);
 			break;
 		}
+		
 		nbrOfShapes++;
+		shapeList.add(randomShape);
 		randomShape.setOnMouseClicked(ui.getMouseEvent(randomShape));
 		} while (nbrOfShapes < 10);
 		

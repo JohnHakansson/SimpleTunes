@@ -297,19 +297,19 @@ public class TestUI extends Application {
 			public void handle(MouseEvent t) {
 				
 				if (shape instanceof MusicSquare) {
-					System.out.println("I am clicked");
 					MusicSquare musicSquare = (MusicSquare) shape;
+					System.out.println("Square clicked");
 					musicSquare.play();
 				}
 				
 				if (shape instanceof MusicCircle) {
-					System.out.println("I am clicked");
+					System.out.println("Circle clicked");
 					MusicCircle musicCircle = (MusicCircle) shape;
 					musicCircle.play();
 				}
 				
 				if (shape instanceof MusicTriangle) {
-					System.out.println("I am clicked");
+					System.out.println("Triangle clicked");
 					MusicTriangle musicTriangle = (MusicTriangle) shape;
 					musicTriangle.play();
 				}

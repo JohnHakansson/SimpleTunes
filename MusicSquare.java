@@ -1,5 +1,6 @@
 package simpleTunes;
 import javafx.scene.shape.*;
+import javafx.util.Duration;
 
 import java.util.HashMap;
 
@@ -25,6 +26,7 @@ public class MusicSquare extends Rectangle{
 	}
 	
 	public void play() {
+		mediaPlayer.seek(Duration.ZERO);
 		mediaPlayer.play();
 	}
 	

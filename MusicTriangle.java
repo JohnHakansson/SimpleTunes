@@ -1,6 +1,7 @@
 package simpleTunes;
 
 import javafx.scene.shape.*;
+import javafx.util.Duration;
 
 import java.util.HashMap;
 
@@ -29,6 +30,7 @@ public class MusicTriangle extends Polygon {
 	}
 	
 	public void play() {
+		mediaPlayer.seek(Duration.ZERO);
 		mediaPlayer.play();
 	}
 	
