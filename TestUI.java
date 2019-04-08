@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.*;
 import javafx.scene.control.Button;
@@ -14,6 +15,7 @@ import javafx.scene.control.Separator;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
@@ -286,6 +288,35 @@ public class TestUI extends Application {
 		window.setTitle("SimpleTunes");
 		window.show();
 
+	}
+	
+	public EventHandler<MouseEvent> getMouseEvent(Shape shape) {
+		EventHandler<MouseEvent> OnMouseClicked = new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent t) {
+				
+				if (shape instanceof MusicSquare) {
+					System.out.println("I am clicked");
+					MusicSquare musicSquare = (MusicSquare) shape;
+					musicSquare.play();
+				}
+				
+				if (shape instanceof MusicCircle) {
+					System.out.println("I am clicked");
+					MusicCircle musicCircle = (MusicCircle) shape;
+					musicCircle.play();
+				}
+				
+				if (shape instanceof MusicTriangle) {
+					System.out.println("I am clicked");
+					MusicTriangle musicTriangle = (MusicTriangle) shape;
+					musicTriangle.play();
+				}
+			}
+		};
+
+		return OnMouseClicked;
 	}
 	
 	public void addShape(ArrayList<Shape> list) {

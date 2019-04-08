@@ -11,13 +11,13 @@ public class GuitarSounds {
 	
 	public GuitarSounds() {
 		
-			File C = new File("GuitarSounds/Cmp3.mp3");
+			File C = new File("GuitarSounds/C.wav");
 			guitarSounds.put(Color.RED, new Media(C.toURI().toString()));
 			
-			File E = new File("GuitarSounds/Emp3.mp3");
+			File E = new File("GuitarSounds/E.wav");
 			guitarSounds.put(Color.GREEN, new Media(E.toURI().toString()));
 			
-			File G = new File("GuitarSounds/Gmp3.mp3");
+			File G = new File("GuitarSounds/G.wav");
 			guitarSounds.put(Color.BLUE, new Media(G.toURI().toString()));
 	}
 	

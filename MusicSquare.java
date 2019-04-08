@@ -10,20 +10,29 @@ import java.util.*;
 
 public class MusicSquare extends Rectangle{
 	private MediaPlayer mediaPlayer;
-	private HashMap<Color, Media> basSounds;
-	private Color[] colors = {Color.RED, Color.BLUE, Color.GREEN};
-	private Random rand = new Random();
+	private Color color;
 	
-	public MusicSquare(double x, double y) {
-		super(x, y, 100, 100);
-		setFill(Color.RED);
-		
-		
-		
-//		int randomColor = rand.nextInt(3);
-//		mediaPlayer = new MediaPlayer(basSounds.get(colors[randomColor]));
-		
+	public MusicSquare(Color color, Media sound) {
+		super(100, 100);
+		this.color = color;
+		setSound(sound);
+		setFill(color);
+		setStroke(Color.WHITESMOKE);
 	}
 	
-
+	private void setSound(Media sound) {
+		mediaPlayer = new MediaPlayer(sound);
+	}
+	
+	public void play() {
+		mediaPlayer.play();
+	}
+	
+	public void pause() {
+		mediaPlayer.pause();
+	}
+	
+	public void stop() {
+		mediaPlayer.stop();
+	}
 }
