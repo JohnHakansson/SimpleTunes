@@ -15,6 +15,7 @@ public class MusicTriangle extends Polygon {
 	private HashMap<Color, Media> guitarSounds;
 	private Color[] colors = { Color.RED, Color.BLUE, Color.GREEN };
 	private Random rand = new Random();
+	private Media sound;
 
 	public MusicTriangle(double x, double y, Color color, Media sound) {
 		getPoints().addAll(new Double[] { x, y - 50, x + 50, y + 50, x - 50, y + 50 });
@@ -26,6 +27,11 @@ public class MusicTriangle extends Polygon {
 
 	private void setSound(Media sound) {
 		mediaPlayer = new MediaPlayer(sound);
+		this.sound = sound;
+	}
+	
+	public Media getSounds() {
+		return sound;
 	}
 
 	public void play() {
@@ -39,5 +45,9 @@ public class MusicTriangle extends Polygon {
 
 	public void stop() {
 		mediaPlayer.stop();
+	}
+	
+	public String toString() {
+		return "MusicCirlce";
 	}
 }

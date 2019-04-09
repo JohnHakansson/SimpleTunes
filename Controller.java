@@ -3,8 +3,12 @@ package simpleTunes;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -24,9 +28,9 @@ public class Controller {
 	public Controller(TestUI ui) {
 		this.ui = ui;
 	}
-	
+
 	public Controller() {
-		//For main-method testing
+		// For main-method testing
 	}
 
 	public void clearList() {
@@ -65,59 +69,74 @@ public class Controller {
 
 		ui.addShape(shapeList);
 	}
-	
+
+	public DrumSounds getDrumSounds() {
+		return drumSounds;
+	}
+
+	public GuitarSounds getGuitarSounds() {
+		return guitarSounds;
+	}
+
+	public PianoSounds getPianoSounds() {
+		return pianoSounds;
+	}
+
 	public void startPlaying() {
-		if(thread == null) {
+		if (thread == null) {
 			playing = true;
 			thread = new PlaySound();
 			thread.start();
 		}
 	}
-	
+
 	public void stop() {
-		if(thread != null) {
+		if (thread != null) {
 			playing = false;
 			thread = null;
 		}
 	}
-	
+
 	public boolean checkRowSpace(Shape[] row) {
 		int counter = 0;
-		
-		
-		for(int i = 0; i < row.length; i++) {
-			if(row[i] != null) {
+
+		for (int i = 0; i < row.length; i++) {
+			if (row[i] != null) {
 				counter++;
 			}
 		}
-		System.out.println();
+		
+		System.out.println(counter < 4);
 		return (counter < 4);
 	}
-	
+
 	public Shape[] getRow(int row) {
 		Shape[] aRow = new Shape[4];
-		
-		for(int i = 0; i < aRow.length; i++) {
-			if(sounds[row][i] != null) {
+
+		for (int i = 0; i < aRow.length; i++) {
+			if (sounds[row][i] != null) {
 				aRow[i] = sounds[row][i];
 			}
 		}
 		System.out.println("Getting row");
 		return aRow;
 	}
-	
+
 	public void addShapestoArray(Shape shape, int row) {
-		boolean foundEmptySpace = false;
-		
-		for(int i = 0; i < sounds[row].length || foundEmptySpace; i++) {
-			if(checkRowSpace(getRow(row))) {
-				sounds[row][i] = shape;
-				foundEmptySpace = true;
-				System.out.println("Added to array");
+		boolean shapePlaced = false;
+
+		for (int i = 0; !shapePlaced; i++) {
+			if (checkRowSpace(getRow(row))) {
+				if(sounds[row][i] == null) {
+					sounds[row][i] = shape;
+					shapePlaced = true;
+					System.out.println("Added to array");
+				}
+				
 			}
 		}
 	}
-	
+
 	public Shape[][] getSounds() {
 		return sounds;
 	}
@@ -127,22 +146,31 @@ public class Controller {
 		public void run() {
 
 			while (playing) {
-				
-				for(int i = 0; i < sounds.length; i++) {
-					for(int j = 0; i < sounds[i].length; j++) {
-						if(sounds[i][j] != null) {
-							if(sounds[i][j] instanceof MusicTriangle) {
-								((MusicTriangle)sounds[i][j]).play();
-							}
-							else if(sounds[i][j] instanceof MusicSquare) {
-								((MusicSquare)sounds[i][j]).play();
-							}
-							else if(sounds[i][j] instanceof MusicCircle) {
-								((MusicCircle)sounds[i][j]).play();
+
+				ObservableList<Media> mediaList = FXCollections.observableArrayList();
+				for (int i = 0; i < sounds.length; i++) {
+					for (int j = 0; j < sounds[i].length; j++) {
+						
+						if (sounds[i][j] != null) {
+							if (sounds[i][j] instanceof MusicTriangle) {
+//								((MusicTriangle) sounds[i][j]).play();
+								mediaList.add(((MusicTriangle) sounds[i][j]).getSounds());
+
+							} else if (sounds[i][j] instanceof MusicSquare) {
+//								((MusicSquare) sounds[i][j]).play();
+								mediaList.add(((MusicSquare) sounds[i][j]).getSounds());
+
+							} else if (sounds[i][j] instanceof MusicCircle) {
+//								((MusicCircle) sounds[i][j]).play();
+								mediaList.add(((MusicCircle) sounds[i][j]).getSounds());
+								
 							}
 						}
+						
+						playMediaTracks(mediaList);
+						mediaList.clear();
 						try {
-							Thread.sleep(500);
+							Thread.sleep(200);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -152,15 +180,30 @@ public class Controller {
 		}
 	}
 	
+    private void playMediaTracks(ObservableList<Media> mediaList) {
+        if (mediaList.size() == 0)
+            return;
+
+        MediaPlayer mediaplayer = new MediaPlayer(mediaList.remove(0));
+        mediaplayer.play();
+
+        mediaplayer.setOnEndOfMedia(new Runnable() {
+            @Override
+            public void run() {
+                playMediaTracks(mediaList);
+            }
+        });
+    }
+
 	/*
 	 * Only for testing
 	 */
-	
+
 	public static void main(String[] args) {
-		
+
 		GuitarSounds gs = new GuitarSounds();
 		Controller cont = new Controller();
-		Rectangle rect = new Rectangle(100,100);
+		Rectangle rect = new Rectangle(100, 100);
 		cont.addShapestoArray(rect, 0);
 		Shape[][] array = cont.getSounds();
 		System.out.println(array[0][0].toString());
