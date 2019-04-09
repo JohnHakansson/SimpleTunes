@@ -1,4 +1,5 @@
 package simpleTunes;
+
 import javafx.scene.shape.*;
 import javafx.util.Duration;
 
@@ -9,10 +10,10 @@ import javafx.scene.media.*;
 import javafx.scene.paint.*;
 import java.util.*;
 
-public class MusicSquare extends Rectangle{
+public class MusicSquare extends Rectangle {
 	private MediaPlayer mediaPlayer;
 	private Color color;
-	
+
 	public MusicSquare(Color color, Media sound) {
 		super(100, 100);
 		this.color = color;
@@ -20,20 +21,20 @@ public class MusicSquare extends Rectangle{
 		setFill(color);
 		setStroke(Color.WHITESMOKE);
 	}
-	
+
 	private void setSound(Media sound) {
 		mediaPlayer = new MediaPlayer(sound);
 	}
-	
+
 	public void play() {
 		mediaPlayer.seek(Duration.ZERO);
 		mediaPlayer.play();
 	}
-	
+
 	public void pause() {
 		mediaPlayer.pause();
 	}
-	
+
 	public void stop() {
 		mediaPlayer.stop();
 	}

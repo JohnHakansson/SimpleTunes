@@ -1,6 +1,5 @@
 package simpleTunes;
 
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -80,7 +79,7 @@ public class TestUI extends Application {
 	private Rectangle square8x4 = new Rectangle(300.0f, 701.0f, 100, 100);
 
 	public void start(Stage primaryStage) throws Exception {
-		
+
 		controller = new Controller(this);
 		window = primaryStage;
 
@@ -243,12 +242,12 @@ public class TestUI extends Application {
 		shapeGroup.getChildren().add(square8x2);
 		shapeGroup.getChildren().add(square8x3);
 		shapeGroup.getChildren().add(square8x4);
-		
+
 		Image playImage = new Image(getClass().getResourceAsStream("/images/playButton.png"));
 		Image refreshImage = new Image(getClass().getResourceAsStream("/images/refreshButton.png"));
 		Image pauseImage = new Image(getClass().getResourceAsStream("/images/pauseButton.png"));
 		Image clearImage = new Image(getClass().getResourceAsStream("/images/clearButton.png"));
-		
+
 		Button playButton = new Button();
 		playButton.setGraphic(new ImageView(playImage));
 		playButton.setOnAction(e -> {
@@ -274,7 +273,7 @@ public class TestUI extends Application {
 
 		vbox = new VBox();
 		vbox.getChildren().addAll(toolbar);
-		
+
 		layout = new BorderPane();
 		layout.setCenter(poolPane);
 		layout.setRight(gridPane);
@@ -289,25 +288,25 @@ public class TestUI extends Application {
 		window.show();
 
 	}
-	
+
 	public EventHandler<MouseEvent> getMouseEvent(Shape shape) {
 		EventHandler<MouseEvent> OnMouseClicked = new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent t) {
-				
+
 				if (shape instanceof MusicSquare) {
 					MusicSquare musicSquare = (MusicSquare) shape;
 					System.out.println("Square clicked");
 					musicSquare.play();
 				}
-				
+
 				if (shape instanceof MusicCircle) {
 					System.out.println("Circle clicked");
 					MusicCircle musicCircle = (MusicCircle) shape;
 					musicCircle.play();
 				}
-				
+
 				if (shape instanceof MusicTriangle) {
 					System.out.println("Triangle clicked");
 					MusicTriangle musicTriangle = (MusicTriangle) shape;
@@ -318,19 +317,19 @@ public class TestUI extends Application {
 
 		return OnMouseClicked;
 	}
-	
+
 	public void addShape(ArrayList<Shape> list) {
 		Random rand = new Random();
 		ArrayList<Shape> shapeList = list;
-		
+
 		for (Shape shape : shapeList) {
 			shape.setLayoutX(rand.nextInt((int) (mainScene.getWidth() - gridPane.getWidth()) - 200));
 			shape.setLayoutY(rand.nextInt((int) (mainScene.getHeight() - toolbar.getHeight()) - 200));
 		}
-		
+
 		poolGroup.getChildren().addAll(shapeList);
 	}
-	 
+
 	public static void main(String[] args) {
 		launch(args);
 	}

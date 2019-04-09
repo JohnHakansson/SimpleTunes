@@ -15,48 +15,47 @@ public class Controller {
 	private ArrayList<Shape> shapeList = new ArrayList<Shape>();
 	private TestUI ui;
 	private Random rand = new Random();
-	private Color[] colors = {Color.RED, Color.BLUE, Color.GREEN};
-	
+	private Color[] colors = { Color.RED, Color.BLUE, Color.GREEN };
+
 	public Controller(TestUI ui) {
 		this.ui = ui;
 	}
-	
+
 	public void clearList() {
 
 	}
-	
+
 	public void generateShape() {
 		shapeList = new ArrayList<Shape>();
-		//Random rand = new Random();
+
 		int nbrOfShapes = 0;
 		Shape randomShape = null;
-		
+
 		do {
-		switch(rand.nextInt(3)) {
-			
-		case 0:
-			Color randomSquare =  colors[rand.nextInt(3)];
-			randomShape = new MusicSquare(randomSquare, pianoSounds.getPianoSound(randomSquare));
-			break;
-			
-		case 1:
-			Color randomCircle = colors[rand.nextInt(3)];
-			randomShape = new MusicCircle(randomCircle, guitarSounds.getGuitarSound(randomCircle));
-			break;
-			
-		case 2:
-			Color randomTrinagle = colors[rand.nextInt(3)];
-			randomShape = new MusicTriangle(56, 100, randomTrinagle, drumSounds.getDrumSounds(randomTrinagle));
-			break;
-		}
-		
-		nbrOfShapes++;
-		shapeList.add(randomShape);
-		randomShape.setOnMouseClicked(ui.getMouseEvent(randomShape));
+			switch (rand.nextInt(3)) {
+
+			case 0:
+				Color randomSquare = colors[rand.nextInt(3)];
+				randomShape = new MusicSquare(randomSquare, pianoSounds.getPianoSound(randomSquare));
+				break;
+
+			case 1:
+				Color randomCircle = colors[rand.nextInt(3)];
+				randomShape = new MusicCircle(randomCircle, guitarSounds.getGuitarSound(randomCircle));
+				break;
+
+			case 2:
+				Color randomTrinagle = colors[rand.nextInt(3)];
+				randomShape = new MusicTriangle(56, 100, randomTrinagle, drumSounds.getDrumSounds(randomTrinagle));
+				break;
+			}
+
+			nbrOfShapes++;
+			shapeList.add(randomShape);
+			randomShape.setOnMouseClicked(ui.getMouseEvent(randomShape));
 		} while (nbrOfShapes < 10);
-		
+
 		ui.addShape(shapeList);
 	}
-	
-	
+
 }

@@ -17,27 +17,26 @@ public class MusicTriangle extends Polygon {
 	private Random rand = new Random();
 
 	public MusicTriangle(double x, double y, Color color, Media sound) {
-		getPoints().addAll(new Double[] { x, y-50, x + 50, y + 50, x - 50, y + 50 });
+		getPoints().addAll(new Double[] { x, y - 50, x + 50, y + 50, x - 50, y + 50 });
 		setSound(sound);
 		setFill(color);
 		setStroke(Color.WHITESMOKE);
 
-		
 	}
-	
+
 	private void setSound(Media sound) {
 		mediaPlayer = new MediaPlayer(sound);
 	}
-	
+
 	public void play() {
 		mediaPlayer.seek(Duration.ZERO);
 		mediaPlayer.play();
 	}
-	
+
 	public void pause() {
 		mediaPlayer.pause();
 	}
-	
+
 	public void stop() {
 		mediaPlayer.stop();
 	}
