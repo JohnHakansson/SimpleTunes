@@ -3,15 +3,18 @@ package simpleTunes;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.stage.Stage;
 
 public class Controller {
 	private DrumSounds drumSounds = new DrumSounds();
@@ -24,6 +27,7 @@ public class Controller {
 	private TestUI ui;
 	private Random rand = new Random();
 	private Color[] colors = { Color.RED, Color.BLUE, Color.GREEN };
+	private AudioClip mediaplayer;
 
 	public Controller(TestUI ui) {
 		this.ui = ui;
@@ -153,22 +157,22 @@ public class Controller {
 						
 						if (sounds[i][j] != null) {
 							if (sounds[i][j] instanceof MusicTriangle) {
-//								((MusicTriangle) sounds[i][j]).play();
-								mediaList.add(((MusicTriangle) sounds[i][j]).getSounds());
+								((MusicTriangle) sounds[i][j]).play();
+//								mediaList.add(((MusicTriangle) sounds[i][j]).getSounds());
 
 							} else if (sounds[i][j] instanceof MusicSquare) {
-//								((MusicSquare) sounds[i][j]).play();
-								mediaList.add(((MusicSquare) sounds[i][j]).getSounds());
+								((MusicSquare) sounds[i][j]).play();
+//								mediaList.add(((MusicSquare) sounds[i][j]).getSounds());
 
 							} else if (sounds[i][j] instanceof MusicCircle) {
-//								((MusicCircle) sounds[i][j]).play();
-								mediaList.add(((MusicCircle) sounds[i][j]).getSounds());
+								((MusicCircle) sounds[i][j]).play();
+//								mediaList.add(((MusicCircle) sounds[i][j]).getSounds());
 								
 							}
 						}
 						
-						playMediaTracks(mediaList);
-						mediaList.clear();
+//						playMediaTracks(mediaList);
+//						mediaList.clear();
 						try {
 							Thread.sleep(200);
 						} catch (InterruptedException e) {
@@ -180,20 +184,20 @@ public class Controller {
 		}
 	}
 	
-    private void playMediaTracks(ObservableList<Media> mediaList) {
-        if (mediaList.size() == 0)
-            return;
-
-        MediaPlayer mediaplayer = new MediaPlayer(mediaList.remove(0));
-        mediaplayer.play();
-
-        mediaplayer.setOnEndOfMedia(new Runnable() {
-            @Override
-            public void run() {
-                playMediaTracks(mediaList);
-            }
-        });
-    }
+//    private void playMediaTracks(ObservableList<Media> mediaList) {
+//        if (mediaList.size() == 0)
+//            return;
+//
+//        mediaplayer = new AudioClip(mediaList.remove(0).getSource());
+//        mediaplayer.play();
+//
+//        mediaplayer.setOnPlaying(new Runnable() {
+//            @Override
+//            public void run() {
+//                playMediaTracks(mediaList);
+//            }
+//        });
+//    }
 
 	/*
 	 * Only for testing
