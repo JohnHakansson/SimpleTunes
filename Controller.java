@@ -3,6 +3,8 @@ package simpleTunes;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -101,7 +103,7 @@ public class Controller {
 		}
 	}
 
-	public boolean checkRowSpace(Shape[] row) {
+	private boolean checkRowSpace(Shape[] row) {
 		int counter = 0;
 
 		for (int i = 0; i < row.length; i++) {
@@ -114,7 +116,7 @@ public class Controller {
 		return (counter < 4);
 	}
 
-	public Shape[] getRow(int row) {
+	private Shape[] getRow(int row) {
 		Shape[] aRow = new Shape[4];
 
 		for (int i = 0; i < aRow.length; i++) {
@@ -137,6 +139,9 @@ public class Controller {
 					System.out.println("Added to array");
 				}
 				
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Row is full");
 			}
 		}
 	}
