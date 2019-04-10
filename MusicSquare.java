@@ -11,8 +11,10 @@ import javafx.scene.paint.*;
 import java.util.*;
 
 public class MusicSquare extends Rectangle {
-	private MediaPlayer mediaPlayer;
+	private AudioClip mediaPlayer;
 	private Color color;
+	private Media sound;
+	
 
 	public MusicSquare(Color color, Media sound) {
 		super(100, 100);
@@ -23,16 +25,21 @@ public class MusicSquare extends Rectangle {
 	}
 
 	private void setSound(Media sound) {
-		mediaPlayer = new MediaPlayer(sound);
+		mediaPlayer = new AudioClip(sound.getSource());
+		this.sound = sound;
+	}
+	
+	public Media getSounds() {
+		return sound;
 	}
 
 	public void play() {
-		mediaPlayer.seek(Duration.ZERO);
+//		mediaPlayer.seek(Duration.ZERO);
 		mediaPlayer.play();
 	}
 
 	public void pause() {
-		mediaPlayer.pause();
+//		mediaPlayer.pause();
 	}
 
 	public void stop() {
