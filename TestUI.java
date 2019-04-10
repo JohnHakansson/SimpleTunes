@@ -28,7 +28,6 @@ import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 
 public class TestUI extends Application {
-	// test Jesper
 	private Stage window;
 	private BorderPane layout;
 	private Color color;
