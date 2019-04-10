@@ -3,11 +3,14 @@ package simpleTunes;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javafx.animation.Animation;
+import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.Separator;
@@ -18,14 +21,17 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class TestUI extends Application {
 	private Stage window;
@@ -38,6 +44,12 @@ public class TestUI extends Application {
 	private ToolBar toolbar;
 	private Scene mainScene;
 	private Controller controller;
+	private double orgSceneX;
+	private double orgSceneY;
+	private double orgTranslateX;
+	private double orgTranslateY;
+	
+	private Rectangle shapeInsertion = new Rectangle(695, 1.0f, 100, 100);
 	private Rectangle square1x1 = new Rectangle(0.0f, 1.0f, 100, 100);
 	private Rectangle square1x2 = new Rectangle(101.0f, 1.0f, 100, 100);
 	private Rectangle square1x3 = new Rectangle(200.0f, 1.0f, 100, 100);
@@ -77,6 +89,9 @@ public class TestUI extends Application {
 	private Rectangle square8x2 = new Rectangle(100.0f, 701.0f, 100, 100);
 	private Rectangle square8x3 = new Rectangle(200.0f, 701.0f, 100, 100);
 	private Rectangle square8x4 = new Rectangle(300.0f, 701.0f, 100, 100);
+	
+	private Line movingLine = new Line();
+	private TranslateTransition lineTransition = new TranslateTransition();
 
 	public void start(Stage primaryStage) throws Exception {
 
@@ -92,6 +107,11 @@ public class TestUI extends Application {
 		gridPane.setStyle("-fx-background-color: White");
 
 		// Row #1
+		shapeInsertion.setStroke(Color.WHITESMOKE);
+		shapeInsertion.setStrokeWidth(2);
+		shapeInsertion.setStyle("-fx-stroke-dash-array: 1 10 10 1;");
+		
+		
 		square1x1.setFill(color.BLACK);
 		square1x1.setStroke(color.GREEN);
 		square1x1.setStrokeWidth(3);
@@ -202,7 +222,15 @@ public class TestUI extends Application {
 		square8x4.setFill(color.BLACK);
 		square8x4.setStroke(color.GREEN);
 		square8x4.setStrokeWidth(3);
+		
+		movingLine.setStartX(0);
+		movingLine.setStartY(5);
+		movingLine.setEndX(400);
+		movingLine.setEndY(5);
+		movingLine.setStroke(Color.YELLOW);
+		movingLine.setStrokeWidth(5);
 
+		poolGroup.getChildren().add(shapeInsertion);
 		shapeGroup.getChildren().add(square1x1);
 		shapeGroup.getChildren().add(square1x2);
 		shapeGroup.getChildren().add(square1x3);
@@ -242,6 +270,8 @@ public class TestUI extends Application {
 		shapeGroup.getChildren().add(square8x2);
 		shapeGroup.getChildren().add(square8x3);
 		shapeGroup.getChildren().add(square8x4);
+		
+		shapeGroup.getChildren().add(movingLine);
 
 		Image playImage = new Image(getClass().getResourceAsStream("/images/playButton.png"));
 		Image refreshImage = new Image(getClass().getResourceAsStream("/images/refreshButton.png"));
@@ -251,21 +281,24 @@ public class TestUI extends Application {
 		Button playButton = new Button();
 		playButton.setGraphic(new ImageView(playImage));
 		playButton.setOnAction(e -> {
-
+			startMovingLine();
 		});
 		Button refreshButton = new Button();
 		refreshButton.setGraphic(new ImageView(refreshImage));
 		refreshButton.setOnAction(e -> {
-			poolGroup.getChildren().clear();
+			poolGroup.getChildren().removeAll(controller.getShapeList());
 			controller.generateShape();
 
 		});
 		Button pauseButton = new Button();
 		pauseButton.setGraphic(new ImageView(pauseImage));
+		pauseButton.setOnAction(e -> {
+			stopMovingLine();
+		});
 		Button resetButton = new Button();
 		resetButton.setGraphic(new ImageView(clearImage));
 		resetButton.setOnAction(e -> {
-			poolGroup.getChildren().clear();
+			poolGroup.getChildren().removeAll(controller.getShapeList());
 		});
 
 		toolbar = new ToolBar(playButton, pauseButton, new Separator(), refreshButton, resetButton);
@@ -287,6 +320,19 @@ public class TestUI extends Application {
 		window.setTitle("SimpleTunes");
 		window.show();
 
+	}
+	
+	public void startMovingLine() {
+		lineTransition.setDuration(Duration.seconds(5));
+		lineTransition.setToY(800);
+		lineTransition.setAutoReverse(true);
+		lineTransition.setCycleCount(Animation.INDEFINITE);
+		lineTransition.setNode(movingLine);
+		lineTransition.play();
+	}
+	
+	public void stopMovingLine() {
+		lineTransition.pause();
 	}
 
 	public EventHandler<MouseEvent> getMouseEvent(Shape shape) {
@@ -316,6 +362,59 @@ public class TestUI extends Application {
 		};
 
 		return OnMouseClicked;
+	}
+	
+	public EventHandler<MouseEvent> getMouseEventPressed(Shape shape) {
+		EventHandler<MouseEvent> onMousePressed = new EventHandler<MouseEvent>() {
+
+			public void handle(MouseEvent t) {
+				orgSceneX = t.getSceneX();
+				orgSceneY = t.getSceneY();
+				
+				orgTranslateX = shape.getTranslateX(); 
+				orgTranslateY = shape.getTranslateY();
+				
+				System.out.println("orgSceneX: " + orgSceneX);
+				
+				System.out.println("orgSceneY: " + orgSceneY);
+				
+				System.out.println("orgTranslateX: " + orgTranslateX);
+				
+				System.out.println("orgTranslateY: " + orgTranslateY);
+
+				
+			}
+		};
+
+		return onMousePressed;
+	}
+	
+	public EventHandler<MouseEvent> getMouseEventDragged(Shape shape) {
+		EventHandler<MouseEvent> onMouseDragged = new EventHandler<MouseEvent>() {
+
+			public void handle(MouseEvent t) {
+				double offsetX = t.getSceneX() - orgSceneX;
+				double offsetY = t.getSceneY() - orgSceneY;
+				double newTranslateX = orgTranslateX + offsetX;
+				double newTranslateY = orgTranslateY + offsetY;
+				
+				shape.setTranslateX(newTranslateX);
+				shape.setTranslateY(newTranslateY);
+				
+				System.out.println();
+			     
+			    System.out.println("offsetX: " + offsetX);
+			     
+			    System.out.println("offsetY: " + offsetY);
+			    
+			    System.out.println("newTranslateX: " + newTranslateX);
+			     
+			    System.out.println("newTranslateY: " + newTranslateY);
+				
+			}
+		};
+
+		return onMouseDragged;
 	}
 
 	public void addShape(ArrayList<Shape> list) {

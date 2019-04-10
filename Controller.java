@@ -70,6 +70,10 @@ public class Controller {
 
 			nbrOfShapes++;
 			shapeList.add(randomShape);
+			// Remove when merge
+			randomShape.setOnMousePressed(ui.getMouseEventPressed(randomShape));
+			// Remove when merge
+			randomShape.setOnMouseDragged(ui.getMouseEventDragged(randomShape));
 			randomShape.setOnMouseClicked(ui.getMouseEvent(randomShape));
 		} while (nbrOfShapes < 10);
 
@@ -207,6 +211,10 @@ public class Controller {
 	/*
 	 * Only for testing
 	 */
+	
+	public ArrayList<Shape> getShapeList() {
+		return shapeList;
+	}
 
 	public static void main(String[] args) {
 
