@@ -38,6 +38,11 @@ public class TestUI extends Application {
 	private ToolBar toolbar;
 	private Scene mainScene;
 	private Controller controller;
+	private double orgSceneX;
+	private double orgSceneY;
+	private double orgTranslateX;
+	private double orgTranslateY;
+	
 	private Rectangle square1x1 = new Rectangle(0.0f, 1.0f, 100, 100);
 	private Rectangle square1x2 = new Rectangle(101.0f, 1.0f, 100, 100);
 	private Rectangle square1x3 = new Rectangle(200.0f, 1.0f, 100, 100);
@@ -316,6 +321,59 @@ public class TestUI extends Application {
 		};
 
 		return OnMouseClicked;
+	}
+	
+	public EventHandler<MouseEvent> getMouseEventPressed(Shape shape) {
+		EventHandler<MouseEvent> onMousePressed = new EventHandler<MouseEvent>() {
+
+			public void handle(MouseEvent t) {
+				orgSceneX = t.getSceneX();
+				orgSceneY = t.getSceneY();
+				
+				orgTranslateX = shape.getTranslateX(); 
+				orgTranslateY = shape.getTranslateY();
+				
+				System.out.println("orgSceneX: " + orgSceneX);
+				
+				System.out.println("orgSceneY: " + orgSceneY);
+				
+				System.out.println("orgTranslateX: " + orgTranslateX);
+				
+				System.out.println("orgTranslateY: " + orgTranslateY);
+
+				
+			}
+		};
+
+		return onMousePressed;
+	}
+	
+	public EventHandler<MouseEvent> getMouseEventDragged(Shape shape) {
+		EventHandler<MouseEvent> onMouseDragged = new EventHandler<MouseEvent>() {
+
+			public void handle(MouseEvent t) {
+				double offsetX = t.getSceneX() - orgSceneX;
+				double offsetY = t.getSceneY() - orgSceneY;
+				double newTranslateX = orgTranslateX + offsetX;
+				double newTranslateY = orgTranslateY + offsetY;
+				
+				shape.setTranslateX(newTranslateX);
+				shape.setTranslateY(newTranslateY);
+				
+				System.out.println();
+			     
+			    System.out.println("offsetX: " + offsetX);
+			     
+			    System.out.println("offsetY: " + offsetY);
+			    
+			    System.out.println("newTranslateX: " + newTranslateX);
+			     
+			    System.out.println("newTranslateY: " + newTranslateY);
+				
+			}
+		};
+
+		return onMouseDragged;
 	}
 
 	public void addShape(ArrayList<Shape> list) {
