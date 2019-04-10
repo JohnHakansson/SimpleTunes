@@ -10,6 +10,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.Separator;
@@ -20,6 +21,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
@@ -47,6 +49,7 @@ public class TestUI extends Application {
 	private double orgTranslateX;
 	private double orgTranslateY;
 	
+	private Rectangle shapeInsertion = new Rectangle(695, 1.0f, 100, 100);
 	private Rectangle square1x1 = new Rectangle(0.0f, 1.0f, 100, 100);
 	private Rectangle square1x2 = new Rectangle(101.0f, 1.0f, 100, 100);
 	private Rectangle square1x3 = new Rectangle(200.0f, 1.0f, 100, 100);
@@ -104,6 +107,11 @@ public class TestUI extends Application {
 		gridPane.setStyle("-fx-background-color: White");
 
 		// Row #1
+		shapeInsertion.setStroke(Color.WHITESMOKE);
+		shapeInsertion.setStrokeWidth(2);
+		shapeInsertion.setStyle("-fx-stroke-dash-array: 1 10 10 1;");
+		
+		
 		square1x1.setFill(color.BLACK);
 		square1x1.setStroke(color.GREEN);
 		square1x1.setStrokeWidth(3);
@@ -222,6 +230,7 @@ public class TestUI extends Application {
 		movingLine.setStroke(Color.YELLOW);
 		movingLine.setStrokeWidth(5);
 
+		poolGroup.getChildren().add(shapeInsertion);
 		shapeGroup.getChildren().add(square1x1);
 		shapeGroup.getChildren().add(square1x2);
 		shapeGroup.getChildren().add(square1x3);
@@ -277,7 +286,7 @@ public class TestUI extends Application {
 		Button refreshButton = new Button();
 		refreshButton.setGraphic(new ImageView(refreshImage));
 		refreshButton.setOnAction(e -> {
-			poolGroup.getChildren().clear();
+			poolGroup.getChildren().removeAll(controller.getShapeList());
 			controller.generateShape();
 
 		});
@@ -289,7 +298,7 @@ public class TestUI extends Application {
 		Button resetButton = new Button();
 		resetButton.setGraphic(new ImageView(clearImage));
 		resetButton.setOnAction(e -> {
-			poolGroup.getChildren().clear();
+			poolGroup.getChildren().removeAll(controller.getShapeList());
 		});
 
 		toolbar = new ToolBar(playButton, pauseButton, new Separator(), refreshButton, resetButton);

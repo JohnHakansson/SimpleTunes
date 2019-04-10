@@ -211,6 +211,10 @@ public class Controller {
 	/*
 	 * Only for testing
 	 */
+	
+	public ArrayList<Shape> getShapeList() {
+		return shapeList;
+	}
 
 	public static void main(String[] args) {
 
