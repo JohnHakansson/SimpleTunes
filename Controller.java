@@ -141,6 +141,7 @@ public class Controller {
 				if(sounds[row][i] == null) {
 					sounds[row][i] = shape;
 					shapePlaced = true;
+					ui.removeShape(shape, row, i);
 					System.out.println("Added to array");
 				}
 				
