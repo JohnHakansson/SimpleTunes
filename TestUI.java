@@ -48,8 +48,9 @@ public class TestUI extends Application {
 	private double orgSceneY;
 	private double orgTranslateX;
 	private double orgTranslateY;
-	
-	private Rectangle shapeInsertion = new Rectangle(695, 1.0f, 100, 100);
+
+//	private Rectangle shapeInsertion = new Rectangle(695, 1.0f, 100, 100);
+	private Rectangle[] shapeInsertions = new Rectangle[8];
 	private Rectangle square1x1 = new Rectangle(0.0f, 1.0f, 100, 100);
 	private Rectangle square1x2 = new Rectangle(101.0f, 1.0f, 100, 100);
 	private Rectangle square1x3 = new Rectangle(200.0f, 1.0f, 100, 100);
@@ -89,7 +90,7 @@ public class TestUI extends Application {
 	private Rectangle square8x2 = new Rectangle(100.0f, 701.0f, 100, 100);
 	private Rectangle square8x3 = new Rectangle(200.0f, 701.0f, 100, 100);
 	private Rectangle square8x4 = new Rectangle(300.0f, 701.0f, 100, 100);
-	
+
 	private Line movingLine = new Line();
 	private TranslateTransition lineTransition = new TranslateTransition();
 
@@ -107,11 +108,21 @@ public class TestUI extends Application {
 		gridPane.setStyle("-fx-background-color: White");
 
 		// Row #1
-		shapeInsertion.setStroke(Color.WHITESMOKE);
-		shapeInsertion.setStrokeWidth(2);
-		shapeInsertion.setStyle("-fx-stroke-dash-array: 1 10 10 1;");
 		
+		for(int i = 0; i < shapeInsertions.length; i++) {
+			shapeInsertions[i] = new Rectangle(695, 1.0f + (i*100), 100, 100);
+			
+			shapeInsertions[i].setStroke(Color.WHITESMOKE);
+			shapeInsertions[i].setStrokeWidth(2);
+			shapeInsertions[i].setStyle("-fx-stroke-dash-array: 1 10 10 1;");
+			
+			poolGroup.getChildren().add(shapeInsertions[i]);
+		}
 		
+//		shapeInsertion.setStroke(Color.WHITESMOKE);
+//		shapeInsertion.setStrokeWidth(2);
+//		shapeInsertion.setStyle("-fx-stroke-dash-array: 1 10 10 1;");
+
 		square1x1.setFill(color.BLACK);
 		square1x1.setStroke(color.GREEN);
 		square1x1.setStrokeWidth(3);
@@ -222,7 +233,7 @@ public class TestUI extends Application {
 		square8x4.setFill(color.BLACK);
 		square8x4.setStroke(color.GREEN);
 		square8x4.setStrokeWidth(3);
-		
+
 		movingLine.setStartX(0);
 		movingLine.setStartY(5);
 		movingLine.setEndX(400);
@@ -230,7 +241,7 @@ public class TestUI extends Application {
 		movingLine.setStroke(Color.YELLOW);
 		movingLine.setStrokeWidth(5);
 
-		poolGroup.getChildren().add(shapeInsertion);
+//		poolGroup.getChildren().add(shapeInsertion);
 		shapeGroup.getChildren().add(square1x1);
 		shapeGroup.getChildren().add(square1x2);
 		shapeGroup.getChildren().add(square1x3);
@@ -270,7 +281,7 @@ public class TestUI extends Application {
 		shapeGroup.getChildren().add(square8x2);
 		shapeGroup.getChildren().add(square8x3);
 		shapeGroup.getChildren().add(square8x4);
-		
+
 		shapeGroup.getChildren().add(movingLine);
 
 		Image playImage = new Image(getClass().getResourceAsStream("/images/playButton.png"));
@@ -321,7 +332,7 @@ public class TestUI extends Application {
 		window.show();
 
 	}
-	
+
 	public void startMovingLine() {
 		lineTransition.setDuration(Duration.seconds(5));
 		lineTransition.setToY(800);
@@ -330,7 +341,7 @@ public class TestUI extends Application {
 		lineTransition.setNode(movingLine);
 		lineTransition.play();
 	}
-	
+
 	public void stopMovingLine() {
 		lineTransition.pause();
 	}
@@ -363,17 +374,17 @@ public class TestUI extends Application {
 
 		return OnMouseClicked;
 	}
-	
+
 	public EventHandler<MouseEvent> getMouseEventPressed(Shape shape) {
 		EventHandler<MouseEvent> onMousePressed = new EventHandler<MouseEvent>() {
 
 			public void handle(MouseEvent t) {
 				orgSceneX = t.getSceneX();
 				orgSceneY = t.getSceneY();
-				
-				orgTranslateX = shape.getTranslateX(); 
+
+				orgTranslateX = shape.getTranslateX();
 				orgTranslateY = shape.getTranslateY();
-				
+
 //				System.out.println("orgSceneX: " + orgSceneX);
 //				
 //				System.out.println("orgSceneY: " + orgSceneY);
@@ -382,13 +393,12 @@ public class TestUI extends Application {
 //				
 //				System.out.println("orgTranslateY: " + orgTranslateY);
 
-				
 			}
 		};
 
 		return onMousePressed;
 	}
-	
+
 	public EventHandler<MouseEvent> getMouseEventDragged(Shape shape) {
 		EventHandler<MouseEvent> onMouseDragged = new EventHandler<MouseEvent>() {
 
@@ -397,10 +407,10 @@ public class TestUI extends Application {
 				double offsetY = t.getSceneY() - orgSceneY;
 				double newTranslateX = orgTranslateX + offsetX;
 				double newTranslateY = orgTranslateY + offsetY;
-				
+
 				shape.setTranslateX(newTranslateX);
 				shape.setTranslateY(newTranslateY);
-				
+
 //				System.out.println();
 //			     
 //			    System.out.println("offsetX: " + offsetX);
@@ -410,23 +420,23 @@ public class TestUI extends Application {
 //			    System.out.println("newTranslateX: " + newTranslateX);
 //			     
 //			    System.out.println("newTranslateY: " + newTranslateY);
-				
+
 			}
 		};
 
 		return onMouseDragged;
 	}
-	
+
 	public EventHandler<MouseEvent> getMouseEventReleased(Shape shape) {
 		EventHandler<MouseEvent> onMouseReleased = new EventHandler<MouseEvent>() {
 
 			public void handle(MouseEvent t) {
 				orgSceneX = t.getSceneX();
 				orgSceneY = t.getSceneY();
-				
-				orgTranslateX = shape.getTranslateX(); 
+
+				orgTranslateX = shape.getTranslateX();
 				orgTranslateY = shape.getTranslateY();
-				
+
 //				System.out.println("orgSceneX: " + orgSceneX);
 //				
 //				System.out.println("orgSceneY: " + orgSceneY);
@@ -435,20 +445,20 @@ public class TestUI extends Application {
 //				
 //				System.out.println("orgTranslateY: " + orgTranslateY);
 				
-				if(orgSceneX > 695 && orgSceneX < 795) {
-					if(orgSceneY > 49 && orgSceneY < 149) {
-						controller.addShapestoArray(shape, 0);
+				
+				for(int i = 0; i < shapeInsertions.length; i++) {
+					if (shapeInsertions[i].contains(orgSceneX, orgSceneY - toolbar.getHeight())) {
+						controller.addShapestoArray(shape, i);
+						System.out.println("row " + i);
 					}
 				}
 				
-				
+
 			}
 		};
 
 		return onMouseReleased;
 	}
-	
-	
 
 	public void addShape(ArrayList<Shape> list) {
 		Random rand = new Random();
@@ -457,9 +467,7 @@ public class TestUI extends Application {
 		for (Shape shape : shapeList) {
 			shape.setLayoutX(rand.nextInt((int) (mainScene.getWidth() - gridPane.getWidth()) - 200));
 			shape.setLayoutY(rand.nextInt((int) (mainScene.getHeight() - toolbar.getHeight()) - 200));
-			
-			
-			
+
 		}
 
 		poolGroup.getChildren().addAll(shapeList);
