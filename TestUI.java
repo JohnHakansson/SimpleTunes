@@ -17,6 +17,8 @@ import javafx.scene.control.Separator;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -300,6 +302,21 @@ public class TestUI extends Application {
 		resetButton.setOnAction(e -> {
 			poolGroup.getChildren().removeAll(controller.getShapeList());
 		});
+		
+		shapeInsertion.setOnDragDropped(new EventHandler <DragEvent>() {
+            public void handle(DragEvent event) {
+                /* data dropped */
+                System.out.println("onDragDropped");
+                /* if there is a string data on dragboard, read it and use it */
+                Dragboard db = event.getDragboard();
+                boolean success = false;
+                /* let the source know whether the string was successfully 
+                 * transferred and used */
+                event.setDropCompleted(success);
+                
+                event.consume();
+            }
+        });
 
 		toolbar = new ToolBar(playButton, pauseButton, new Separator(), refreshButton, resetButton);
 		toolbar.setPrefHeight(48);
@@ -372,16 +389,6 @@ public class TestUI extends Application {
 				orgSceneY = t.getSceneY();
 				
 				orgTranslateX = shape.getTranslateX(); 
-				orgTranslateY = shape.getTranslateY();
-				
-				System.out.println("orgSceneX: " + orgSceneX);
-				
-				System.out.println("orgSceneY: " + orgSceneY);
-				
-				System.out.println("orgTranslateX: " + orgTranslateX);
-				
-				System.out.println("orgTranslateY: " + orgTranslateY);
-
 				
 			}
 		};
@@ -400,16 +407,6 @@ public class TestUI extends Application {
 				
 				shape.setTranslateX(newTranslateX);
 				shape.setTranslateY(newTranslateY);
-				
-				System.out.println();
-			     
-			    System.out.println("offsetX: " + offsetX);
-			     
-			    System.out.println("offsetY: " + offsetY);
-			    
-			    System.out.println("newTranslateX: " + newTranslateX);
-			     
-			    System.out.println("newTranslateY: " + newTranslateY);
 				
 			}
 		};
