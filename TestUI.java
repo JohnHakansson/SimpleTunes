@@ -427,13 +427,13 @@ public class TestUI extends Application {
 				orgTranslateX = shape.getTranslateX(); 
 				orgTranslateY = shape.getTranslateY();
 				
-				System.out.println("orgSceneX: " + orgSceneX);
-				
-				System.out.println("orgSceneY: " + orgSceneY);
-				
-				System.out.println("orgTranslateX: " + orgTranslateX);
-				
-				System.out.println("orgTranslateY: " + orgTranslateY);
+//				System.out.println("orgSceneX: " + orgSceneX);
+//				
+//				System.out.println("orgSceneY: " + orgSceneY);
+//				
+//				System.out.println("orgTranslateX: " + orgTranslateX);
+//				
+//				System.out.println("orgTranslateY: " + orgTranslateY);
 				
 				if(orgSceneX > 695 && orgSceneX < 795) {
 					if(orgSceneY > 49 && orgSceneY < 149) {

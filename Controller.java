@@ -117,7 +117,7 @@ public class Controller {
 			}
 		}
 		
-		System.out.println(counter < 4);
+		System.out.println(counter);
 		return (counter < 4);
 	}
 
@@ -146,7 +146,8 @@ public class Controller {
 				
 			}
 			else {
-				JOptionPane.showMessageDialog(null, "Row is full");
+				System.out.println("Row is full");
+				return;
 			}
 		}
 	}
