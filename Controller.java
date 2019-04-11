@@ -75,6 +75,7 @@ public class Controller {
 			// Remove when merge
 			randomShape.setOnMouseDragged(ui.getMouseEventDragged(randomShape));
 			randomShape.setOnMouseClicked(ui.getMouseEvent(randomShape));
+			randomShape.setOnMouseReleased(ui.getMouseEventReleased(randomShape));
 		} while (nbrOfShapes < 10);
 
 		ui.addShape(shapeList);

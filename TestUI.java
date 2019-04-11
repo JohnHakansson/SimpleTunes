@@ -374,13 +374,13 @@ public class TestUI extends Application {
 				orgTranslateX = shape.getTranslateX(); 
 				orgTranslateY = shape.getTranslateY();
 				
-				System.out.println("orgSceneX: " + orgSceneX);
-				
-				System.out.println("orgSceneY: " + orgSceneY);
-				
-				System.out.println("orgTranslateX: " + orgTranslateX);
-				
-				System.out.println("orgTranslateY: " + orgTranslateY);
+//				System.out.println("orgSceneX: " + orgSceneX);
+//				
+//				System.out.println("orgSceneY: " + orgSceneY);
+//				
+//				System.out.println("orgTranslateX: " + orgTranslateX);
+//				
+//				System.out.println("orgTranslateY: " + orgTranslateY);
 
 				
 			}
@@ -401,21 +401,54 @@ public class TestUI extends Application {
 				shape.setTranslateX(newTranslateX);
 				shape.setTranslateY(newTranslateY);
 				
-				System.out.println();
-			     
-			    System.out.println("offsetX: " + offsetX);
-			     
-			    System.out.println("offsetY: " + offsetY);
-			    
-			    System.out.println("newTranslateX: " + newTranslateX);
-			     
-			    System.out.println("newTranslateY: " + newTranslateY);
+//				System.out.println();
+//			     
+//			    System.out.println("offsetX: " + offsetX);
+//			     
+//			    System.out.println("offsetY: " + offsetY);
+//			    
+//			    System.out.println("newTranslateX: " + newTranslateX);
+//			     
+//			    System.out.println("newTranslateY: " + newTranslateY);
 				
 			}
 		};
 
 		return onMouseDragged;
 	}
+	
+	public EventHandler<MouseEvent> getMouseEventReleased(Shape shape) {
+		EventHandler<MouseEvent> onMouseReleased = new EventHandler<MouseEvent>() {
+
+			public void handle(MouseEvent t) {
+				orgSceneX = t.getSceneX();
+				orgSceneY = t.getSceneY();
+				
+				orgTranslateX = shape.getTranslateX(); 
+				orgTranslateY = shape.getTranslateY();
+				
+				System.out.println("orgSceneX: " + orgSceneX);
+				
+				System.out.println("orgSceneY: " + orgSceneY);
+				
+				System.out.println("orgTranslateX: " + orgTranslateX);
+				
+				System.out.println("orgTranslateY: " + orgTranslateY);
+				
+				if(orgSceneX > 695 && orgSceneX < 795) {
+					if(orgSceneY > 49 && orgSceneY < 149) {
+						controller.addShapestoArray(shape, 0);
+					}
+				}
+				
+				
+			}
+		};
+
+		return onMouseReleased;
+	}
+	
+	
 
 	public void addShape(ArrayList<Shape> list) {
 		Random rand = new Random();
@@ -424,13 +457,12 @@ public class TestUI extends Application {
 		for (Shape shape : shapeList) {
 			shape.setLayoutX(rand.nextInt((int) (mainScene.getWidth() - gridPane.getWidth()) - 200));
 			shape.setLayoutY(rand.nextInt((int) (mainScene.getHeight() - toolbar.getHeight()) - 200));
+			
+			
+			
 		}
 
 		poolGroup.getChildren().addAll(shapeList);
-	}
-
-	public static void main(String[] args) {
-		launch(args);
 	}
 
 }
