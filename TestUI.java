@@ -69,7 +69,6 @@ public class TestUI extends Application {
 		gridPane.setPrefSize(400, 848);
 		gridPane.setStyle("-fx-background-color: White");
 
-
 		for (int i = 0; i < shapeInsertions.length; i++) {
 			shapeInsertions[i] = new Rectangle(695, 1.0f + (i * 100), 100, 100);
 
@@ -90,14 +89,12 @@ public class TestUI extends Application {
 			}
 		}
 
-
 		movingLine.setStartX(0);
 		movingLine.setStartY(5);
 		movingLine.setEndX(400);
 		movingLine.setEndY(5);
-		movingLine.setStroke(Color.YELLOW);
+		movingLine.setStroke(Color.WHITE);
 		movingLine.setStrokeWidth(5);
-
 
 		shapeGroup.getChildren().add(movingLine);
 
@@ -151,8 +148,8 @@ public class TestUI extends Application {
 		window.show();
 
 	}
-	
-	//4 sek och 8 1/4 noter ger 120bpm
+
+	// 4 sek och 8 1/4 noter ger 120bpm
 	public void startMovingLine() {
 		lineTransition.setDuration(Duration.seconds(4));
 		lineTransition.setToY(800);
@@ -164,6 +161,7 @@ public class TestUI extends Application {
 
 	public void stopMovingLine() {
 		lineTransition.pause();
+		
 	}
 
 	public EventHandler<MouseEvent> getMouseEvent(Shape shape) {
@@ -223,7 +221,6 @@ public class TestUI extends Application {
 				shape.setTranslateX(newTranslateX);
 				shape.setTranslateY(newTranslateY);
 
-
 			}
 		};
 
@@ -239,7 +236,6 @@ public class TestUI extends Application {
 
 				orgTranslateX = shape.getTranslateX();
 				orgTranslateY = shape.getTranslateY();
-
 
 				for (int i = 0; i < shapeInsertions.length; i++) {
 					if (shapeInsertions[i].contains(orgSceneX, orgSceneY - toolbar.getHeight())) {
@@ -266,31 +262,36 @@ public class TestUI extends Application {
 
 		poolGroup.getChildren().addAll(shapeList);
 	}
-	
+
 	public void removeShape(Shape shape, int row, int column) {
 		poolGroup.getChildren().remove(shape);
 		shapeGroup.getChildren().add(shape);
-		
+
 		shape.setTranslateX(0);
 		shape.setTranslateY(0);
-		
-		if(shape instanceof MusicCircle) {
+
+		if (shape instanceof MusicCircle) {
 			shape.setLayoutX(squares[row][column].getX() + 50);
 			shape.setLayoutY(squares[row][column].getY() + 50);
 		}
-		
-		if(shape instanceof MusicTriangle) {
+
+		if (shape instanceof MusicTriangle) {
 			shape.setLayoutX(squares[row][column].getX() - 6);
 			shape.setLayoutY(squares[row][column].getY() - 50);
 		}
-		
-		if(shape instanceof MusicSquare) {
+
+		if (shape instanceof MusicSquare) {
 			shape.setLayoutX(squares[row][column].getX());
 			shape.setLayoutY(squares[row][column].getY());
 		}
-		
+
 		System.out.println("translate " + shape.getTranslateX());
 		System.out.println("translate " + shape.getTranslateY());
+
+		shape.setOnMousePressed(null);
+		shape.setOnMouseDragged(null);
+		shape.setOnMouseClicked(null);
+		shape.setOnMouseReleased(null);
 
 	}
 
