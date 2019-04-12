@@ -1,6 +1,7 @@
 package simpleTunes;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 import javax.swing.JOptionPane;
@@ -152,6 +153,15 @@ public class Controller {
 			}
 		}
 	}
+	
+	public void clearShapesInArray() {
+		
+		for(int i = 0; i < sounds.length; i++) {
+			for(int j = 0; j < sounds[i].length; j++) {
+				sounds[i][j] = null;
+			}
+		}
+	}
 
 	public Shape[][] getSounds() {
 		return sounds;
@@ -210,22 +220,8 @@ public class Controller {
 //            }
 //        });
 //    }
-
-	/*
-	 * Only for testing
-	 */
 	
 	public ArrayList<Shape> getShapeList() {
 		return shapeList;
-	}
-
-	public static void main(String[] args) {
-
-		GuitarSounds gs = new GuitarSounds();
-		Controller cont = new Controller();
-		Rectangle rect = new Rectangle(100, 100);
-		cont.addShapestoArray(rect, 0);
-		Shape[][] array = cont.getSounds();
-		System.out.println(array[0][0].toString());
 	}
 }
