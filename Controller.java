@@ -30,18 +30,9 @@ public class Controller {
 	private TestUI ui;
 	private Random rand = new Random();
 	private Color[] colors = { Color.RED, Color.BLUE, Color.GREEN };
-	private AudioClip mediaplayer;
 
 	public Controller(TestUI ui) {
 		this.ui = ui;
-	}
-
-	public Controller() {
-		// For main-method testing
-	}
-
-	public void clearList() {
-
 	}
 
 	public void generateShape() {
@@ -71,27 +62,13 @@ public class Controller {
 
 			nbrOfShapes++;
 			shapeList.add(randomShape);
-			// Remove when merge
 			randomShape.setOnMousePressed(ui.getMouseEventPressed(randomShape));
-			// Remove when merge
 			randomShape.setOnMouseDragged(ui.getMouseEventDragged(randomShape));
 			randomShape.setOnMouseClicked(ui.getMouseEvent(randomShape));
 			randomShape.setOnMouseReleased(ui.getMouseEventReleased(randomShape));
 		} while (nbrOfShapes < 10);
 
 		ui.addShape(shapeList);
-	}
-
-	public DrumSounds getDrumSounds() {
-		return drumSounds;
-	}
-
-	public GuitarSounds getGuitarSounds() {
-		return guitarSounds;
-	}
-
-	public PianoSounds getPianoSounds() {
-		return pianoSounds;
 	}
 
 	public void startPlaying() {
@@ -117,7 +94,7 @@ public class Controller {
 				counter++;
 			}
 		}
-		
+
 		System.out.println(counter);
 		return (counter < 4);
 	}
@@ -139,32 +116,27 @@ public class Controller {
 
 		for (int i = 0; !shapePlaced; i++) {
 			if (checkRowSpace(getRow(row))) {
-				if(sounds[row][i] == null) {
+				if (sounds[row][i] == null) {
 					sounds[row][i] = shape;
 					shapePlaced = true;
 					ui.removeShape(shape, row, i);
 					System.out.println("Added to array");
 				}
-				
-			}
-			else {
+
+			} else {
 				System.out.println("Row is full");
 				return;
 			}
 		}
 	}
-	
+
 	public void clearShapesInArray() {
-		
-		for(int i = 0; i < sounds.length; i++) {
-			for(int j = 0; j < sounds[i].length; j++) {
+
+		for (int i = 0; i < sounds.length; i++) {
+			for (int j = 0; j < sounds[i].length; j++) {
 				sounds[i][j] = null;
 			}
 		}
-	}
-
-	public Shape[][] getSounds() {
-		return sounds;
 	}
 
 	private class PlaySound extends Thread {
@@ -172,66 +144,34 @@ public class Controller {
 		public void run() {
 
 			while (playing) {
-				
 
-//				ObservableList<Media> mediaList = FXCollections.observableArrayList();
 				for (int i = 0; i < sounds.length; i++) {
 					long time = System.currentTimeMillis();
 					for (int j = 0; j < sounds[i].length; j++) {
-						
-						
-						
+
 						if (sounds[i][j] != null) {
+							
 							if (sounds[i][j] instanceof MusicTriangle) {
 								((MusicTriangle) sounds[i][j]).play();
-//								mediaList.add(((MusicTriangle) sounds[i][j]).getSounds());
 
 							} else if (sounds[i][j] instanceof MusicSquare) {
 								((MusicSquare) sounds[i][j]).play();
-//								mediaList.add(((MusicSquare) sounds[i][j]).getSounds());
 
 							} else if (sounds[i][j] instanceof MusicCircle) {
 								((MusicCircle) sounds[i][j]).play();
-//								mediaList.add(((MusicCircle) sounds[i][j]).getSounds());
-								
 							}
 						}
-						
-						time = System.currentTimeMillis() - time;
-						System.out.println(time);
-						
-						int x = (int) time;
-						
-						System.out.println("deetta är x " + x);
-						
-//						playMediaTracks(mediaList);
-//						mediaList.clear();
-						try {
-							Thread.sleep(500);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
+					}
+					try {
+						Thread.sleep(500);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
 					}
 				}
 			}
 		}
 	}
-	
-//    private void playMediaTracks(ObservableList<Media> mediaList) {
-//        if (mediaList.size() == 0)
-//            return;
-//
-//        mediaplayer = new AudioClip(mediaList.remove(0).getSource());
-//        mediaplayer.play();
-//
-//        mediaplayer.setOnPlaying(new Runnable() {
-//            @Override
-//            public void run() {
-//                playMediaTracks(mediaList);
-//            }
-//        });
-//    }
-	
+
 	public ArrayList<Shape> getShapeList() {
 		return shapeList;
 	}
