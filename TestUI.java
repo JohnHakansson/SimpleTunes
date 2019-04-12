@@ -267,13 +267,29 @@ public class TestUI extends Application {
 	
 	public void removeShape(Shape shape, int row, int column) {
 		poolGroup.getChildren().remove(shape);
-		System.out.println(row);
-		System.out.println(column);
-		System.out.println(squares[row][column].getX());
-		System.out.println(squares[row][column].getY());
-		shape.setLayoutX(squares[row][column].getX());
-		shape.setLayoutY(squares[row][column].getY());
 		shapeGroup.getChildren().add(shape);
+		
+		shape.setTranslateX(0);
+		shape.setTranslateY(0);
+		
+		if(shape instanceof MusicCircle) {
+			shape.setLayoutX(squares[row][column].getX() + 50);
+			shape.setLayoutY(squares[row][column].getY() + 50);
+		}
+		
+		if(shape instanceof MusicTriangle) {
+			shape.setLayoutX(squares[row][column].getX() - 6);
+			shape.setLayoutY(squares[row][column].getY() - 50);
+		}
+		
+		if(shape instanceof MusicSquare) {
+			shape.setLayoutX(squares[row][column].getX());
+			shape.setLayoutY(squares[row][column].getY());
+		}
+		
+		System.out.println("translate " + shape.getTranslateX());
+		System.out.println("translate " + shape.getTranslateY());
+
 	}
 
 }
