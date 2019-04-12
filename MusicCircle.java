@@ -19,6 +19,8 @@ public class MusicCircle extends Circle {
 		setFill(color);
 		setSound(sound);
 		setStroke(Color.WHITESMOKE);
+		
+		
 	}
 
 	private void setSound(Media sound) {
@@ -42,4 +44,8 @@ public class MusicCircle extends Circle {
 	public void stop() {
 		mediaPlayer.stop();
 	}
+	
+	
+	
+	
 }

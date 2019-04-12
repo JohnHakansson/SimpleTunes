@@ -75,6 +75,7 @@ public class Controller {
 			// Remove when merge
 			randomShape.setOnMouseDragged(ui.getMouseEventDragged(randomShape));
 			randomShape.setOnMouseClicked(ui.getMouseEvent(randomShape));
+			randomShape.setOnMouseReleased(ui.getMouseEventReleased(randomShape));
 		} while (nbrOfShapes < 10);
 
 		ui.addShape(shapeList);
@@ -116,7 +117,7 @@ public class Controller {
 			}
 		}
 		
-		System.out.println(counter < 4);
+		System.out.println(counter);
 		return (counter < 4);
 	}
 
@@ -140,12 +141,14 @@ public class Controller {
 				if(sounds[row][i] == null) {
 					sounds[row][i] = shape;
 					shapePlaced = true;
+					ui.removeShape(shape, row, i);
 					System.out.println("Added to array");
 				}
 				
 			}
 			else {
-				JOptionPane.showMessageDialog(null, "Row is full");
+				System.out.println("Row is full");
+				return;
 			}
 		}
 	}
