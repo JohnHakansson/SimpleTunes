@@ -172,10 +172,14 @@ public class Controller {
 		public void run() {
 
 			while (playing) {
+				
 
-				ObservableList<Media> mediaList = FXCollections.observableArrayList();
+//				ObservableList<Media> mediaList = FXCollections.observableArrayList();
 				for (int i = 0; i < sounds.length; i++) {
+					long time = System.currentTimeMillis();
 					for (int j = 0; j < sounds[i].length; j++) {
+						
+						
 						
 						if (sounds[i][j] != null) {
 							if (sounds[i][j] instanceof MusicTriangle) {
@@ -193,10 +197,13 @@ public class Controller {
 							}
 						}
 						
+						time = System.currentTimeMillis() - time;
+						System.out.println(time);
+						
 //						playMediaTracks(mediaList);
 //						mediaList.clear();
 						try {
-							Thread.sleep(200);
+							Thread.sleep(1);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}

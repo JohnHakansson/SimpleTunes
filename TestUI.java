@@ -110,6 +110,7 @@ public class TestUI extends Application {
 		playButton.setGraphic(new ImageView(playImage));
 		playButton.setOnAction(e -> {
 			startMovingLine();
+			controller.startPlaying();
 		});
 		Button refreshButton = new Button();
 		refreshButton.setGraphic(new ImageView(refreshImage));
@@ -122,6 +123,7 @@ public class TestUI extends Application {
 		pauseButton.setGraphic(new ImageView(pauseImage));
 		pauseButton.setOnAction(e -> {
 			stopMovingLine();
+			controller.stop();
 		});
 		Button resetButton = new Button();
 		resetButton.setGraphic(new ImageView(clearImage));
