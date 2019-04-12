@@ -200,10 +200,14 @@ public class Controller {
 						time = System.currentTimeMillis() - time;
 						System.out.println(time);
 						
+						int x = (int) time;
+						
+						System.out.println("deetta är x " + x);
+						
 //						playMediaTracks(mediaList);
 //						mediaList.clear();
 						try {
-							Thread.sleep(1);
+							Thread.sleep(500);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
