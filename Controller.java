@@ -10,6 +10,7 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
@@ -35,8 +36,7 @@ public class Controller {
 		this.ui = ui;
 	}
 
-	public void generateShape() {
-		shapeList = new ArrayList<Shape>();
+	public void generateShape(int limit) {
 
 		int nbrOfShapes = 0;
 		Shape randomShape = null;
@@ -66,10 +66,14 @@ public class Controller {
 			randomShape.setOnMouseDragged(ui.getMouseEventDragged(randomShape));
 			randomShape.setOnMouseClicked(ui.getMouseEvent(randomShape));
 			randomShape.setOnMouseReleased(ui.getMouseEventReleased(randomShape));
-		} while (nbrOfShapes < 10);
+			
+			ui.addShape(randomShape);
+		} while (nbrOfShapes < limit);
 
-		ui.addShape(shapeList);
+		
 	}
+
+
 
 	public void startPlaying() {
 		if (thread == null) {
@@ -139,6 +143,25 @@ public class Controller {
 		}
 	}
 
+	public void removeShapesFromGrid(Group group) {
+
+		for (int i = 0; i < sounds.length; i++) {
+			for (int j = 0; j < sounds[i].length; j++) {
+				group.getChildren().remove(sounds[i][j]);
+				sounds[i][j] = null;
+			}
+		}
+
+	}
+	
+	public void removeShapesFromPool(Group group) {
+
+		for (Shape ms : shapeList) {
+			group.getChildren().remove(ms);
+		}
+
+	}
+
 	private class PlaySound extends Thread {
 
 		public void run() {
@@ -146,11 +169,10 @@ public class Controller {
 			while (playing) {
 
 				for (int i = 0; i < sounds.length; i++) {
-					long time = System.currentTimeMillis();
 					for (int j = 0; j < sounds[i].length; j++) {
 
 						if (sounds[i][j] != null) {
-							
+
 							if (sounds[i][j] instanceof MusicTriangle) {
 								((MusicTriangle) sounds[i][j]).play();
 
