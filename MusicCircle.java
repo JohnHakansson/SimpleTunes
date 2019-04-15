@@ -45,5 +45,7 @@ public class MusicCircle extends Circle {
 		mediaPlayer.stop();
 	}
 	
-	
+	public String toString() {
+		return "MusicCircle";
+	}
 }

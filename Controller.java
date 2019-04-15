@@ -61,6 +61,7 @@ public class Controller {
 			}
 
 			nbrOfShapes++;
+			System.out.println("Shape generated: " + randomShape.toString());
 			shapeList.add(randomShape);
 			randomShape.setOnMousePressed(ui.getMouseEventPressed(randomShape));
 			randomShape.setOnMouseDragged(ui.getMouseEventDragged(randomShape));
@@ -69,8 +70,10 @@ public class Controller {
 			
 			ui.addShape(randomShape);
 		} while (nbrOfShapes < limit);
-
-		
+			System.out.println();
+			System.out.println("shapeList Collection type: " + shapeList.getClass().getName());
+			System.out.println("shapeList size: " + shapeList.size());
+			System.out.println("--------------");
 	}
 
 
@@ -99,7 +102,7 @@ public class Controller {
 			}
 		}
 
-		System.out.println(counter);
+		//System.out.println(counter);
 		return (counter < 4);
 	}
 
@@ -111,7 +114,6 @@ public class Controller {
 				aRow[i] = sounds[row][i];
 			}
 		}
-		System.out.println("Getting row");
 		return aRow;
 	}
 
@@ -124,7 +126,11 @@ public class Controller {
 					sounds[row][i] = shape;
 					shapePlaced = true;
 					ui.removeShape(shape, row, i);
-					System.out.println("Added to array");
+					System.out.println("sounds[][] Type: " + sounds.getClass().getName());
+					System.out.println("Shape added to sounds[][]: " + shape.toString());
+					System.out.println("Position " + "row = " + row + " column = " + i);
+					System.out.println("---------");
+					//System.out.println("sounds[][] : " + Arrays.toString(sounds));
 				}
 
 			} else {

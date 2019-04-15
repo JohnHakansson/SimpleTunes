@@ -45,6 +45,6 @@ public class MusicTriangle extends Polygon {
 	}
 	
 	public String toString() {
-		return "MusicCirlce";
+		return "MusicTriangle";
 	}
 }

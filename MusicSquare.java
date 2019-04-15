@@ -45,4 +45,8 @@ public class MusicSquare extends Rectangle {
 	public void stop() {
 		mediaPlayer.stop();
 	}
+	
+	public String toString() {
+		return "MusicSquare";
+	}
 }

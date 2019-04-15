@@ -179,18 +179,15 @@ public class TestUI extends Application {
 
 				if (shape instanceof MusicSquare) {
 					MusicSquare musicSquare = (MusicSquare) shape;
-					System.out.println("Square clicked");
 					musicSquare.play();
 				}
 
 				if (shape instanceof MusicCircle) {
-					System.out.println("Circle clicked");
 					MusicCircle musicCircle = (MusicCircle) shape;
 					musicCircle.play();
 				}
 
 				if (shape instanceof MusicTriangle) {
-					System.out.println("Triangle clicked");
 					MusicTriangle musicTriangle = (MusicTriangle) shape;
 					musicTriangle.play();
 				}
@@ -247,7 +244,7 @@ public class TestUI extends Application {
 				for (int i = 0; i < shapeInsertions.length; i++) {
 					if (shapeInsertions[i].contains(orgSceneX, orgSceneY - toolbar.getHeight())) {
 						controller.addShapestoArray(shape, i);
-						System.out.println("row " + i + "XXXX");
+						//System.out.println("row " + i + "XXXX");
 					}
 				}
 
