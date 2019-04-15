@@ -1,6 +1,7 @@
 package simpleTunes;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 import javafx.animation.Animation;
@@ -96,6 +97,12 @@ public class TestUI extends Application {
 		movingLine.setStroke(Color.WHITE);
 		movingLine.setStrokeWidth(5);
 
+		lineTransition.setDuration(Duration.seconds(4));
+		lineTransition.setToY(800);
+		lineTransition.setAutoReverse(false);
+		lineTransition.setCycleCount(Animation.INDEFINITE);
+		lineTransition.setNode(movingLine);
+
 		shapeGroup.getChildren().add(movingLine);
 
 		Image playImage = new Image(getClass().getResourceAsStream("/images/playButton.png"));
@@ -112,8 +119,8 @@ public class TestUI extends Application {
 		Button refreshButton = new Button();
 		refreshButton.setGraphic(new ImageView(refreshImage));
 		refreshButton.setOnAction(e -> {
-			poolGroup.getChildren().removeAll(controller.getShapeList());
-			controller.generateShape();
+			controller.removeShapesFromPool(poolGroup);
+			controller.generateShape(10);
 
 		});
 		Button pauseButton = new Button();
@@ -125,7 +132,8 @@ public class TestUI extends Application {
 		Button resetButton = new Button();
 		resetButton.setGraphic(new ImageView(clearImage));
 		resetButton.setOnAction(e -> {
-			poolGroup.getChildren().removeAll(controller.getShapeList());
+			controller.removeShapesFromPool(poolGroup);
+			controller.removeShapesFromGrid(shapeGroup);
 		});
 
 		toolbar = new ToolBar(playButton, pauseButton, new Separator(), refreshButton, resetButton);
@@ -151,17 +159,16 @@ public class TestUI extends Application {
 
 	// 4 sek och 8 1/4 noter ger 120bpm
 	public void startMovingLine() {
-		lineTransition.setDuration(Duration.seconds(4));
-		lineTransition.setToY(800);
-		lineTransition.setAutoReverse(false);
-		lineTransition.setCycleCount(Animation.INDEFINITE);
-		lineTransition.setNode(movingLine);
+
 		lineTransition.play();
 	}
 
 	public void stopMovingLine() {
-		lineTransition.pause();
-		
+
+		lineTransition.stop();
+
+		lineTransition.setFromY(5);
+
 	}
 
 	public EventHandler<MouseEvent> getMouseEvent(Shape shape) {
@@ -240,7 +247,7 @@ public class TestUI extends Application {
 				for (int i = 0; i < shapeInsertions.length; i++) {
 					if (shapeInsertions[i].contains(orgSceneX, orgSceneY - toolbar.getHeight())) {
 						controller.addShapestoArray(shape, i);
-						System.out.println("row " + i);
+						System.out.println("row " + i + "XXXX");
 					}
 				}
 
@@ -250,17 +257,13 @@ public class TestUI extends Application {
 		return onMouseReleased;
 	}
 
-	public void addShape(ArrayList<Shape> list) {
+	public void addShape(Shape shape) {
 		Random rand = new Random();
-		ArrayList<Shape> shapeList = list;
 
-		for (Shape shape : shapeList) {
-			shape.setLayoutX(rand.nextInt((int) (mainScene.getWidth() - gridPane.getWidth()) - 200));
-			shape.setLayoutY(rand.nextInt((int) (mainScene.getHeight() - toolbar.getHeight()) - 200));
+		shape.setLayoutX(rand.nextInt((int) (mainScene.getWidth() - gridPane.getWidth()) - 200));
+		shape.setLayoutY(rand.nextInt((int) (mainScene.getHeight() - toolbar.getHeight()) - 200));
 
-		}
-
-		poolGroup.getChildren().addAll(shapeList);
+		poolGroup.getChildren().add(shape);
 	}
 
 	public void removeShape(Shape shape, int row, int column) {
@@ -285,14 +288,17 @@ public class TestUI extends Application {
 			shape.setLayoutY(squares[row][column].getY());
 		}
 
-		System.out.println("translate " + shape.getTranslateX());
-		System.out.println("translate " + shape.getTranslateY());
-
 		shape.setOnMousePressed(null);
 		shape.setOnMouseDragged(null);
 		shape.setOnMouseClicked(null);
 		shape.setOnMouseReleased(null);
 
+		controller.generateShape(1);
+
+	}
+	
+	public static void main(String[] args) {
+		launch(args);
 	}
 
 }
