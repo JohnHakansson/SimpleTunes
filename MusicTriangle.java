@@ -19,7 +19,6 @@ public class MusicTriangle extends Polygon {
 		setSound(sound);
 		setFill(color);
 		setStroke(Color.WHITESMOKE);
-
 	}
 
 	private void setSound(Media sound) {
@@ -27,24 +26,11 @@ public class MusicTriangle extends Polygon {
 		this.sound = sound;
 	}
 	
-	public Media getSounds() {
-		return sound;
-	}
-
 	public void play() {
-//		mediaPlayer.seek(Duration.ZERO);
 		mediaPlayer.play();
-	}
-
-	public void pause() {
-//		mediaPlayer.pause();
 	}
 
 	public void stop() {
 		mediaPlayer.stop();
-	}
-	
-	public String toString() {
-		return "MusicCirlce";
 	}
 }

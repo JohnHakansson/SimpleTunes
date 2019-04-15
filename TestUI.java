@@ -1,31 +1,20 @@
 package simpleTunes;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 import javafx.animation.Animation;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
 import javafx.scene.control.Separator;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -37,7 +26,6 @@ import javafx.util.Duration;
 public class TestUI extends Application {
 	private Stage window;
 	private BorderPane layout;
-	private Color color;
 	private Group poolGroup = new Group();
 	private Pane poolPane = new Pane(poolGroup);
 	private Pane gridPane;
@@ -53,7 +41,6 @@ public class TestUI extends Application {
 	private Rectangle[] shapeInsertions = new Rectangle[8];
 	private Rectangle[][] squares = new Rectangle[8][4];
 	
-
 	private Group shapeGroup;
 	private Line movingLine = new Line();
 	private TranslateTransition lineTransition = new TranslateTransition();
@@ -84,8 +71,8 @@ public class TestUI extends Application {
 		for (int i = 0; i < squares.length; i++) {
 			for (int j = 0; j < squares[i].length; j++) {
 				squares[i][j] = new Rectangle(j * 100, i * 100, 100, 100);
-				squares[i][j].setFill(color.BLACK);
-				squares[i][j].setStroke(color.GREEN);
+				squares[i][j].setFill(Color.BLACK);
+				squares[i][j].setStroke(Color.GREEN);
 				squares[i][j].setStrokeWidth(3);
 				shapeGroup.getChildren().add(squares[i][j]);
 			}
@@ -149,7 +136,7 @@ public class TestUI extends Application {
 		layout.setTop(vbox);
 
 		mainScene = new Scene(layout, 1200, 850);
-		mainScene.setFill(color.BLACK);
+		mainScene.setFill(Color.BLACK);
 
 		window.setScene(mainScene);
 		window.setResizable(false);
@@ -175,7 +162,6 @@ public class TestUI extends Application {
 	public EventHandler<MouseEvent> getMouseEvent(Shape shape) {
 		EventHandler<MouseEvent> OnMouseClicked = new EventHandler<MouseEvent>() {
 
-			@Override
 			public void handle(MouseEvent t) {
 
 				if (shape instanceof MusicSquare) {
@@ -301,5 +287,4 @@ public class TestUI extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-
 }

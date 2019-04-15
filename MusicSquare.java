@@ -12,13 +12,10 @@ import java.util.*;
 
 public class MusicSquare extends Rectangle {
 	private AudioClip mediaPlayer;
-	private Color color;
 	private Media sound;
-	
 
 	public MusicSquare(Color color, Media sound) {
 		super(100, 100);
-		this.color = color;
 		setSound(sound);
 		setFill(color);
 		setStroke(Color.WHITESMOKE);
@@ -29,17 +26,8 @@ public class MusicSquare extends Rectangle {
 		this.sound = sound;
 	}
 	
-	public Media getSounds() {
-		return sound;
-	}
-
 	public void play() {
-//		mediaPlayer.seek(Duration.ZERO);
 		mediaPlayer.play();
-	}
-
-	public void pause() {
-//		mediaPlayer.pause();
 	}
 
 	public void stop() {

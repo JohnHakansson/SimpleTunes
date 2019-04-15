@@ -1,24 +1,11 @@
 package simpleTunes;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
-import javax.swing.JOptionPane;
-
-import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
-import javafx.stage.Stage;
 
 public class Controller {
 	private DrumSounds drumSounds = new DrumSounds();
@@ -29,7 +16,6 @@ public class Controller {
 	private boolean playing = false;
 	private Thread thread;
 	private TestUI ui;
-	private int nbrOfThreads = 0;
 
 	private Random rand = new Random();
 	private Color[] colors = { Color.RED, Color.BLUE, Color.GREEN };
@@ -85,12 +71,8 @@ public class Controller {
 
 	public void stop() {
 		if (thread != null) {
-//			thread = null;
 			playing = false;
 			thread.interrupt();
-
-			nbrOfThreads--;
-//			System.out.println("Killing thread");
 		}
 	}
 
@@ -102,8 +84,6 @@ public class Controller {
 				counter++;
 			}
 		}
-
-		System.out.println(counter);
 		return (counter < 4);
 	}
 
@@ -115,7 +95,6 @@ public class Controller {
 				aRow[i] = sounds[row][i];
 			}
 		}
-		System.out.println("Getting row");
 		return aRow;
 	}
 
@@ -128,7 +107,6 @@ public class Controller {
 					sounds[row][i] = shape;
 					shapePlaced = true;
 					ui.removeShape(shape, row, i);
-					System.out.println("Added to array");
 				}
 
 			} else {
@@ -168,11 +146,6 @@ public class Controller {
 
 	private class PlaySound extends Thread {
 
-		public PlaySound() {
-			nbrOfThreads++;
-			System.out.println("number of threads:" + nbrOfThreads);
-		}
-
 		public void run() {
 			try {
 				while (playing) {
@@ -204,9 +177,5 @@ public class Controller {
 			}
 
 		}
-	}
-
-	public ArrayList<Shape> getShapeList() {
-		return shapeList;
 	}
 }

@@ -19,31 +19,18 @@ public class MusicCircle extends Circle {
 		setFill(color);
 		setSound(sound);
 		setStroke(Color.WHITESMOKE);
-		
-		
 	}
 
 	private void setSound(Media sound) {
 		mediaPlayer = new AudioClip(sound.getSource());
 		this.sound = sound;
 	}
-	
-	public Media getSounds() {
-		return sound;
-	}
 
 	public void play() {
-//		mediaPlayer.seek(Duration.ZERO);
 		mediaPlayer.play();
-	}
-
-	public void pause() {
-//		mediaPlayer.pause();
 	}
 
 	public void stop() {
 		mediaPlayer.stop();
 	}
-	
-	
 }
