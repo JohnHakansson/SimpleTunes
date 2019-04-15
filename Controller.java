@@ -58,7 +58,7 @@ public class Controller {
 
 			case 2:
 				Color randomTrinagle = colors[rand.nextInt(3)];
-				randomShape = new MusicTriangle(56, 100, randomTrinagle, drumSounds.getDrumSounds(randomTrinagle));
+				randomShape = new MusicTriangle(50, 100, randomTrinagle, drumSounds.getDrumSounds(randomTrinagle));
 				break;
 			}
 

@@ -280,7 +280,7 @@ public class TestUI extends Application {
 		}
 
 		if (shape instanceof MusicTriangle) {
-			shape.setLayoutX(squares[row][column].getX() - 6);
+			shape.setLayoutX(squares[row][column].getX());
 			shape.setLayoutY(squares[row][column].getY() - 50);
 		}
 
