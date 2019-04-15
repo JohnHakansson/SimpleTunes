@@ -80,6 +80,7 @@ public class Controller {
 			playing = true;
 			thread = new PlaySound();
 			thread.start();
+			System.out.println("Starting thread");
 		}
 	}
 
@@ -87,6 +88,7 @@ public class Controller {
 		if (thread != null) {
 			playing = false;
 			thread = null;
+//			System.out.println("Killing thread");
 		}
 	}
 
