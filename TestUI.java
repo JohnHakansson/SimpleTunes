@@ -52,6 +52,7 @@ public class TestUI extends Application {
 
 	private Rectangle[] shapeInsertions = new Rectangle[8];
 	private Rectangle[][] squares = new Rectangle[8][4];
+	
 
 	private Group shapeGroup;
 	private Line movingLine = new Line();

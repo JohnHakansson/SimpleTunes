@@ -29,6 +29,8 @@ public class Controller {
 	private boolean playing = false;
 	private Thread thread;
 	private TestUI ui;
+	private int nbrOfThreads = 0;
+
 	private Random rand = new Random();
 	private Color[] colors = { Color.RED, Color.BLUE, Color.GREEN };
 
@@ -66,14 +68,11 @@ public class Controller {
 			randomShape.setOnMouseDragged(ui.getMouseEventDragged(randomShape));
 			randomShape.setOnMouseClicked(ui.getMouseEvent(randomShape));
 			randomShape.setOnMouseReleased(ui.getMouseEventReleased(randomShape));
-			
+
 			ui.addShape(randomShape);
 		} while (nbrOfShapes < limit);
 
-		
 	}
-
-
 
 	public void startPlaying() {
 		if (thread == null) {
@@ -86,8 +85,11 @@ public class Controller {
 
 	public void stop() {
 		if (thread != null) {
+//			thread = null;
 			playing = false;
-			thread = null;
+			thread.interrupt();
+
+			nbrOfThreads--;
 //			System.out.println("Killing thread");
 		}
 	}
@@ -155,7 +157,7 @@ public class Controller {
 		}
 
 	}
-	
+
 	public void removeShapesFromPool(Group group) {
 
 		for (Shape ms : shapeList) {
@@ -166,33 +168,41 @@ public class Controller {
 
 	private class PlaySound extends Thread {
 
+		public PlaySound() {
+			nbrOfThreads++;
+			System.out.println("number of threads:" + nbrOfThreads);
+		}
+
 		public void run() {
+			try {
+				while (playing) {
 
-			while (playing) {
+					for (int i = 0; i < sounds.length; i++) {
+						for (int j = 0; j < sounds[i].length; j++) {
 
-				for (int i = 0; i < sounds.length; i++) {
-					for (int j = 0; j < sounds[i].length; j++) {
+							if (sounds[i][j] != null) {
 
-						if (sounds[i][j] != null) {
+								if (sounds[i][j] instanceof MusicTriangle) {
+									((MusicTriangle) sounds[i][j]).play();
 
-							if (sounds[i][j] instanceof MusicTriangle) {
-								((MusicTriangle) sounds[i][j]).play();
+								} else if (sounds[i][j] instanceof MusicSquare) {
+									((MusicSquare) sounds[i][j]).play();
 
-							} else if (sounds[i][j] instanceof MusicSquare) {
-								((MusicSquare) sounds[i][j]).play();
+								} else if (sounds[i][j] instanceof MusicCircle) {
+									((MusicCircle) sounds[i][j]).play();
+								}
 
-							} else if (sounds[i][j] instanceof MusicCircle) {
-								((MusicCircle) sounds[i][j]).play();
+								System.out.println("played sound from " + i);
 							}
 						}
-					}
-					try {
+
 						Thread.sleep(500);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
 					}
 				}
+			} catch (InterruptedException e) {
+				thread = null;
 			}
+
 		}
 	}
 
