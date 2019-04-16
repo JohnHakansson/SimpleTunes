@@ -35,16 +35,19 @@ public class Controller {
 			case 0:
 				Color randomSquare = colors[rand.nextInt(3)];
 				randomShape = new MusicSquare(randomSquare, pianoSounds.getPianoSound(randomSquare));
+				randomShape.setId("musicSquare");
 				break;
 
 			case 1:
 				Color randomCircle = colors[rand.nextInt(3)];
 				randomShape = new MusicCircle(randomCircle, guitarSounds.getGuitarSound(randomCircle));
+				randomShape.setId("musicCircle");
 				break;
 
 			case 2:
 				Color randomTrinagle = colors[rand.nextInt(3)];
 				randomShape = new MusicTriangle(50, 100, randomTrinagle, drumSounds.getDrumSounds(randomTrinagle));
+				randomShape.setId("musicTriangle");
 				break;
 			}
 

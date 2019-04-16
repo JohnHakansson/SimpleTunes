@@ -21,6 +21,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 public class TestUI extends Application {
@@ -49,21 +50,23 @@ public class TestUI extends Application {
 
 		controller = new Controller(this);
 		window = primaryStage;
+		//window.initStyle(StageStyle.UNDECORATED);
 
 		poolPane.setPrefSize(600, 848);
-		poolPane.setStyle("-fx-background-color: Black");
+		//poolPane.setStyle("-fx-background-color: Black");
 
 		shapeGroup = new Group();
 		gridPane = new Pane(shapeGroup);
 		gridPane.setPrefSize(400, 848);
-		gridPane.setStyle("-fx-background-color: White");
+		//gridPane.setStyle("-fx-background-color: White");
 
 		for (int i = 0; i < shapeInsertions.length; i++) {
 			shapeInsertions[i] = new Rectangle(695, 1.0f + (i * 100), 100, 100);
 
-			shapeInsertions[i].setStroke(Color.WHITESMOKE);
+			//shapeInsertions[i].setStroke(Color.WHITESMOKE);
 			shapeInsertions[i].setStrokeWidth(2);
-			shapeInsertions[i].setStyle("-fx-stroke-dash-array: 1 10 10 1;");
+			shapeInsertions[i].setId("shapeInsertion");
+			//shapeInsertions[i].setStyle("-fx-stroke-dash-array: 1 10 10 1;");
 
 			poolGroup.getChildren().add(shapeInsertions[i]);
 		}
@@ -71,9 +74,10 @@ public class TestUI extends Application {
 		for (int i = 0; i < squares.length; i++) {
 			for (int j = 0; j < squares[i].length; j++) {
 				squares[i][j] = new Rectangle(j * 100, i * 100, 100, 100);
-				squares[i][j].setFill(Color.BLACK);
-				squares[i][j].setStroke(Color.GREEN);
-				squares[i][j].setStrokeWidth(3);
+//				squares[i][j].setFill(Color.BLACK);
+//				squares[i][j].setStroke(Color.GREEN);
+				//squares[i][j].setStrokeWidth(3);
+				squares[i][j].setId("squares");
 				shapeGroup.getChildren().add(squares[i][j]);
 			}
 		}
@@ -82,8 +86,9 @@ public class TestUI extends Application {
 		movingLine.setStartY(5);
 		movingLine.setEndX(400);
 		movingLine.setEndY(5);
-		movingLine.setStroke(Color.WHITE);
+		//movingLine.setStroke(Color.WHITE);
 		movingLine.setStrokeWidth(5);
+		movingLine.setId("movingLine");
 
 		lineTransition.setDuration(Duration.seconds(4));
 		lineTransition.setToY(800);
@@ -99,6 +104,7 @@ public class TestUI extends Application {
 		Image clearImage = new Image(getClass().getResourceAsStream("/images/clearButton.png"));
 
 		Button playButton = new Button();
+		playButton.setId("playButton");
 		playButton.setGraphic(new ImageView(playImage));
 		playButton.setOnAction(e -> {
 			startMovingLine();
@@ -118,6 +124,7 @@ public class TestUI extends Application {
 			controller.stop();
 		});
 		Button resetButton = new Button();
+		resetButton.setId("clearButton");
 		resetButton.setGraphic(new ImageView(clearImage));
 		resetButton.setOnAction(e -> {
 			controller.removeShapesFromPool(poolGroup);
@@ -126,8 +133,10 @@ public class TestUI extends Application {
 
 		toolbar = new ToolBar(playButton, pauseButton, new Separator(), refreshButton, resetButton);
 		toolbar.setPrefHeight(48);
+		toolbar.setId("toolbar");
 
 		vbox = new VBox();
+		vbox.setId("vbox");
 		vbox.getChildren().addAll(toolbar);
 
 		layout = new BorderPane();
@@ -136,8 +145,10 @@ public class TestUI extends Application {
 		layout.setTop(vbox);
 
 		mainScene = new Scene(layout, 1200, 850);
-		mainScene.setFill(Color.BLACK);
-
+		//mainScene.setFill(Color.BLACK);
+		
+		mainScene.getStylesheets().add(getClass().getResource("SimpleTunes.css").toExternalForm());
+		//s.getStylesheets().add(getClass().getResource("SimpleTunes.css").toExternalForm());
 		window.setScene(mainScene);
 		window.setResizable(false);
 		window.setTitle("SimpleTunes");
@@ -249,7 +260,7 @@ public class TestUI extends Application {
 
 		shape.setLayoutX(rand.nextInt((int) (mainScene.getWidth() - gridPane.getWidth()) - 200));
 		shape.setLayoutY(rand.nextInt((int) (mainScene.getHeight() - toolbar.getHeight()) - 200));
-
+		
 		poolGroup.getChildren().add(shape);
 	}
 
