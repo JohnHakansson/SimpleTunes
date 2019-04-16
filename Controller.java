@@ -151,6 +151,7 @@ public class Controller {
 
 		public void run() {
 			try {
+				Thread.sleep(250);
 				while (playing) {
 
 					for (int i = 0; i < sounds.length; i++) {
