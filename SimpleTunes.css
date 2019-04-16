@@ -28,9 +28,16 @@
 }
 
 .button {
-	-fx-border-radius: 25;
-    -fx-background-radius: 25;
+	-fx-border-radius: 20;
+    -fx-background-radius: 20;
     -fx-padding: 10;
+}
+
+#showSoundButton {
+    -fx-font-family: arial;
+    -fx-font-size: 16px;
+	-fx-text-fill: black;
+    -fx-text-font-weight: bolder;
 }
 
 #musicSquare {

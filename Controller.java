@@ -18,7 +18,7 @@ public class Controller {
 	private TestUI ui;
 
 	private Random rand = new Random();
-	private Color[] colors = { Color.RED, Color.BLUE, Color.GREEN };
+	private Color[] colors = { Color.web("#ff0000"), Color.web("#0080ff"), Color.web("#00ff80") };
 
 	public Controller(TestUI ui) {
 		this.ui = ui;

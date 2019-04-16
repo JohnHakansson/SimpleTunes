@@ -18,7 +18,7 @@ public class MusicTriangle extends Polygon {
 		getPoints().addAll(new Double[] { x, y - 50, x + 50, y + 50, x - 50, y + 50 });
 		setSound(sound);
 		setFill(color);
-		setStroke(Color.WHITESMOKE);
+		//setStroke(Color.WHITESMOKE);
 	}
 
 	private void setSound(Media sound) {

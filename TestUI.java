@@ -8,6 +8,7 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
@@ -130,9 +131,14 @@ public class TestUI extends Application {
 			controller.removeShapesFromPool(poolGroup);
 			controller.removeShapesFromGrid(shapeGroup);
 		});
-
-		toolbar = new ToolBar(playButton, pauseButton, new Separator(), refreshButton, resetButton);
-		toolbar.setPrefHeight(48);
+		
+//		Label text = new Label("Show Sounds");
+//		text.setId("text");
+		Button showSoundButton = new Button("Show Sounds");
+		//showSoundButton.setGraphic(text);
+		showSoundButton.setId("showSoundButton");
+		
+		toolbar = new ToolBar(playButton, pauseButton, new Separator(), refreshButton, resetButton, new Separator(), showSoundButton);
 		toolbar.setId("toolbar");
 
 		vbox = new VBox();
@@ -144,7 +150,7 @@ public class TestUI extends Application {
 		layout.setRight(gridPane);
 		layout.setTop(vbox);
 
-		mainScene = new Scene(layout, 1200, 850);
+		mainScene = new Scene(layout, 1200, 855);
 		//mainScene.setFill(Color.BLACK);
 		
 		mainScene.getStylesheets().add(getClass().getResource("SimpleTunes.css").toExternalForm());

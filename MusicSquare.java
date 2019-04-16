@@ -18,7 +18,7 @@ public class MusicSquare extends Rectangle {
 		super(100, 100);
 		setSound(sound);
 		setFill(color);
-		setStroke(Color.WHITESMOKE);
+		//setStroke(Color.WHITESMOKE);
 	}
 
 	private void setSound(Media sound) {

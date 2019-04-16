@@ -18,7 +18,7 @@ public class MusicCircle extends Circle {
 		super(50);
 		setFill(color);
 		setSound(sound);
-		setStroke(Color.WHITESMOKE);
+		//setStroke(Color.WHITESMOKE);
 	}
 
 	private void setSound(Media sound) {
