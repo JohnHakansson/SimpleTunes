@@ -115,7 +115,7 @@ public class TestUI extends Application {
 		pauseButton.setGraphic(new ImageView(pauseImage));
 		pauseButton.setOnAction(e -> {
 			stopMovingLine();
-			controller.stop();
+			controller.stopPlaying();
 		});
 		Button resetButton = new Button();
 		resetButton.setGraphic(new ImageView(clearImage));
