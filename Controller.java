@@ -116,15 +116,6 @@ public class Controller {
 		}
 	}
 
-	public void clearShapesInArray() {
-
-		for (int i = 0; i < sounds.length; i++) {
-			for (int j = 0; j < sounds[i].length; j++) {
-				sounds[i][j] = null;
-			}
-		}
-	}
-
 	public void removeShapesFromGrid(Group group) {
 
 		for (int i = 0; i < sounds.length; i++) {
