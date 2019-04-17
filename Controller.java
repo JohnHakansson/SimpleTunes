@@ -2,30 +2,32 @@ package simpleTunes;
 
 import java.util.ArrayList;
 import java.util.Random;
-
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 
+
 public class Controller {
+	private TestUI ui;
+	private Thread thread;
+
 	private DrumSounds drumSounds = new DrumSounds();
 	private GuitarSounds guitarSounds = new GuitarSounds();
 	private PianoSounds pianoSounds = new PianoSounds();
+
 	private ArrayList<Shape> shapeList = new ArrayList<Shape>();
 	private Shape[][] sounds = new Shape[8][4];
-	private boolean playing = false;
-	private Thread thread;
-	private TestUI ui;
 
+	private boolean playing = false;
 	private Random rand = new Random();
 	private Color[] colors = { Color.RED, Color.BLUE, Color.GREEN };
 
 	public Controller(TestUI ui) {
 		this.ui = ui;
+
 	}
 
 	public void generateShape(int limit) {
-
 		int nbrOfShapes = 0;
 		Shape randomShape = null;
 
@@ -46,6 +48,7 @@ public class Controller {
 				Color randomTrinagle = colors[rand.nextInt(3)];
 				randomShape = new MusicTriangle(50, 100, randomTrinagle, drumSounds.getDrumSounds(randomTrinagle));
 				break;
+
 			}
 
 			nbrOfShapes++;
@@ -56,24 +59,30 @@ public class Controller {
 			randomShape.setOnMouseReleased(ui.getMouseEventReleased(randomShape));
 
 			ui.addShape(randomShape);
+			
 		} while (nbrOfShapes < limit);
 
 	}
 
 	public void startPlaying() {
+		
 		if (thread == null) {
 			playing = true;
 			thread = new PlaySound();
 			thread.start();
-			System.out.println("Starting thread");
+			
 		}
+		
 	}
 
 	public void stop() {
+		
 		if (thread != null) {
 			playing = false;
 			thread.interrupt();
+			
 		}
+		
 	}
 
 	private boolean checkRowSpace(Shape[] row) {
@@ -82,9 +91,13 @@ public class Controller {
 		for (int i = 0; i < row.length; i++) {
 			if (row[i] != null) {
 				counter++;
+				
 			}
+			
 		}
+		
 		return (counter < 4);
+		
 	}
 
 	private Shape[] getRow(int row) {
@@ -93,9 +106,13 @@ public class Controller {
 		for (int i = 0; i < aRow.length; i++) {
 			if (sounds[row][i] != null) {
 				aRow[i] = sounds[row][i];
+				
 			}
+			
 		}
+		
 		return aRow;
+		
 	}
 
 	public void addShapestoArray(Shape shape, int row) {
@@ -107,13 +124,17 @@ public class Controller {
 					sounds[row][i] = shape;
 					shapePlaced = true;
 					ui.removeShape(shape, row, i);
+					
 				}
 
 			} else {
 				System.out.println("Row is full");
 				return;
+				
 			}
+			
 		}
+		
 	}
 
 	public void removeShapesFromGrid(Group group) {
@@ -122,7 +143,9 @@ public class Controller {
 			for (int j = 0; j < sounds[i].length; j++) {
 				group.getChildren().remove(sounds[i][j]);
 				sounds[i][j] = null;
+				
 			}
+			
 		}
 
 	}
@@ -131,6 +154,7 @@ public class Controller {
 
 		for (Shape ms : shapeList) {
 			group.getChildren().remove(ms);
+			
 		}
 
 	}
@@ -138,7 +162,9 @@ public class Controller {
 	private class PlaySound extends Thread {
 
 		public void run() {
+			
 			try {
+				
 				while (playing) {
 
 					for (int i = 0; i < sounds.length; i++) {
@@ -154,19 +180,25 @@ public class Controller {
 
 								} else if (sounds[i][j] instanceof MusicCircle) {
 									((MusicCircle) sounds[i][j]).play();
+									
 								}
 
-								System.out.println("played sound from " + i);
 							}
+							
 						}
 
 						Thread.sleep(500);
 					}
+					
 				}
+				
 			} catch (InterruptedException e) {
 				thread = null;
+				
 			}
 
 		}
+		
 	}
+	
 }
