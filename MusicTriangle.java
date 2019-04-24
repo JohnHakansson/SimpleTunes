@@ -1,33 +1,57 @@
 package simpleTunes;
 
 import javafx.scene.shape.*;
-import javafx.scene.media.*;
-import javafx.scene.paint.*;
+import javafx.util.Duration;
 
-public class MusicTriangle extends Polygon {
-	private AudioClip mediaPlayer;
+import java.util.HashMap;
+
+import javafx.scene.media.*;
+
+import javafx.scene.paint.*;
+import java.util.*;
+
+public class MusicTriangle extends MusicShape {
+
+//	private Polygon triangle;
 
 	public MusicTriangle(double x, double y, Color color, Media sound) {
-		getPoints().addAll(new Double[] { x, y - 50, x + 50, y + 50, x - 50, y + 50 });
-		setSound(sound);
-		setFill(color);
-		setStroke(Color.WHITESMOKE);
+		super(color, sound);
 		
+		shape = new Polygon();
+		((Polygon) shape).getPoints().addAll(new Double[] { x, y - 50, x + 50, y + 50, x - 50, y + 50 });
+		
+		shape.setFill(color);
+		shape.setStroke(Color.WHITESMOKE);
+
+		shape.setOnMouseClicked(getMouseEvent());
+		shape.setOnMousePressed(getMouseEventPressed());
+		shape.setOnMouseDragged(getMouseEventDragged());
+				
 	}
 
-	private void setSound(Media sound) {
-		mediaPlayer = new AudioClip(sound.getSource());
+	public Shape getShape() {
+		return shape;
+	}
+	
+	public void setLayoutX(double x) {
+		shape.setLayoutX(x);
 		
 	}
 	
-	public void play() {
-		mediaPlayer.play();
-		
+	public void setLayoutY(double y) {
+		shape.setLayoutY(y - 50);
+
 	}
 
-	public void stop() {
-		mediaPlayer.stop();
-		
+	@Override
+	public void nullifyEventHandlers() {
+		shape.setOnMousePressed(null);
+		shape.setOnMouseDragged(null);
+		shape.setOnMouseClicked(null);
+		shape.setOnMouseReleased(null);		
+				
 	}
+
 	
+
 }

@@ -33,36 +33,32 @@ import javafx.util.Duration;
 
 public class UI extends Application {
 	private Controller controller;
-	
+
 	private Stage window;
 	private BorderPane layout;
-	
+
 	private Group poolGroup = new Group();
 	private Group shapeGroup = new Group();
-	
+
 	private Pane poolPane = new Pane(poolGroup);
 	private Pane gridPane;
-	
+
 	private VBox vbox;
 	private ToolBar toolbar;
 	private Scene mainScene;
-	
-	private double orgSceneX;
-	private double orgSceneY;
-	private double orgTranslateX;
-	private double orgTranslateY;
 
 	private Rectangle[] shapeInsertions = new Rectangle[8];
 	private Rectangle[][] squares = new Rectangle[8][4];
-	
+
 	private Line movingLine = new Line();
 	private TranslateTransition lineTransition = new TranslateTransition();
 
 	/*
-	 * Start method for the javaFX application.
-	 * Here the components are created and set placed onto the stage.
+	 * Start method for the javaFX application. Here the components are created and
+	 * set placed onto the stage.
 	 * 
 	 * @param primaryStage the stage that holds all other components.
+	 * 
 	 * @see javafx.application.Application#start(javafx.stage.Stage)
 	 */
 	public void start(Stage primaryStage) throws Exception {
@@ -71,11 +67,11 @@ public class UI extends Application {
 
 		poolPane.setPrefSize(600, 848);
 		poolPane.setStyle("-fx-background-color: Black");
-		
+
 		gridPane = new Pane(shapeGroup);
 		gridPane.setPrefSize(400, 848);
 		gridPane.setStyle("-fx-background-color: White");
-		
+
 		// Generating the dotted cells and placing them in the poolGroup.
 		for (int i = 0; i < shapeInsertions.length; i++) {
 			shapeInsertions[i] = new Rectangle(695, 1.0f + (i * 100), 100, 100);
@@ -83,9 +79,9 @@ public class UI extends Application {
 			shapeInsertions[i].setStrokeWidth(2);
 			shapeInsertions[i].setStyle("-fx-stroke-dash-array: 1 10 10 1;");
 			poolGroup.getChildren().add(shapeInsertions[i]);
-			
+
 		}
-		
+
 		// Generating the cells used by the grid and placing them in the shapeGroup.
 		for (int i = 0; i < squares.length; i++) {
 			for (int j = 0; j < squares[i].length; j++) {
@@ -94,9 +90,9 @@ public class UI extends Application {
 				squares[i][j].setStroke(Color.GREEN);
 				squares[i][j].setStrokeWidth(3);
 				shapeGroup.getChildren().add(squares[i][j]);
-				
+
 			}
-			
+
 		}
 
 		movingLine.setStartX(0);
@@ -124,9 +120,9 @@ public class UI extends Application {
 		playButton.setOnAction(e -> {
 			startMovingLine();
 			controller.startPlaying();
-			
+
 		});
-		
+
 		Button refreshButton = new Button();
 		refreshButton.setGraphic(new ImageView(refreshImage));
 		refreshButton.setOnAction(e -> {
@@ -134,20 +130,20 @@ public class UI extends Application {
 			controller.generateShape(10);
 
 		});
-		
+
 		Button pauseButton = new Button();
 		pauseButton.setGraphic(new ImageView(pauseImage));
 		pauseButton.setOnAction(e -> {
 			stopMovingLine();
 			controller.stopPlaying();
 		});
-		
+
 		Button resetButton = new Button();
 		resetButton.setGraphic(new ImageView(clearImage));
 		resetButton.setOnAction(e -> {
 			controller.removeShapesFromPool(poolGroup);
 			controller.removeShapesFromGrid(shapeGroup);
-			
+
 		});
 
 		toolbar = new ToolBar(playButton, pauseButton, new Separator(), refreshButton, resetButton);
@@ -180,180 +176,76 @@ public class UI extends Application {
 		lineTransition.setFromY(5);
 
 	}
-	
-	/* Method for playing the sound of the shape when clicked.
+
+	/*
+	 * Method for placing the dragged shape in the sounds array located in the
+	 * controller class.
 	 * 
 	 * @param shape the random shape generated in the controller.
-	 * @return the event handler.
-	 */
-	public EventHandler<MouseEvent> getMouseEvent(Shape shape) {
-		EventHandler<MouseEvent> OnMouseClicked = new EventHandler<MouseEvent>() {
-
-			public void handle(MouseEvent t) {
-
-				if (shape instanceof MusicSquare) {
-					MusicSquare musicSquare = (MusicSquare) shape;
-					musicSquare.play();
-					
-				}
-
-				if (shape instanceof MusicCircle) {
-					MusicCircle musicCircle = (MusicCircle) shape;
-					musicCircle.play();
-					
-				}
-
-				if (shape instanceof MusicTriangle) {
-					MusicTriangle musicTriangle = (MusicTriangle) shape;
-					musicTriangle.play();
-					
-				}
-				
-			}
-			
-		};
-
-		return OnMouseClicked;
-		
-	}
-
-	/* Method for getting the coordinates when the mouse is pressed on a shape.
 	 * 
-	 * @param shape the random shape generated in the controller.
 	 * @return the event handler.
 	 */
-	public EventHandler<MouseEvent> getMouseEventPressed(Shape shape) {
-		EventHandler<MouseEvent> onMousePressed = new EventHandler<MouseEvent>() {
-
-			public void handle(MouseEvent t) {
-				orgSceneX = t.getSceneX();
-				orgSceneY = t.getSceneY();
-
-				orgTranslateX = shape.getTranslateX();
-				orgTranslateY = shape.getTranslateY();
-
-			}
-			
-		};
-
-		return onMousePressed;
-		
-	}
-	
-	/* Method for translating the coordinates while the shape is being dragged
-	 * and displaying the shape on the translated coordinates.
-	 * 
-	 * @param shape the random shape generated in the controller.
-	 * @return the event handler.
-	 */
-	public EventHandler<MouseEvent> getMouseEventDragged(Shape shape) {
-		EventHandler<MouseEvent> onMouseDragged = new EventHandler<MouseEvent>() {
-
-			public void handle(MouseEvent t) {
-				double offsetX = t.getSceneX() - orgSceneX;
-				double offsetY = t.getSceneY() - orgSceneY;
-				double newTranslateX = orgTranslateX + offsetX;
-				double newTranslateY = orgTranslateY + offsetY;
-
-				shape.setTranslateX(newTranslateX);
-				shape.setTranslateY(newTranslateY);
-
-			}
-			
-		};
-
-		return onMouseDragged;
-		
-	}
-
-	/* Method for placing the dragged shape in the sounds array
-	 * located in the controller class.
-	 * 
-	 * @param shape the random shape generated in the controller.
-	 * @return the event handler.
-	 */
-	public EventHandler<MouseEvent> getMouseEventReleased(Shape shape) {
+	public EventHandler<MouseEvent> getMouseEventReleased(MusicShape shape) {
 		EventHandler<MouseEvent> onMouseReleased = new EventHandler<MouseEvent>() {
 
 			public void handle(MouseEvent t) {
-				orgSceneX = t.getSceneX();
-				orgSceneY = t.getSceneY();
-
-				orgTranslateX = shape.getTranslateX();
-				orgTranslateY = shape.getTranslateY();
 
 				for (int i = 0; i < shapeInsertions.length; i++) {
-					if (shapeInsertions[i].contains(orgSceneX, orgSceneY - toolbar.getHeight())) {
+					if (shapeInsertions[i].contains(t.getSceneX(), t.getSceneY() - toolbar.getHeight())) {
 						controller.addShapestoArray(shape, i);
-						
+						System.out.println("row " + i);
+
 					}
-					
+
 				}
 
 			}
-			
+
 		};
 
 		return onMouseReleased;
 	}
-	
-	/* Method for placing the random generated shape in the poolGroup.
+
+	/*
+	 * Method for placing the random generated shape in the poolGroup.
 	 * 
 	 * @param shape the random shape generated in the controller.
 	 */
-	public void addShape(Shape shape) {
+	public void addShape(MusicShape shape) {
 		Random rand = new Random();
 
-		shape.setLayoutX(rand.nextInt((int) (mainScene.getWidth() - gridPane.getWidth()) - 200));
-		shape.setLayoutY(rand.nextInt((int) (mainScene.getHeight() - toolbar.getHeight()) - 200));
+		shape.setLayoutX(rand.nextInt((int) ((mainScene.getWidth() - gridPane.getWidth()) - 200)));
+		shape.setLayoutY(rand.nextInt((int) ((mainScene.getHeight() - toolbar.getHeight()) - 200)));
 
-		poolGroup.getChildren().add(shape);
-		
+		poolGroup.getChildren().add(shape.getShape());
 	}
 
-	/* Method for removing the shape from the poolGroup and adding
-	 * the shape to the shapeGroup. Also generating one new shape in 
-	 * the poolGroup each time one is removed.
+	/*
+	 * Method for removing the shape from the poolGroup and adding the shape to the
+	 * shapeGroup. Also generating one new shape in the poolGroup each time one is
+	 * removed.
 	 * 
 	 * @param shape the random shape generated in the controller.
 	 */
-	public void removeShape(Shape shape, int row, int column) {
-		poolGroup.getChildren().remove(shape);
-		shapeGroup.getChildren().add(shape);
+	public void removeShape(MusicShape shape, int row, int column) {
+		poolGroup.getChildren().remove(shape.getShape());
+		shapeGroup.getChildren().add(shape.getShape());
 
-		shape.setTranslateX(0);
-		shape.setTranslateY(0);
+		shape.getShape().setTranslateX(0);
+		shape.getShape().setTranslateY(0);
 
-		if (shape instanceof MusicCircle) {
-			shape.setLayoutX(squares[row][column].getX() + 50);
-			shape.setLayoutY(squares[row][column].getY() + 50);
-			
-		}
+		shape.setLayoutX(squares[row][column].getX());
+		shape.setLayoutY(squares[row][column].getY());
 
-		if (shape instanceof MusicTriangle) {
-			shape.setLayoutX(squares[row][column].getX());
-			shape.setLayoutY(squares[row][column].getY() - 50);
-			
-		}
-
-		if (shape instanceof MusicSquare) {
-			shape.setLayoutX(squares[row][column].getX());
-			shape.setLayoutY(squares[row][column].getY());
-			
-		}
-
-		shape.setOnMousePressed(null);
-		shape.setOnMouseDragged(null);
-		shape.setOnMouseClicked(null);
-		shape.setOnMouseReleased(null);
+		shape.nullifyEventHandlers();
 
 		controller.generateShape(1);
 
 	}
-	
+
 	public static void main(String[] args) {
 		launch(args);
-		
+
 	}
-	
+
 }

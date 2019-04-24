@@ -1,32 +1,50 @@
 package simpleTunes;
 
 import javafx.scene.shape.*;
-import javafx.scene.media.*;
-import javafx.scene.paint.*;
+import javafx.util.Duration;
 
-public class MusicSquare extends Rectangle {
-	private AudioClip mediaPlayer;
+import java.util.HashMap;
+import java.util.concurrent.Semaphore;
+
+import javafx.scene.media.*;
+
+import javafx.scene.paint.*;
+import java.util.*;
+
+public class MusicSquare extends MusicShape {
 
 	public MusicSquare(Color color, Media sound) {
-		super(100, 100);
-		setSound(sound);
-		setFill(color);
-		setStroke(Color.WHITESMOKE);
+		super(color, sound);
+
+		shape = new Rectangle(100, 100);
+
+		shape.setFill(color);
+		shape.setStroke(Color.WHITESMOKE);
+
+		shape.setOnMouseClicked(getMouseEvent());
+		shape.setOnMousePressed(getMouseEventPressed());
+		shape.setOnMouseDragged(getMouseEventDragged());
+
 	}
 
-	private void setSound(Media sound) {
-		mediaPlayer = new AudioClip(sound.getSource());
-		
-	}
-	
-	public void play() {
-		mediaPlayer.play();
-		
+	public Shape getShape() {
+		return shape;
 	}
 
-	public void stop() {
-		mediaPlayer.stop();
-		
+	public void setLayoutX(double x) {
+		shape.setLayoutX(x);
 	}
-	
+
+	public void setLayoutY(double y) {
+		shape.setLayoutY(y);
+	}
+
+	@Override
+	public void nullifyEventHandlers() {
+		shape.setOnMousePressed(null);
+		shape.setOnMouseDragged(null);
+		shape.setOnMouseClicked(null);
+		shape.setOnMouseReleased(null);
+	}
+
 }
