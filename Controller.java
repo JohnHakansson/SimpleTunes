@@ -21,8 +21,8 @@ public class Controller {
 	private GuitarSounds guitarSounds = new GuitarSounds();
 	private PianoSounds pianoSounds = new PianoSounds();
 
-	private ArrayList<Shape> shapeList = new ArrayList<Shape>();
-	private Shape[][] sounds = new Shape[8][4];
+	private ArrayList<MusicShape> shapeList = new ArrayList<MusicShape>();
+	private MusicShape[][] sounds = new MusicShape[8][4];
 
 	private boolean playing = false;
 	private Random rand = new Random();
@@ -50,7 +50,7 @@ public class Controller {
 
 	public void generateShape(int limit) {
 		int nbrOfShapes = 0;
-		Shape randomShape = null;
+		MusicShape randomShape = null;
 
 		do {
 			switch (rand.nextInt(3)) {
@@ -74,10 +74,7 @@ public class Controller {
 
 			nbrOfShapes++;
 			shapeList.add(randomShape);
-			randomShape.setOnMousePressed(ui.getMouseEventPressed(randomShape));
-			randomShape.setOnMouseDragged(ui.getMouseEventDragged(randomShape));
-			randomShape.setOnMouseClicked(ui.getMouseEvent(randomShape));
-			randomShape.setOnMouseReleased(ui.getMouseEventReleased(randomShape));
+			randomShape.getShape().setOnMouseReleased(ui.getMouseEventReleased(randomShape));
 
 			ui.addShape(randomShape);
 
@@ -122,7 +119,7 @@ public class Controller {
 	 * @return boolean true of there is space in the row or false if it's full.
 	 */
 
-	private boolean checkRowSpace(Shape[] row) {
+	private boolean checkRowSpace(MusicShape[] row) {
 		int counter = 0;
 
 		for (int i = 0; i < row.length; i++) {
@@ -145,8 +142,8 @@ public class Controller {
 	 * @return aRow an array of Shape-objects.
 	 */
 
-	private Shape[] getRow(int row) {
-		Shape[] aRow = new Shape[4];
+	private MusicShape[] getRow(int row) {
+		MusicShape[] aRow = new MusicShape[4];
 
 		for (int i = 0; i < aRow.length; i++) {
 			if (sounds[row][i] != null) {
@@ -168,7 +165,7 @@ public class Controller {
 	 * @param row   integer the row where it shape is going to be added
 	 */
 
-	public void addShapestoArray(Shape shape, int row) {
+	public void addShapestoArray(MusicShape shape, int row) {
 		boolean shapePlaced = false;
 
 		for (int i = 0; !shapePlaced; i++) {
@@ -201,7 +198,7 @@ public class Controller {
 
 		for (int i = 0; i < sounds.length; i++) {
 			for (int j = 0; j < sounds[i].length; j++) {
-				group.getChildren().remove(sounds[i][j]);
+				group.getChildren().remove(sounds[i][j].getShape());
 				sounds[i][j] = null;
 
 			}
@@ -218,8 +215,8 @@ public class Controller {
 
 	public void removeShapesFromPool(Group group) {
 
-		for (Shape ms : shapeList) {
-			group.getChildren().remove(ms);
+		for (MusicShape ms : shapeList) {
+			group.getChildren().remove(ms.getShape());
 
 		}
 
@@ -247,16 +244,7 @@ public class Controller {
 
 							if (sounds[i][j] != null) {
 
-								if (sounds[i][j] instanceof MusicTriangle) {
-									((MusicTriangle) sounds[i][j]).play();
-
-								} else if (sounds[i][j] instanceof MusicSquare) {
-									((MusicSquare) sounds[i][j]).play();
-
-								} else if (sounds[i][j] instanceof MusicCircle) {
-									((MusicCircle) sounds[i][j]).play();
-
-								}
+								sounds[i][j].play();
 
 							}
 
