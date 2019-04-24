@@ -38,16 +38,13 @@ public class UI extends Application {
 	private BorderPane layout;
 
 	private Group poolGroup = new Group();
-	private Group shapeGroup = new Group();
 
 	private Pane poolPane = new Pane(poolGroup);
-	private Pane gridPane;
 
 	private VBox vbox;
 	private ToolBar toolbar;
 	private Scene mainScene;
 
-	private Rectangle[] shapeInsertions = new Rectangle[8];
 	private Rectangle[][] squares = new Rectangle[8][4];
 
 	private Line movingLine = new Line();
@@ -65,39 +62,25 @@ public class UI extends Application {
 		controller = new Controller(this);
 		window = primaryStage;
 
-		poolPane.setPrefSize(600, 848);
+		poolPane.setPrefSize(1200, 848);
 		poolPane.setStyle("-fx-background-color: Black");
-
-		gridPane = new Pane(shapeGroup);
-		gridPane.setPrefSize(400, 848);
-		gridPane.setStyle("-fx-background-color: White");
-
-		// Generating the dotted cells and placing them in the poolGroup.
-		for (int i = 0; i < shapeInsertions.length; i++) {
-			shapeInsertions[i] = new Rectangle(695, 1.0f + (i * 100), 100, 100);
-			shapeInsertions[i].setStroke(Color.WHITESMOKE);
-			shapeInsertions[i].setStrokeWidth(2);
-			shapeInsertions[i].setStyle("-fx-stroke-dash-array: 1 10 10 1;");
-			poolGroup.getChildren().add(shapeInsertions[i]);
-
-		}
 
 		// Generating the cells used by the grid and placing them in the shapeGroup.
 		for (int i = 0; i < squares.length; i++) {
 			for (int j = 0; j < squares[i].length; j++) {
-				squares[i][j] = new Rectangle(j * 100, i * 100, 100, 100);
+				squares[i][j] = new Rectangle(j * 100 + 800, i * 100, 100, 100);
 				squares[i][j].setFill(Color.BLACK);
 				squares[i][j].setStroke(Color.GREEN);
 				squares[i][j].setStrokeWidth(3);
-				shapeGroup.getChildren().add(squares[i][j]);
+				poolGroup.getChildren().add(squares[i][j]);
 
 			}
 
 		}
 
-		movingLine.setStartX(0);
+		movingLine.setStartX(800);
 		movingLine.setStartY(5);
-		movingLine.setEndX(400);
+		movingLine.setEndX(1200);
 		movingLine.setEndY(5);
 		movingLine.setStroke(Color.WHITE);
 		movingLine.setStrokeWidth(5);
@@ -108,7 +91,7 @@ public class UI extends Application {
 		lineTransition.setCycleCount(Animation.INDEFINITE);
 		lineTransition.setNode(movingLine);
 
-		shapeGroup.getChildren().add(movingLine);
+		poolGroup.getChildren().add(movingLine);
 
 		Image playImage = new Image(getClass().getResourceAsStream("/images/playButton.png"));
 		Image refreshImage = new Image(getClass().getResourceAsStream("/images/refreshButton.png"));
@@ -142,7 +125,6 @@ public class UI extends Application {
 		resetButton.setGraphic(new ImageView(clearImage));
 		resetButton.setOnAction(e -> {
 			controller.removeShapesFromPool(poolGroup);
-			controller.removeShapesFromGrid(shapeGroup);
 
 		});
 
@@ -154,7 +136,6 @@ public class UI extends Application {
 
 		layout = new BorderPane();
 		layout.setCenter(poolPane);
-		layout.setRight(gridPane);
 		layout.setTop(vbox);
 
 		mainScene = new Scene(layout, 1200, 850);
@@ -190,10 +171,13 @@ public class UI extends Application {
 
 			public void handle(MouseEvent t) {
 
-				for (int i = 0; i < shapeInsertions.length; i++) {
-					if (shapeInsertions[i].contains(t.getSceneX(), t.getSceneY() - toolbar.getHeight())) {
-						controller.addShapestoArray(shape, i);
-						System.out.println("row " + i);
+				for (int i = 0; i < squares.length; i++) {
+					for (int j = 0; j < squares[i].length; j++) {
+
+						if (squares[i][j].contains(t.getSceneX(), t.getSceneY() - toolbar.getHeight())) {
+							controller.addShapestoArray(shape, i, j);
+
+						}
 
 					}
 
@@ -214,7 +198,7 @@ public class UI extends Application {
 	public void addShape(MusicShape shape) {
 		Random rand = new Random();
 
-		shape.setLayoutX(rand.nextInt((int) ((mainScene.getWidth() - gridPane.getWidth()) - 200)));
+		shape.setLayoutX(rand.nextInt((int) ((mainScene.getWidth() - 1000))));
 		shape.setLayoutY(rand.nextInt((int) ((mainScene.getHeight() - toolbar.getHeight()) - 200)));
 
 		poolGroup.getChildren().add(shape.getShape());
@@ -228,13 +212,12 @@ public class UI extends Application {
 	 * @param shape the random shape generated in the controller.
 	 */
 	public void removeShape(MusicShape shape, int row, int column) {
-		poolGroup.getChildren().remove(shape.getShape());
-		shapeGroup.getChildren().add(shape.getShape());
 
 		shape.getShape().setTranslateX(0);
 		shape.getShape().setTranslateY(0);
 
 		shape.setLayoutX(squares[row][column].getX());
+
 		shape.setLayoutY(squares[row][column].getY());
 
 		shape.nullifyEventHandlers();
