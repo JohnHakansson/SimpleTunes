@@ -210,7 +210,6 @@ public class Controller {
 
 		}
 
-		sounds = new MusicShape[8][4];
 
 	}
 	
