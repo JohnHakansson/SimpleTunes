@@ -211,7 +211,7 @@ public class UI extends Application {
 	 * 
 	 * @param shape the random shape generated in the controller.
 	 */
-	public void removeShape(MusicShape shape, int row, int column) {
+	public void setGridPlacement(MusicShape shape, int row, int column) {
 
 		shape.getShape().setTranslateX(0);
 		shape.getShape().setTranslateY(0);

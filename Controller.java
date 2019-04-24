@@ -166,10 +166,11 @@ public class Controller {
 
 	public void addShapestoArray(MusicShape shape, int row, int column) {
 		boolean shapePlaced = false;
+		
 		if (sounds[row][column] == null) {
 			sounds[row][column] = shape;
 			shape.setPlaced(true);
-			ui.removeShape(shape, row, column);
+			ui.setGridPlacement(shape, row, column);
 
 		} else {
 
@@ -179,7 +180,7 @@ public class Controller {
 						sounds[row][i] = shape;
 						shapePlaced = true;
 						shape.setPlaced(true);
-						ui.removeShape(shape, row, i);
+						ui.setGridPlacement(shape, row, i);
 
 					}
 
