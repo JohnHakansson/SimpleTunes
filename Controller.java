@@ -75,7 +75,7 @@ public class Controller {
 			nbrOfShapes++;
 			shapeList.add(randomShape);
 			randomShape.getShape().setOnMouseReleased(ui.getMouseEventReleased(randomShape));
-
+			System.out.println(shapeList.size());
 			ui.addShape(randomShape);
 
 		} while (nbrOfShapes < limit);
@@ -173,7 +173,7 @@ public class Controller {
 			ui.removeShape(shape, row, column);
 
 		} else {
-			
+
 			for (int i = 0; !shapePlaced; i++) {
 				if (checkRowSpace(getRow(row))) {
 					if (sounds[row][i] == null) {
@@ -194,7 +194,6 @@ public class Controller {
 
 	}
 
-
 	/**
 	 * Removes all shapes from the FormPool in the UI.
 	 * 
@@ -205,10 +204,12 @@ public class Controller {
 
 		for (MusicShape ms : shapeList) {
 			group.getChildren().remove(ms.getShape());
-			
-			sounds = new MusicShape[8][4];
+
 		}
 
+		sounds = new MusicShape[8][4];
+
+		shapeList.clear();
 	}
 
 	/**
