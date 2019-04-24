@@ -109,7 +109,7 @@ public class UI extends Application {
 		Button refreshButton = new Button();
 		refreshButton.setGraphic(new ImageView(refreshImage));
 		refreshButton.setOnAction(e -> {
-			controller.removeShapesFromPool(poolGroup);
+			controller.refreshShapesFromPool(poolGroup);
 			controller.generateShape(10);
 
 		});

@@ -18,6 +18,8 @@ public abstract class MusicShape {
 	private double orgSceneY;
 	private double orgTranslateX;
 	private double orgTranslateY;
+	
+	private boolean placedInGrid = false;
 
 	public MusicShape(Color color, Media sound) {
 		setSound(sound);
@@ -97,6 +99,14 @@ public abstract class MusicShape {
 		};
 
 		return onMouseDragged;
+	}
+	
+	public void setPlaced(boolean bool) {
+		placedInGrid = bool;
+	}
+	
+	public boolean getPlaced() {
+		return placedInGrid;
 	}
 
 

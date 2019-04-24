@@ -75,7 +75,6 @@ public class Controller {
 			nbrOfShapes++;
 			shapeList.add(randomShape);
 			randomShape.getShape().setOnMouseReleased(ui.getMouseEventReleased(randomShape));
-			System.out.println(shapeList.size());
 			ui.addShape(randomShape);
 
 		} while (nbrOfShapes < limit);
@@ -167,9 +166,9 @@ public class Controller {
 
 	public void addShapestoArray(MusicShape shape, int row, int column) {
 		boolean shapePlaced = false;
-
 		if (sounds[row][column] == null) {
 			sounds[row][column] = shape;
+			shape.setPlaced(true);
 			ui.removeShape(shape, row, column);
 
 		} else {
@@ -179,6 +178,7 @@ public class Controller {
 					if (sounds[row][i] == null) {
 						sounds[row][i] = shape;
 						shapePlaced = true;
+						shape.setPlaced(true);
 						ui.removeShape(shape, row, i);
 
 					}
@@ -195,15 +195,35 @@ public class Controller {
 	}
 
 	/**
-	 * Removes all shapes from the FormPool in the UI.
+	 * Refreshes and removes all shapes from the FormPool in the UI.
+	 * 
+	 * @param group a Group-object
+	 */
+
+	public void refreshShapesFromPool(Group group) {
+		
+		for (MusicShape ms : shapeList) {
+			if (!ms.getPlaced()) {
+				group.getChildren().remove(ms.getShape());
+				
+			}
+
+		}
+
+		sounds = new MusicShape[8][4];
+
+	}
+	
+	/**
+	 * Removes all shapes from the FormPool and Grid in the UI.
 	 * 
 	 * @param group a Group-object
 	 */
 
 	public void removeShapesFromPool(Group group) {
-
+		
 		for (MusicShape ms : shapeList) {
-			group.getChildren().remove(ms.getShape());
+				group.getChildren().remove(ms.getShape());
 
 		}
 
