@@ -9,12 +9,12 @@ import javafx.scene.shape.Shape;
 /**
  * This class handles all the logic for the system.
  * 
- * @author John Håkansson, Tom Lanhed Sivertsson, Jesper Lindberg
+ * @author John Hï¿½kansson, Tom Lanhed Sivertsson, Jesper Lindberg
  *
  */
 
 public class Controller {
-	private TestUI ui;
+	private UI ui;
 	private Thread thread;
 
 	private DrumSounds drumSounds = new DrumSounds();
@@ -34,7 +34,7 @@ public class Controller {
 	 * @param ui an instance of TestUI
 	 */
 
-	public Controller(TestUI ui) {
+	public Controller(UI ui) {
 		this.ui = ui;
 
 	}
@@ -230,7 +230,7 @@ public class Controller {
 	 * soundclip connected to the shape. Then sleeps for 0.5 seconds before playing
 	 * the next row of soundclips
 	 * 
-	 * @author John Håkansson
+	 * @author John Hï¿½kansson
 	 *
 	 */
 

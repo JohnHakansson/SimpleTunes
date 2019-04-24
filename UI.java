@@ -27,11 +27,11 @@ import javafx.util.Duration;
  * This is the main User Interface class. It displays the actual widow,
  * handle event handlers and add/remove shapes from the window.
  * 
- * @author Jesper Lindberg, Matilda Frimodig, Roland Askelöf, Tom Lanhed
+ * @author Jesper Lindberg, Matilda Frimodig, Roland Askelöf, Tom Lanhed Sivertsson
  *  
  */
 
-public class TestUI extends Application {
+public class UI extends Application {
 	private Controller controller;
 	
 	private Stage window;

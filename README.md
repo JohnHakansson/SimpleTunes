@@ -1,13 +1,15 @@
 # SimpleTunes
 
 In order to use the program JavaFX is required.
-To play sounds one needs to download the following API http://www.softsynth.com/jsyn/developers/archives/jsyn-20171016.jar
-It also need to be added to the projects build path. 
+For help in installing JavaFX check the following link:
+https://www.youtube.com/watch?v=t4ehYIynI34
 
-An executable jar file is also submitted. This will bypass these requirements. 
+The application is launched from the main method in the "UI" class
 
-This first phase of the coding process was dominated by all group members learning the core functionality of JavaFX. 
-In order to facilitate the learning process each group member made one version each. 
-This code is a combination of every group members version.
+When the application is launched the user needs to press the refresh button to generate shapes
+These can then be placed in the dotted cells.
+To start playing your music simply press the play button.
 
-Since we mainly focused on learning JavaFX during this sprint the functionality is at the moment is very rudimentary.
+In order to reset the UI press the reset button( button with an X sign ).
+
+Thank You!
