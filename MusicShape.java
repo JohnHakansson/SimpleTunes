@@ -57,8 +57,8 @@ public abstract class MusicShape {
 			@Override
 			public void handle(MouseEvent t) {
 
-				play();
-
+					play();
+				
 			}
 		};
 

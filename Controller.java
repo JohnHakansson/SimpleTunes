@@ -75,7 +75,7 @@ public class Controller {
 			nbrOfShapes++;
 			shapeList.add(randomShape);
 			randomShape.getShape().setOnMouseReleased(ui.getMouseEventReleased(randomShape));
-
+			System.out.println(shapeList.size());
 			ui.addShape(randomShape);
 
 		} while (nbrOfShapes < limit);
@@ -165,44 +165,31 @@ public class Controller {
 	 * @param row   integer the row where it shape is going to be added
 	 */
 
-	public void addShapestoArray(MusicShape shape, int row) {
+	public void addShapestoArray(MusicShape shape, int row, int column) {
 		boolean shapePlaced = false;
 
-		for (int i = 0; !shapePlaced; i++) {
-			if (checkRowSpace(getRow(row))) {
-				if (sounds[row][i] == null) {
-					sounds[row][i] = shape;
-					shapePlaced = true;
-					ui.removeShape(shape, row, i);
+		if (sounds[row][column] == null) {
+			sounds[row][column] = shape;
+			ui.removeShape(shape, row, column);
+
+		} else {
+
+			for (int i = 0; !shapePlaced; i++) {
+				if (checkRowSpace(getRow(row))) {
+					if (sounds[row][i] == null) {
+						sounds[row][i] = shape;
+						shapePlaced = true;
+						ui.removeShape(shape, row, i);
+
+					}
+
+				} else {
+					System.out.println("Row is full");
+					return;
 
 				}
 
-			} else {
-				System.out.println("Row is full");
-				return;
-
 			}
-
-		}
-
-	}
-
-	/**
-	 * Removes all the shapes from the grid in the UI and all Shape-objects from the
-	 * sounds-array.
-	 * 
-	 * @param group a Group-object
-	 */
-
-	public void removeShapesFromGrid(Group group) {
-
-		for (int i = 0; i < sounds.length; i++) {
-			for (int j = 0; j < sounds[i].length; j++) {
-				group.getChildren().remove(sounds[i][j].getShape());
-				sounds[i][j] = null;
-
-			}
-
 		}
 
 	}
@@ -220,6 +207,9 @@ public class Controller {
 
 		}
 
+		sounds = new MusicShape[8][4];
+
+		shapeList.clear();
 	}
 
 	/**
