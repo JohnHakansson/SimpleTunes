@@ -45,7 +45,7 @@ public class UI extends Application {
 	private ToolBar toolbar;
 	private Scene mainScene;
 
-	private Rectangle[][] squares = new Rectangle[8][4];
+	private Rectangle[][] squares = new Rectangle[4][8];
 
 	private Line movingLine = new Line();
 	private TranslateTransition lineTransition = new TranslateTransition();
@@ -62,13 +62,12 @@ public class UI extends Application {
 		controller = new Controller(this);
 		window = primaryStage;
 
-		poolPane.setPrefSize(1200, 848);
 		poolPane.setStyle("-fx-background-color: Black");
 
 		// Generating the cells used by the grid and placing them in the shapeGroup.
 		for (int i = 0; i < squares.length; i++) {
 			for (int j = 0; j < squares[i].length; j++) {
-				squares[i][j] = new Rectangle(j * 100 + 800, i * 100, 100, 100);
+				squares[i][j] = new Rectangle(j * 100, i * 100 + 600 - 50, 100, 100);
 				squares[i][j].setFill(Color.BLACK);
 				squares[i][j].setStroke(Color.GREEN);
 				squares[i][j].setStrokeWidth(3);
@@ -78,15 +77,15 @@ public class UI extends Application {
 
 		}
 
-		movingLine.setStartX(800);
-		movingLine.setStartY(5);
-		movingLine.setEndX(1200);
-		movingLine.setEndY(5);
+		movingLine.setStartX(5);
+		movingLine.setStartY(550);
+		movingLine.setEndX(5);
+		movingLine.setEndY(995);
 		movingLine.setStroke(Color.WHITE);
 		movingLine.setStrokeWidth(5);
 
 		lineTransition.setDuration(Duration.seconds(4));
-		lineTransition.setToY(800);
+		lineTransition.setToX(1795);
 		lineTransition.setAutoReverse(false);
 		lineTransition.setCycleCount(Animation.INDEFINITE);
 		lineTransition.setNode(movingLine);
