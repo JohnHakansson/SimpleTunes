@@ -16,5 +16,9 @@ public class ClientMap {
 	public synchronized boolean contains(String username) {
 		return onlineUsers.containsKey(username);
 	}
+	
+	public synchronized Set getKeySet() {
+		return onlineUsers.keySet();
+	}
 
 }
