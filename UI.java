@@ -83,6 +83,7 @@ public class UI extends Application {
 		movingLine.setEndY(995);
 		movingLine.setStroke(Color.WHITE);
 		movingLine.setStrokeWidth(5);
+		
 
 		lineTransition.setDuration(Duration.seconds(9));
 		lineTransition.setToX(1795);
@@ -142,7 +143,7 @@ public class UI extends Application {
 		mainScene.setFill(Color.BLACK);
 
 		window.setScene(mainScene);
-		window.setResizable(true);
+		window.setResizable(false);
 		window.setTitle("SimpleTunes");
 		window.show();
 

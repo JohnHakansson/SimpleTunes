@@ -257,10 +257,10 @@ public class Controller {
 
 			try {
 				
+				
 				int columns = 0;
 				
 				while (playing) {
-
 
 					for (int i = 0; i < sounds.length; i++) {
 
@@ -272,7 +272,7 @@ public class Controller {
 
 					}
 					
-					Thread.sleep(500);
+					Thread.sleep(550);
 					
 					columns++;
 					
@@ -280,21 +280,6 @@ public class Controller {
 						columns = 0;
 						
 					}
-
-//					for (int i = 0; i < sounds.length; i++) {
-//						for (int j = 0; j < sounds[i].length; j++) {
-//
-//							if (sounds[i][j] != null) {
-//
-//								sounds[i][j].play();
-//
-//							}
-//
-//							Thread.sleep(500);
-//
-//						}
-//
-//					}
 
 				}
 
