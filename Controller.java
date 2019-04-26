@@ -22,7 +22,7 @@ public class Controller {
 	private PianoSounds pianoSounds = new PianoSounds();
 
 	private ArrayList<MusicShape> shapeList = new ArrayList<MusicShape>();
-	private MusicShape[][] sounds = new MusicShape[8][4];
+	private MusicShape[][] sounds = new MusicShape[4][18];
 
 	private boolean playing = false;
 	private Random rand = new Random();
@@ -114,15 +114,15 @@ public class Controller {
 	 * Checks the incoming array for open slots, returns true if there is space and
 	 * false if the row is full.
 	 * 
-	 * @param row an array of Shape-objects
+	 * @param column an array of Shape-objects
 	 * @return boolean true of there is space in the row or false if it's full.
 	 */
 
-	private boolean checkRowSpace(MusicShape[] row) {
+	private boolean checkColumnSpace(MusicShape[] column) {
 		int counter = 0;
 
-		for (int i = 0; i < row.length; i++) {
-			if (row[i] != null) {
+		for (int i = 0; i < column.length; i++) {
+			if (column[i] != null) {
 				counter++;
 
 			}
@@ -137,16 +137,16 @@ public class Controller {
 	 * Returns an array of Shape-objects corresponding to the given row in the
 	 * sounds-array.
 	 * 
-	 * @param row integer the row in the sounds-array that's going to be copied.
+	 * @param column integer the row in the sounds-array that's going to be copied.
 	 * @return aRow an array of Shape-objects.
 	 */
 
-	private MusicShape[] getRow(int row) {
+	private MusicShape[] getColumn(int column) {
 		MusicShape[] aRow = new MusicShape[4];
 
 		for (int i = 0; i < aRow.length; i++) {
-			if (sounds[row][i] != null) {
-				aRow[i] = sounds[row][i];
+			if (sounds[column][i] != null) {
+				aRow[i] = sounds[column][i];
 
 			}
 
@@ -166,21 +166,24 @@ public class Controller {
 
 	public void addShapestoArray(MusicShape shape, int row, int column) {
 		boolean shapePlaced = false;
-		
+
 		if (sounds[row][column] == null) {
 			sounds[row][column] = shape;
 			shape.setPlaced(true);
 			ui.setGridPlacement(shape, row, column);
 
+			System.out.println("Added to row: " + row + " Added to column: " + column);
+
 		} else {
 
 			for (int i = 0; !shapePlaced; i++) {
-				if (checkRowSpace(getRow(row))) {
+				if (checkColumnSpace(getColumn(row))) {
 					if (sounds[row][i] == null) {
 						sounds[row][i] = shape;
 						shapePlaced = true;
 						shape.setPlaced(true);
 						ui.setGridPlacement(shape, row, i);
+						System.out.println("Added to row: " + row + " Added to column: " + column);
 
 					}
 
@@ -202,18 +205,17 @@ public class Controller {
 	 */
 
 	public void refreshShapesFromPool(Group group) {
-		
+
 		for (MusicShape ms : shapeList) {
 			if (!ms.getPlaced()) {
 				group.getChildren().remove(ms.getShape());
-				
+
 			}
 
 		}
 
-
 	}
-	
+
 	/**
 	 * Removes all shapes from the FormPool and Grid in the UI.
 	 * 
@@ -221,13 +223,13 @@ public class Controller {
 	 */
 
 	public void removeShapesFromPool(Group group) {
-		
+
 		for (MusicShape ms : shapeList) {
-				group.getChildren().remove(ms.getShape());
+			group.getChildren().remove(ms.getShape());
 
 		}
 
-		sounds = new MusicShape[8][4];
+		sounds = new MusicShape[4][18];
 
 		shapeList.clear();
 	}
@@ -246,22 +248,45 @@ public class Controller {
 		public void run() {
 
 			try {
-
+				
+				int columns = 0;
+				
 				while (playing) {
 
+
 					for (int i = 0; i < sounds.length; i++) {
-						for (int j = 0; j < sounds[i].length; j++) {
 
-							if (sounds[i][j] != null) {
+						if (sounds[i][columns] != null) {
 
-								sounds[i][j].play();
-
-							}
+							sounds[i][columns].play();
 
 						}
 
-						Thread.sleep(500);
 					}
+					
+					Thread.sleep(500);
+					
+					columns++;
+					
+					if( columns == 18) {
+						columns = 0;
+						
+					}
+
+//					for (int i = 0; i < sounds.length; i++) {
+//						for (int j = 0; j < sounds[i].length; j++) {
+//
+//							if (sounds[i][j] != null) {
+//
+//								sounds[i][j].play();
+//
+//							}
+//
+//							Thread.sleep(500);
+//
+//						}
+//
+//					}
 
 				}
 

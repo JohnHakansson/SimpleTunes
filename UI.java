@@ -45,7 +45,7 @@ public class UI extends Application {
 	private ToolBar toolbar;
 	private Scene mainScene;
 
-	private Rectangle[][] squares = new Rectangle[4][8];
+	private Rectangle[][] squares = new Rectangle[4][18];
 
 	private Line movingLine = new Line();
 	private TranslateTransition lineTransition = new TranslateTransition();
@@ -84,11 +84,12 @@ public class UI extends Application {
 		movingLine.setStroke(Color.WHITE);
 		movingLine.setStrokeWidth(5);
 
-		lineTransition.setDuration(Duration.seconds(4));
+		lineTransition.setDuration(Duration.seconds(9));
 		lineTransition.setToX(1795);
 		lineTransition.setAutoReverse(false);
 		lineTransition.setCycleCount(Animation.INDEFINITE);
 		lineTransition.setNode(movingLine);
+		lineTransition.setRate(1.0);
 
 		poolGroup.getChildren().add(movingLine);
 
@@ -148,13 +149,13 @@ public class UI extends Application {
 	}
 
 	public void startMovingLine() {
-
 		lineTransition.play();
+		
 	}
 
 	public void stopMovingLine() {
 		lineTransition.stop();
-		lineTransition.setFromY(5);
+		lineTransition.setFromX(5);
 
 	}
 
@@ -198,8 +199,8 @@ public class UI extends Application {
 	public void addShape(MusicShape shape) {
 		Random rand = new Random();
 
-		shape.setLayoutX(rand.nextInt((int) ((mainScene.getWidth() - 1000))));
-		shape.setLayoutY(rand.nextInt((int) ((mainScene.getHeight() - toolbar.getHeight()) - 200)));
+		shape.setLayoutX(rand.nextInt((int) ((mainScene.getWidth() - 100))));
+		shape.setLayoutY(rand.nextInt((int) ((mainScene.getHeight() - toolbar.getHeight()) - 550)));
 
 		poolGroup.getChildren().add(shape.getShape());
 	}
