@@ -19,6 +19,7 @@ public class ClientHandler extends Thread {
 	public void send(Object obj) {
 		try {
 			output.writeObject(obj);
+			output.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
