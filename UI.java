@@ -45,7 +45,7 @@ public class UI extends Application {
 	private ToolBar toolbar;
 	private Scene mainScene;
 
-	private Rectangle[][] squares = new Rectangle[8][4];
+	private Rectangle[][] squares = new Rectangle[4][18];
 
 	private Line movingLine = new Line();
 	private TranslateTransition lineTransition = new TranslateTransition();
@@ -62,13 +62,12 @@ public class UI extends Application {
 		controller = new Controller(this);
 		window = primaryStage;
 
-		poolPane.setPrefSize(1200, 848);
 		poolPane.setStyle("-fx-background-color: Black");
 
 		// Generating the cells used by the grid and placing them in the shapeGroup.
 		for (int i = 0; i < squares.length; i++) {
 			for (int j = 0; j < squares[i].length; j++) {
-				squares[i][j] = new Rectangle(j * 100 + 800, i * 100, 100, 100);
+				squares[i][j] = new Rectangle(j * 100, i * 100 + 600 - 50, 100, 100);
 				squares[i][j].setFill(Color.BLACK);
 				squares[i][j].setStroke(Color.GREEN);
 				squares[i][j].setStrokeWidth(3);
@@ -78,18 +77,20 @@ public class UI extends Application {
 
 		}
 
-		movingLine.setStartX(800);
-		movingLine.setStartY(5);
-		movingLine.setEndX(1200);
-		movingLine.setEndY(5);
+		movingLine.setStartX(5);
+		movingLine.setStartY(550);
+		movingLine.setEndX(5);
+		movingLine.setEndY(995);
 		movingLine.setStroke(Color.WHITE);
 		movingLine.setStrokeWidth(5);
+		
 
-		lineTransition.setDuration(Duration.seconds(4));
-		lineTransition.setToY(800);
+		lineTransition.setDuration(Duration.seconds(9));
+		lineTransition.setToX(1795);
 		lineTransition.setAutoReverse(false);
 		lineTransition.setCycleCount(Animation.INDEFINITE);
 		lineTransition.setNode(movingLine);
+		lineTransition.setRate(1.0);
 
 		poolGroup.getChildren().add(movingLine);
 
@@ -142,21 +143,35 @@ public class UI extends Application {
 		mainScene.setFill(Color.BLACK);
 
 		window.setScene(mainScene);
-		window.setResizable(true);
+		window.setResizable(false);
 		window.setTitle("SimpleTunes");
 		window.show();
 
 	}
 
 	public void startMovingLine() {
-
 		lineTransition.play();
+		
 	}
 
 	public void stopMovingLine() {
 		lineTransition.stop();
-		lineTransition.setFromY(5);
+		lineTransition.setFromX(5);
 
+	}
+	
+	public EventHandler<MouseEvent> getMouseRemove(MusicShape shape) {
+		EventHandler<MouseEvent> OnMouseClicked = new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent t) {
+				poolGroup.getChildren().remove(shape.getShape());
+				controller.removeSound(shape.getRow(), shape.getColumn());
+				
+			}
+		};
+
+		return OnMouseClicked;
 	}
 
 	/*
@@ -199,8 +214,8 @@ public class UI extends Application {
 	public void addShape(MusicShape shape) {
 		Random rand = new Random();
 
-		shape.setLayoutX(rand.nextInt((int) ((mainScene.getWidth() - 1000))));
-		shape.setLayoutY(rand.nextInt((int) ((mainScene.getHeight() - toolbar.getHeight()) - 200)));
+		shape.setLayoutX(rand.nextInt((int) ((mainScene.getWidth() - 100))));
+		shape.setLayoutY(rand.nextInt((int) ((mainScene.getHeight() - toolbar.getHeight()) - 550)));
 
 		poolGroup.getChildren().add(shape.getShape());
 	}
@@ -222,6 +237,8 @@ public class UI extends Application {
 		shape.setLayoutY(squares[row][column].getY());
 
 		shape.nullifyEventHandlers();
+		
+		shape.getShape().setOnMousePressed(getMouseRemove(shape));
 
 		controller.generateShape(1);
 
