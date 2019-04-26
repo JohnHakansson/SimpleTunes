@@ -118,11 +118,11 @@ public class Controller {
 	 * @return boolean true of there is space in the row or false if it's full.
 	 */
 
-	private boolean checkColumnSpace(MusicShape[] column) {
+	private boolean checkColumnSpace(int column) {
 		int counter = 0;
 
-		for (int i = 0; i < column.length; i++) {
-			if (column[i] != null) {
+		for (int i = 0; i < sounds.length; i++) {
+			if (sounds[i][column] != null) {
 				counter++;
 
 			}
@@ -145,8 +145,8 @@ public class Controller {
 		MusicShape[] aRow = new MusicShape[4];
 
 		for (int i = 0; i < aRow.length; i++) {
-			if (sounds[column][i] != null) {
-				aRow[i] = sounds[column][i];
+			if (sounds[i][column] != null) {
+				aRow[i] = sounds[i][column];
 
 			}
 
@@ -166,11 +166,14 @@ public class Controller {
 
 	public void addShapestoArray(MusicShape shape, int row, int column) {
 		boolean shapePlaced = false;
+		
+		shape.setColumn(column);
 
+		
+		
 		if (sounds[row][column] == null) {
 			sounds[row][column] = shape;
 			shape.setRow(row);
-			shape.setColumn(column);
 			shape.setPlaced(true);
 			ui.setGridPlacement(shape, row, column);
 
@@ -179,14 +182,13 @@ public class Controller {
 		} else {
 
 			for (int i = 0; !shapePlaced; i++) {
-				if (checkColumnSpace(getColumn(row))) {
-					if (sounds[row][i] == null) {
-						sounds[row][i] = shape;
+				if (checkColumnSpace(shape.getColumn())) {
+					if (sounds[i][column] == null) {
+						sounds[i][column] = shape;
 						shapePlaced = true;
 						shape.setPlaced(true);
-						shape.setRow(row);
-						shape.setColumn(i);
-						ui.setGridPlacement(shape, row, i);
+						shape.setRow(i);
+						ui.setGridPlacement(shape, i, column);
 						System.out.println("Added to row: " + row + " Added to column: " + column);
 
 					}
