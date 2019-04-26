@@ -138,17 +138,18 @@ public class UI extends Application {
 		layout.setCenter(poolPane);
 		layout.setTop(vbox);
 
-		mainScene = new Scene(layout, 1200, 850);
+		mainScene = new Scene(layout, 1800, 1000);
 		mainScene.setFill(Color.BLACK);
 
 		window.setScene(mainScene);
-		window.setResizable(false);
+		window.setResizable(true);
 		window.setTitle("SimpleTunes");
 		window.show();
 
 	}
 
 	public void startMovingLine() {
+
 		lineTransition.play();
 	}
 

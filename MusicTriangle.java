@@ -12,8 +12,6 @@ import java.util.*;
 
 public class MusicTriangle extends MusicShape {
 
-//	private Polygon triangle;
-
 	public MusicTriangle(double x, double y, Color color, Media sound) {
 		super(color, sound);
 		
