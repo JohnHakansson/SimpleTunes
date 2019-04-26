@@ -5,6 +5,7 @@ import java.util.Random;
 import javafx.animation.Animation;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.*;
 import javafx.scene.control.Button;
@@ -83,7 +84,6 @@ public class UI extends Application {
 		movingLine.setEndY(995);
 		movingLine.setStroke(Color.WHITE);
 		movingLine.setStrokeWidth(5);
-		
 
 		lineTransition.setDuration(Duration.seconds(9));
 		lineTransition.setToX(1795);
@@ -129,7 +129,15 @@ public class UI extends Application {
 
 		});
 
-		toolbar = new ToolBar(playButton, pauseButton, new Separator(), refreshButton, resetButton);
+		Button onlineButton = new Button("Go Online");
+		onlineButton.setOnAction(e -> {
+
+			LoginWindow.display();
+
+		});
+
+		toolbar = new ToolBar(playButton, pauseButton, new Separator(), refreshButton, resetButton, new Separator(),
+				onlineButton);
 		toolbar.setPrefHeight(48);
 
 		vbox = new VBox();
@@ -151,7 +159,7 @@ public class UI extends Application {
 
 	public void startMovingLine() {
 		lineTransition.play();
-		
+
 	}
 
 	public void stopMovingLine() {
@@ -159,7 +167,7 @@ public class UI extends Application {
 		lineTransition.setFromX(5);
 
 	}
-	
+
 	public EventHandler<MouseEvent> getMouseRemove(MusicShape shape) {
 		EventHandler<MouseEvent> OnMouseClicked = new EventHandler<MouseEvent>() {
 
@@ -167,7 +175,7 @@ public class UI extends Application {
 			public void handle(MouseEvent t) {
 				poolGroup.getChildren().remove(shape.getShape());
 				controller.removeSound(shape.getRow(), shape.getColumn());
-				
+
 			}
 		};
 
@@ -237,7 +245,7 @@ public class UI extends Application {
 		shape.setLayoutY(squares[row][column].getY());
 
 		shape.nullifyEventHandlers();
-		
+
 		shape.getShape().setOnMousePressed(getMouseRemove(shape));
 
 		controller.generateShape(1);
