@@ -20,6 +20,9 @@ public abstract class MusicShape {
 	private double orgTranslateY;
 	
 	private boolean placedInGrid = false;
+	
+	private int row;
+	private int column;
 
 	public MusicShape(Color color, Media sound) {
 		setSound(sound);
@@ -107,6 +110,22 @@ public abstract class MusicShape {
 	
 	public boolean getPlaced() {
 		return placedInGrid;
+	}
+	
+	public void setRow(int row) {
+		this.row = row;
+	}
+	
+	public void setColumn(int column) {
+		this.column = column;
+	}
+	
+	public int getRow() {
+		return row;
+	}
+	
+	public int getColumn() {
+		return column;
 	}
 
 

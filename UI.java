@@ -158,6 +158,20 @@ public class UI extends Application {
 		lineTransition.setFromX(5);
 
 	}
+	
+	public EventHandler<MouseEvent> getMouseRemove(MusicShape shape) {
+		EventHandler<MouseEvent> OnMouseClicked = new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent t) {
+				poolGroup.getChildren().remove(shape.getShape());
+				controller.removeSound(shape.getRow(), shape.getColumn());
+				
+			}
+		};
+
+		return OnMouseClicked;
+	}
 
 	/*
 	 * Method for placing the dragged shape in the sounds array located in the
@@ -222,6 +236,8 @@ public class UI extends Application {
 		shape.setLayoutY(squares[row][column].getY());
 
 		shape.nullifyEventHandlers();
+		
+		shape.getShape().setOnMousePressed(getMouseRemove(shape));
 
 		controller.generateShape(1);
 

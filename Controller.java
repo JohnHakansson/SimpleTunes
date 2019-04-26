@@ -169,6 +169,8 @@ public class Controller {
 
 		if (sounds[row][column] == null) {
 			sounds[row][column] = shape;
+			shape.setRow(row);
+			shape.setColumn(column);
 			shape.setPlaced(true);
 			ui.setGridPlacement(shape, row, column);
 
@@ -182,6 +184,8 @@ public class Controller {
 						sounds[row][i] = shape;
 						shapePlaced = true;
 						shape.setPlaced(true);
+						shape.setRow(row);
+						shape.setColumn(i);
 						ui.setGridPlacement(shape, row, i);
 						System.out.println("Added to row: " + row + " Added to column: " + column);
 
@@ -196,6 +200,10 @@ public class Controller {
 			}
 		}
 
+	}
+	
+	public void removeSound(int row, int column) {
+		sounds[row][column] = null;
 	}
 
 	/**
