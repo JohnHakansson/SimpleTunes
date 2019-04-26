@@ -2,9 +2,9 @@ package simpleTunes;
 
 import java.io.*;
 import java.net.*;
+import java.util.*;
 
 public class Server implements Runnable {
-	private int port;
 	private Thread thread = new Thread(this);
 	private ServerSocket serverSocket;
 	private ClientMap clientMap = new ClientMap();
@@ -27,16 +27,29 @@ public class Server implements Runnable {
 				ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
 
 				String username = (String) input.readObject();
-
+				ArrayList<String> onlineUsers = new ArrayList<String>(clientMap.getKeySet());
+				
 				if (clientMap.contains(username)) {
-					String nameAlreadyExists = "Username already exists, please choose another username ";
+					String nameAlreadyExists = ("Username already exists, please choose another username ");
 					output.writeObject(nameAlreadyExists);
-					
+
 				} else {
+
+					InitialStateMessage initialStateMessage = new InitialStateMessage(onlineUsers);
+					output.writeObject(initialStateMessage);
+					
+					UserConnectMessage userConnectMessage = new UserConnectMessage(username);
+					
+					for(String onlineUser : onlineUsers) {
+						ClientHandler tempClient = clientMap.get(onlineUser);
+						tempClient.send(userConnectMessage);
+					}
+					
 
 					ClientHandler client = new ClientHandler(socket, input, output, clientMap);
 					clientMap.put(username, client);
 					client.start();
+
 				}
 			} catch (IOException | ClassNotFoundException e) {
 				e.printStackTrace();
