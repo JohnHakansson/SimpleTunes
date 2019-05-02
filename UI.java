@@ -62,6 +62,9 @@ public class UI extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		controller = new Controller(this);
 		window = primaryStage;
+		window.setOnCloseRequest(e -> {
+			System.exit(0);
+		});
 
 		poolPane.setStyle("-fx-background-color: Black");
 
