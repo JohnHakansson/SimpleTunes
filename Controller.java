@@ -261,9 +261,16 @@ public class Controller {
 			System.out.println("iniialStateMessage mottagits");
 		}
 		
+	}
+	
+	public void connectToUser(String username) {
+		
+		ConnectToUserMessage message = new ConnectToUserMessage(username);
+		
+		client.sendObject(message);
 		
 	}
-
+ 
 	/**
 	 * An inner class that extends Thread and uses the sounds-array to play the
 	 * soundclip connected to the shape. Then sleeps for 0.5 seconds before playing

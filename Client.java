@@ -74,6 +74,20 @@ public class Client {
 		}
 	}
 
+	public void sendObject(Object obj) {
+
+		try {
+
+			output.writeObject(obj);
+			output.flush();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+
+		}
+
+	}
+
 	private class ClientThread extends Thread {
 		public void run() {
 			try {

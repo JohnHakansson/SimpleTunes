@@ -16,19 +16,19 @@ public class ClientHandler extends Thread {
 	}
 
 	public void send(Object obj) {
-		
+
 		try {
 			output.writeObject(obj);
 			output.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	public void setReceivingUser(String receivingUser) {
 		this.receivingUser = receivingUser;
-		
+
 	}
 
 	public void run() {
@@ -39,23 +39,22 @@ public class ClientHandler extends Thread {
 			try {
 
 				obj = input.readObject();
-				
-				if(obj instanceof String) {
-					setReceivingUser((String)obj);
+
+				if (obj instanceof ConnectToUserMessage) {
+					setReceivingUser(((ConnectToUserMessage) obj).getUsername());
 				}
-				
+
 				else {
 					clientMap.get(receivingUser).send(obj);
-					
+
 				}
-				
 
 			} catch (IOException | ClassNotFoundException e) {
 				e.printStackTrace();
 			}
 
 		}
-		
+
 	}
 
 }

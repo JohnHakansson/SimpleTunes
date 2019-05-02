@@ -146,8 +146,10 @@ public class UI extends Application {
 
 		Button connectButton = new Button("Connect");
 		connectButton.setOnAction(e -> {
-			
+
 			String str = listOfUsers.getSelectionModel().getSelectedItem();
+
+			controller.connectToUser(str);
 
 		});
 
