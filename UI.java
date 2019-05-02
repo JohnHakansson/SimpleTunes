@@ -1,14 +1,17 @@
 package simpleTunes;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import javafx.animation.Animation;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.scene.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Separator;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
@@ -50,6 +53,8 @@ public class UI extends Application {
 
 	private Line movingLine = new Line();
 	private TranslateTransition lineTransition = new TranslateTransition();
+
+	private ChoiceBox<String> listOfUsers;
 
 	/*
 	 * Start method for the javaFX application. Here the components are created and
@@ -135,12 +140,21 @@ public class UI extends Application {
 		Button onlineButton = new Button("Go Online");
 		onlineButton.setOnAction(e -> {
 
-			LoginWindow.display();
+			new LoginWindow(controller).display();
 
 		});
 
+		Button connectButton = new Button("Connect");
+		connectButton.setOnAction(e -> {
+			
+			String str = listOfUsers.getSelectionModel().getSelectedItem();
+
+		});
+
+		listOfUsers = new ChoiceBox<String>();
+
 		toolbar = new ToolBar(playButton, pauseButton, new Separator(), refreshButton, resetButton, new Separator(),
-				onlineButton);
+				onlineButton, listOfUsers, connectButton);
 		toolbar.setPrefHeight(48);
 
 		vbox = new VBox();
@@ -252,6 +266,12 @@ public class UI extends Application {
 		shape.getShape().setOnMousePressed(getMouseRemove(shape));
 
 		controller.generateShape(1);
+
+	}
+
+	public void updateUserList(ArrayList<String> list) {
+
+		listOfUsers.setItems(FXCollections.observableList(list));
 
 	}
 

@@ -19,10 +19,15 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class LoginWindow {
+	private Controller controller;
+	
+	public LoginWindow( Controller controller) {
+		this.controller = controller;
+		
+		
+	}
 
-	public static void display() {
-
-		System.out.println("hej nu har det startat");
+	public void display() {
 
 		Stage stage = new Stage();
 
@@ -52,6 +57,7 @@ public class LoginWindow {
 
 		final Text actiontarget = new Text();
 		grid.add(actiontarget, 1, 6);
+		
 
 		btn.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -59,6 +65,8 @@ public class LoginWindow {
 			public void handle(ActionEvent e) {
 				actiontarget.setFill(Color.FIREBRICK);
 				actiontarget.setText("Sign in button pressed");
+				controller.sendUsername(userTextField.getText());
+				
 			}
 		});
 
