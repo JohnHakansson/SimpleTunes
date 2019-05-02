@@ -46,15 +46,16 @@ public class Client {
 
 		try {
 			output.writeObject(removeShapeMessage);
+			output.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void sendShape(MusicShape musicShape) {
+	public void sendShape(MusicShapeMessage msm) {
 		try {
 
-			output.writeObject(musicShape);
+			output.writeObject(msm);
 			output.flush();
 
 		} catch (IOException e) {
@@ -95,7 +96,8 @@ public class Client {
 				while (true) {
 					Object object = input.readObject();
 					controller.update(object);
-
+					
+					System.out.println("Kleinten har mottagit objekt");
 				}
 
 			} catch (ClassNotFoundException e) {

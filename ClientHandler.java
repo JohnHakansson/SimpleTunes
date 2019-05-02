@@ -42,10 +42,17 @@ public class ClientHandler extends Thread {
 
 				if (obj instanceof ConnectToUserMessage) {
 					setReceivingUser(((ConnectToUserMessage) obj).getUsername());
+					
+					System.out.println("ConnectToUserMessage mottagits");
+
+					
 				}
 
 				else {
 					clientMap.get(receivingUser).send(obj);
+					
+					System.out.println("Handler is sending object");
+					
 
 				}
 

@@ -46,5 +46,10 @@ public class MusicSquare extends MusicShape {
 		shape.setOnMouseClicked(null);
 		shape.setOnMouseReleased(null);
 	}
+	
+	public String toString() {
+		
+		return "square";
+	}
 
 }

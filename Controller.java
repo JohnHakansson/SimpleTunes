@@ -29,6 +29,8 @@ public class Controller {
 	private Color[] colors = { Color.RED, Color.BLUE, Color.GREEN };
 	private Client client;
 
+	private boolean online = false;
+
 	/**
 	 * Gives the UI-reference a value
 	 * 
@@ -176,6 +178,17 @@ public class Controller {
 			shape.setPlaced(true);
 			ui.setGridPlacement(shape, row, column);
 
+			if (online) {
+
+				MusicShapeMessage msm = new MusicShapeMessage(shape.toString(),
+						NamedColors.getColorString(shape.getColor()), row, column);
+
+				client.sendShape(msm);
+
+				System.out.println("Sending shape to client");
+
+			}
+
 			System.out.println("Added to row: " + row + " Added to column: " + column);
 
 		} else {
@@ -190,6 +203,17 @@ public class Controller {
 						ui.setGridPlacement(shape, i, column);
 						System.out.println("Added to row: " + row + " Added to column: " + column);
 
+						if (online) {
+
+							MusicShapeMessage msm = new MusicShapeMessage(shape.toString(),
+									NamedColors.getColorString(shape.getColor()), row, column);
+
+							client.sendShape(msm);
+
+							System.out.println("Sending shape to client");
+
+						}
+
 					}
 
 				} else {
@@ -199,6 +223,7 @@ public class Controller {
 				}
 
 			}
+
 		}
 
 	}
@@ -216,6 +241,7 @@ public class Controller {
 	public void refreshShapesFromPool(Group group) {
 
 		for (MusicShape ms : shapeList) {
+
 			if (!ms.getPlaced()) {
 				group.getChildren().remove(ms.getShape());
 
@@ -249,28 +275,89 @@ public class Controller {
 		client.sendUsername();
 
 	}
-	
+
 	public void update(Object obj) {
-		
-		if( obj instanceof InitialStateMessage) {
-			
+
+		if (obj instanceof InitialStateMessage) {
+
+			online = true;
+
 			InitialStateMessage ism = (InitialStateMessage) obj;
-			
+
 			ui.updateUserList(ism.getConnectedUsers());
-			
+
 			System.out.println("iniialStateMessage mottagits");
+
 		}
-		
+
+		if (obj instanceof MusicShapeMessage) {
+
+			MusicShapeMessage msm = (MusicShapeMessage) obj;
+
+			if (msm.getShape().equals("square")) {
+
+				Color color = NamedColors.get(msm.getColor());
+
+				MusicSquare ms = new MusicSquare(color, pianoSounds.getPianoSound(color));
+
+				ui.setGridPlacement(ms, ms.getRow(), ms.getColumn());
+
+				sounds[ms.getRow()][ms.getColumn()] = ms;
+
+			}
+
+			if (msm.getShape().equals("triangle")) {
+
+				Color color = NamedColors.get(msm.getColor());
+
+				MusicTriangle ms = new MusicTriangle(50, 50, color, drumSounds.getDrumSounds(color));
+
+				ui.setGridPlacement(ms, ms.getRow(), ms.getColumn());
+
+				sounds[ms.getRow()][ms.getColumn()] = ms;
+
+			}
+
+			if (msm.getShape().equals("circle")) {
+
+				Color color = NamedColors.get(msm.getColor());
+
+				MusicCircle ms = new MusicCircle(color, guitarSounds.getGuitarSound(color));
+
+				ui.setGridPlacement(ms, ms.getRow(), ms.getColumn());
+
+				sounds[ms.getRow()][ms.getColumn()] = ms;
+
+			}
+
+//			ui.setGridPlacement(musicShape, musicShape.getRow(), musicShape.getColumn());
+//
+//			sounds[musicShape.getRow()][musicShape.getColumn()] = musicShape;
+
+			System.out.println("MusicShape har kommit till controller");
+
+		}
+
 	}
-	
+
+	public void update(MusicShape musicShape) {
+
+		ui.setGridPlacement(musicShape, musicShape.getRow(), musicShape.getColumn());
+
+		sounds[musicShape.getRow()][musicShape.getColumn()] = musicShape;
+
+		System.out.println("MusicShape har kommit till controller");
+
+	}
+
 	public void connectToUser(String username) {
-		
+
 		ConnectToUserMessage message = new ConnectToUserMessage(username);
-		
+
 		client.sendObject(message);
-		
+
 	}
- 
+
 	/**
 	 * An inner class that extends Thread and uses the sounds-array to play the
 	 * soundclip connected to the shape. Then sleeps for 0.5 seconds before playing
