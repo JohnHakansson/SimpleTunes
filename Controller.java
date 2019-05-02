@@ -258,6 +258,7 @@ public class Controller {
 			
 			ui.updateUserList(ism.getConnectedUsers());
 			
+			System.out.println("iniialStateMessage mottagits");
 		}
 		
 		

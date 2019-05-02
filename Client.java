@@ -11,85 +11,87 @@ public class Client {
 	private ObjectOutputStream output;
 	private ObjectInputStream input;
 	private Controller controller;
-		
-	
+
 	public Client(String ip, int port, String username, Controller controller) {
 		this.ip = ip;
 		this.port = port;
 		this.username = username;
 		this.controller = controller;
-		
+
 		try {
-			
+
 			socket = new Socket(ip, port);
 			output = new ObjectOutputStream(socket.getOutputStream());
 			input = new ObjectInputStream(socket.getInputStream());
-			
+
 			thread = new ClientThread();
 			thread.start();
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public void disconnect() {		
+
+	public void disconnect() {
 		try {
 			socket.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void sendRemoveShape(MusicShape musicShape) {
-		
+
 		RemoveShapeMessage removeShapeMessage = new RemoveShapeMessage(musicShape);
-		
+
 		try {
 			output.writeObject(removeShapeMessage);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public void sendShape(MusicShape musicShape) {	
+
+	public void sendShape(MusicShape musicShape) {
 		try {
-			
+
 			output.writeObject(musicShape);
 			output.flush();
 
 		} catch (IOException e) {
 			e.printStackTrace();
-		}		
-	}
-	
-	public void sendUsername() {
-		try {
-			
-			output.writeObject(username);
-			output.flush();
-			
-		}catch(IOException e) {
-			e.printStackTrace();
-			
 		}
 	}
-	
-	private class ClientThread extends Thread {		
-		public void run() {			
+
+	public void sendUsername() {
+		try {
+
+			output.writeObject(username);
+			output.flush();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+
+		}
+	}
+
+	private class ClientThread extends Thread {
+		public void run() {
 			try {
-				
-				Object object = input.readObject();
-//				controller.update(object);
-				
+
+				while (true) {
+					Object object = input.readObject();
+					controller.update(object);
+
+				}
+
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
+
 		}
-		
+
 	}
 
 }
