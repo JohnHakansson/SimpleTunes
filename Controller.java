@@ -27,6 +27,7 @@ public class Controller {
 	private boolean playing = false;
 	private Random rand = new Random();
 	private Color[] colors = { Color.RED, Color.BLUE, Color.GREEN };
+	private Client client;
 
 	/**
 	 * Gives the UI-reference a value
@@ -166,11 +167,9 @@ public class Controller {
 
 	public void addShapestoArray(MusicShape shape, int row, int column) {
 		boolean shapePlaced = false;
-		
+
 		shape.setColumn(column);
 
-		
-		
 		if (sounds[row][column] == null) {
 			sounds[row][column] = shape;
 			shape.setRow(row);
@@ -203,7 +202,7 @@ public class Controller {
 		}
 
 	}
-	
+
 	public void removeSound(int row, int column) {
 		sounds[row][column] = null;
 	}
@@ -244,6 +243,26 @@ public class Controller {
 		shapeList.clear();
 	}
 
+	public void sendUsername(String userName) {
+
+		client = new Client("localhost", 5555, userName, this);
+		client.sendUsername();
+
+	}
+	
+	public void update(Object obj) {
+		
+		if( obj instanceof InitialStateMessage) {
+			
+			InitialStateMessage ism = (InitialStateMessage) obj;
+			
+			ui.updateUserList(ism.getConnectedUsers());
+			
+		}
+		
+		
+	}
+
 	/**
 	 * An inner class that extends Thread and uses the sounds-array to play the
 	 * soundclip connected to the shape. Then sleeps for 0.5 seconds before playing
@@ -258,10 +277,9 @@ public class Controller {
 		public void run() {
 
 			try {
-				
-				
+
 				int columns = 0;
-				
+
 				while (playing) {
 
 					for (int i = 0; i < sounds.length; i++) {
@@ -273,14 +291,14 @@ public class Controller {
 						}
 
 					}
-					
+
 					Thread.sleep(550);
-					
+
 					columns++;
-					
-					if( columns == 18) {
+
+					if (columns == 18) {
 						columns = 0;
-						
+
 					}
 
 				}
