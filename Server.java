@@ -46,11 +46,12 @@ public class Server implements Runnable {
 					}
 					
 
-					ClientHandler client = new ClientHandler(socket, input, output, clientMap);
+					ClientHandler client = new ClientHandler(input, output, clientMap);
 					clientMap.put(username, client);
 					client.start();
 
 				}
+				
 			} catch (IOException | ClassNotFoundException e) {
 				e.printStackTrace();
 			}
