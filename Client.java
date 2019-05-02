@@ -5,6 +5,7 @@ import java.net.*;
 
 public class Client {
 	private String ip, username;
+	private Thread thread;
 	private int port;
 	private Socket socket;
 	private ObjectOutputStream output;
@@ -24,6 +25,9 @@ public class Client {
 			output = new ObjectOutputStream(socket.getOutputStream());
 			input = new ObjectInputStream(socket.getInputStream());
 			
+			thread = new ClientThread();
+			thread.start();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -37,7 +41,16 @@ public class Client {
 		}
 	}
 	
-	
+	public void sendRemoveShape(MusicShape musicShape) {
+		
+		RemoveShapeMessage removeShapeMessage = new RemoveShapeMessage(musicShape);
+		
+		try {
+			output.writeObject(removeShapeMessage);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public void sendShape(MusicShape musicShape) {	
 		try {
@@ -78,6 +91,5 @@ public class Client {
 		}
 		
 	}
-	
 
 }
