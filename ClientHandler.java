@@ -66,19 +66,15 @@ public class ClientHandler extends Thread {
 
 					if (respons.getConnectRequest()) {
 
-						setReceivingUser(respons.getReceiverUsername());
-
-						System.out.println(respons.getReceiverUsername());
-
-						System.out.println(receivingUser);
+						setReceivingUser(respons.getSenderUsername());
+						
+						clientMap.get(respons.getSenderUsername()).setReceivingUser(respons.getReceiverUsername());
 
 					}
 
 				}
 
 				else {
-
-					System.out.println(receivingUser);
 
 					clientMap.get(receivingUser).send(obj);
 

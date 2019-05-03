@@ -7,9 +7,10 @@ public class ConnectRequestMessage implements Serializable {
 	private boolean connectRequest = false;
 	private String message;
 	private String recieverUsername;
+	private String senderUsername;
 
 	public ConnectRequestMessage(String senderUsername, String recieverUsername) {
-
+		this.senderUsername = senderUsername;
 		message = senderUsername + " wants to connect with you. Do you accept?";
 		this.recieverUsername = recieverUsername;
 
@@ -17,6 +18,10 @@ public class ConnectRequestMessage implements Serializable {
 
 	public boolean getConnectRequest() {
 		return connectRequest;
+	}
+
+	public String getSenderUsername() {
+		return senderUsername;
 	}
 
 	public void setConnectRequest(boolean connectRequest) {
