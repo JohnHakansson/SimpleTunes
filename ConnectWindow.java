@@ -19,20 +19,21 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class LoginWindow {
+public class ConnectWindow {
 	private Controller controller;
-
-	private Text actiontarget = new Text();
-
 	private Stage stage;
 	
-	private TextField userTextField;
+	
+	private String username;
 
-	public LoginWindow(Controller controller) {
+	public ConnectWindow(Controller controller, String username) {
 		this.controller = controller;
+		this.username = username;
 
 	}
 
+
+	
 	public void display() {
 
 		stage = new Stage();
@@ -45,31 +46,31 @@ public class LoginWindow {
 		grid.setVgap(10);
 		grid.setPadding(new Insets(25, 25, 25, 25));
 
-		Text scenetitle = new Text("Fuck You");
+		Text scenetitle = new Text(username + " wants to connect!");
 		scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		grid.add(scenetitle, 0, 0, 2, 1);
 
-		Label userName = new Label("User Name:");
-		grid.add(userName, 0, 1);
-
-		userTextField = new TextField();
-		grid.add(userTextField, 1, 1);
-
-		Button btn = new Button("Sign in");
+		Button btnAccept = new Button("Accept");
+		Button btnDecline = new Button("Decline");
 		HBox hbBtn = new HBox(10);
 		hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
-		hbBtn.getChildren().add(btn);
+		hbBtn.getChildren().add(btnAccept);
+		hbBtn.getChildren().add(btnDecline);
 		grid.add(hbBtn, 1, 4);
 
-		grid.add(actiontarget, 1, 6);
 
-		btn.setOnAction(new EventHandler<ActionEvent>() {
+		btnAccept.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent e) {
-				actiontarget.setFill(Color.DARKGRAY);
-				actiontarget.setText("Signing in...");
-				controller.sendUsername(userTextField.getText());
+
+			}
+		});
+		
+		btnDecline.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent e) {
 
 			}
 		});
@@ -77,13 +78,6 @@ public class LoginWindow {
 		Scene scene = new Scene(grid, 300, 275);
 		stage.setScene(scene);
 		stage.showAndWait();
-
-	}
-
-	public void userNameNotOK() {
-
-		actiontarget.setFill(Color.RED);
-		actiontarget.setText("Username already in use");
 
 	}
 
@@ -98,10 +92,4 @@ public class LoginWindow {
 
 	}
 	
-	public String getUserName() {
-		
-		return userTextField.getText();
-		
-	}
-	
-}	
+}
