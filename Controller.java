@@ -284,8 +284,12 @@ public class Controller {
 
 			InitialStateMessage ism = (InitialStateMessage) obj;
 
-			ui.updateUserList(ism.getConnectedUsers());
-			
+			for (String x : ism.getConnectedUsers()) {
+
+				ui.updateUserList(x);
+
+			}
+
 			ui.closeLogin();
 
 			System.out.println("iniialStateMessage mottagits");
@@ -317,7 +321,7 @@ public class Controller {
 
 				Color color = NamedColors.get(msm.getColor());
 
-				MusicTriangle ms = new MusicTriangle(50, 50, color, drumSounds.getDrumSounds(color));
+				MusicTriangle ms = new MusicTriangle(50, 100, color, drumSounds.getDrumSounds(color));
 
 				ui.setShapeFromOnline(ms, msm.getRow(), msm.getColumn());
 
@@ -345,6 +349,24 @@ public class Controller {
 
 		}
 
+		if (obj instanceof ConnectRequestMessage) {
+
+			ConnectRequestMessage crm = (ConnectRequestMessage) obj;
+
+			ui.openConnectMessage(crm);
+
+		}
+
+		if (obj instanceof UserConnectMessage) {
+
+			System.out.println("Ett user connect message har mottagits i controller !!!");
+
+			UserConnectMessage ucm = (UserConnectMessage) obj;
+
+			ui.updateUserList(ucm.getUsername());
+
+		}
+
 	}
 
 	public void update(MusicShape musicShape) {
@@ -359,9 +381,15 @@ public class Controller {
 
 	public void connectToUser(String username) {
 
-		ConnectToUserMessage message = new ConnectToUserMessage(username);
+		ConnectToUserMessage message = new ConnectToUserMessage(ui.getUsername(), username);
 
 		client.sendObject(message);
+
+	}
+
+	public void sendResponse(ConnectRequestMessage crm) {
+
+		client.sendObject(crm);
 
 	}
 

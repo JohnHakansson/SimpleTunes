@@ -8,6 +8,7 @@ import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.scene.*;
@@ -62,6 +63,10 @@ public class UI extends Application {
 	private ChoiceBox<String> listOfUsers;
 
 	private Button onlineButton;
+
+	private String username;
+
+	private ObservableList<String> listOfOnlineUser = FXCollections.observableList(new ArrayList<String>());
 
 	/*
 	 * Start method for the javaFX application. Here the components are created and
@@ -149,7 +154,6 @@ public class UI extends Application {
 
 			login = new LoginWindow(controller);
 			login.display();
-			
 
 		});
 
@@ -296,9 +300,52 @@ public class UI extends Application {
 		});
 	}
 
-	public void updateUserList(ArrayList<String> list) {
+//	public void updateUserList(ArrayList<String> list) {
+//
+//		listOfOnlineUser = list;
+//
+//		listOfUsers.setItems(FXCollections.observableList(listOfOnlineUser));
+//
+//	}
 
-		listOfUsers.setItems(FXCollections.observableList(list));
+	public void updateUserList(String newOnlineUser) {
+
+		listOfOnlineUser.add(newOnlineUser);
+
+		System.out.println("Ny online user::: " + newOnlineUser);
+
+		for (String x : listOfOnlineUser) {
+
+			System.out.println(x);
+
+		}
+
+		listOfUsers.setItems(listOfOnlineUser);
+
+	}
+
+	public String getUsername() {
+
+		return username;
+
+	}
+
+	public void openConnectMessage(ConnectRequestMessage crm) {
+
+		Platform.runLater(new Runnable() {
+
+			public void run() {
+				boolean answer;
+
+				answer = new ConnectWindow(crm.getMessage()).display();
+
+				crm.setConnectRequest(answer);
+
+				System.out.println("Answer ==== " + answer);
+
+				controller.sendResponse(crm);
+			}
+		});
 
 	}
 
@@ -306,7 +353,9 @@ public class UI extends Application {
 
 		login.closeStage();
 
-		Text username = new Text(login.getUserName());
+		username = login.getUserName();
+
+		Text usernameText = new Text(username);
 
 		Circle onlineCircle = new Circle(5);
 
@@ -336,7 +385,7 @@ public class UI extends Application {
 
 				toolbar.getItems().add(sep);
 
-				toolbar.getItems().add(username);
+				toolbar.getItems().add(usernameText);
 
 				toolbar.getItems().add(onlineCircle);
 

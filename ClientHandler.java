@@ -41,32 +41,44 @@ public class ClientHandler extends Thread {
 				obj = input.readObject();
 
 				if (obj instanceof ConnectToUserMessage) {
-					
+
 					ConnectToUserMessage ctum = (ConnectToUserMessage) obj;
-					
+
 					ClientHandler tempReceiver = clientMap.get(ctum.getReceiverUsername());
-					
-					ConnectRequestMessage crm = new ConnectRequestMessage(ctum.getSenderUsername());
-					
+
+					ConnectRequestMessage crm = new ConnectRequestMessage(ctum.getSenderUsername(),
+							ctum.getReceiverUsername());
+
 					tempReceiver.send(crm);
-					
-					ConnectRequestMessage respons = (ConnectRequestMessage) input.readObject();
-					
-					if (respons.getConnectRequest()) {
-						
-						setReceivingUser(ctum.getReceiverUsername());
-					}
-					
+
+//					ConnectRequestMessage respons = (ConnectRequestMessage) input.readObject();
+//
+//					if (respons.getConnectRequest()) {
+//
+//						setReceivingUser(ctum.getReceiverUsername());
+//					}
+
 					System.out.println("ConnectToUserMessage mottagits");
 
-					
+				} else if (obj instanceof ConnectRequestMessage) {
+
+					ConnectRequestMessage respons = (ConnectRequestMessage) obj;
+
+					if (respons.getConnectRequest()) {
+
+						setReceivingUser(respons.getSenderUsername());
+						
+						clientMap.get(respons.getSenderUsername()).setReceivingUser(respons.getReceiverUsername());
+
+					}
+
 				}
 
 				else {
+
 					clientMap.get(receivingUser).send(obj);
-					
+
 					System.out.println("Handler is sending object");
-					
 
 				}
 

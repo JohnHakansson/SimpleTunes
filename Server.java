@@ -43,6 +43,8 @@ public class Server implements Runnable {
 					for(String onlineUser : onlineUsers) {
 						ClientHandler tempClient = clientMap.get(onlineUser);
 						tempClient.send(userConnectMessage);
+						
+						System.out.println("Sending UserConnectMessage to :" + onlineUser);
 					}
 					
 
