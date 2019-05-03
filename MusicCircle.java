@@ -16,7 +16,7 @@ public class MusicCircle extends MusicShape {
 		super(color, sound);
 
 		shape = new Circle(50);
-		
+
 		shape.setFill(color);
 		shape.setStroke(Color.WHITESMOKE);
 
@@ -46,8 +46,13 @@ public class MusicCircle extends MusicShape {
 		shape.setOnMousePressed(null);
 		shape.setOnMouseDragged(null);
 		shape.setOnMouseClicked(null);
-		shape.setOnMouseReleased(null);		
-		
+		shape.setOnMouseReleased(null);
+
+	}
+
+	public String toString() {
+
+		return "circle";
 	}
 
 }

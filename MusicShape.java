@@ -10,25 +10,29 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
-public abstract class MusicShape implements Serializable{
+public abstract class MusicShape implements Serializable {
 	private static final long serialVersionUID = -4447060350509626449L;
-	private AudioClip mediaPlayer;
-	private Media sound;
+	private transient AudioClip mediaPlayer;
+	private transient Media sound;
 
-	protected Shape shape;
+	protected transient Shape shape;
 
 	private double orgSceneX;
 	private double orgSceneY;
 	private double orgTranslateX;
 	private double orgTranslateY;
-	
+
 	private boolean placedInGrid = false;
-	
+
 	private int row;
 	private int column;
+	
+	private Color color;
 
 	public MusicShape(Color color, Media sound) {
 		setSound(sound);
+		this.color = color;
+		System.out.println(color.getBlue());
 
 	}
 
@@ -65,8 +69,8 @@ public abstract class MusicShape implements Serializable{
 			@Override
 			public void handle(MouseEvent t) {
 
-					play();
-				
+				play();
+
 			}
 		};
 
@@ -106,32 +110,35 @@ public abstract class MusicShape implements Serializable{
 
 		return onMouseDragged;
 	}
-	
+
 	public void setPlaced(boolean bool) {
 		placedInGrid = bool;
 	}
-	
+
 	public boolean getPlaced() {
 		return placedInGrid;
 	}
-	
+
 	public void setRow(int row) {
 		this.row = row;
 	}
-	
+
 	public void setColumn(int column) {
 		this.column = column;
 	}
-	
+
 	public int getRow() {
 		return row;
 	}
-	
+
 	public int getColumn() {
 		return column;
 	}
-
-
+	
+	public Color getColor() {
+		return color;
+	}
+	
 	public abstract void nullifyEventHandlers();
 
 }

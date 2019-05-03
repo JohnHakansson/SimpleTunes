@@ -49,6 +49,8 @@ public class UI extends Application {
 	private ToolBar toolbar;
 	private Scene mainScene;
 
+	private LoginWindow login;
+
 	private Rectangle[][] squares = new Rectangle[4][18];
 
 	private Line movingLine = new Line();
@@ -140,7 +142,8 @@ public class UI extends Application {
 		Button onlineButton = new Button("Go Online");
 		onlineButton.setOnAction(e -> {
 
-			new LoginWindow(controller).display();
+			login = new LoginWindow(controller);
+			login.display();
 
 		});
 
@@ -245,6 +248,7 @@ public class UI extends Application {
 		shape.setLayoutY(rand.nextInt((int) ((mainScene.getHeight() - toolbar.getHeight()) - 550)));
 
 		poolGroup.getChildren().add(shape.getShape());
+
 	}
 
 	/*
@@ -271,9 +275,39 @@ public class UI extends Application {
 
 	}
 
+	public void setShapeFromOnline(MusicShape shape, int row, int column) {
+
+		shape.getShape().setTranslateX(0);
+		shape.getShape().setTranslateY(0);
+
+		System.out.println("ROw : " + row);
+		System.out.println("Column : " + column);
+
+		shape.setLayoutX(squares[row][column].getX());
+
+		shape.setLayoutY(squares[row][column].getY());
+
+		shape.nullifyEventHandlers();
+
+		shape.getShape().setOnMousePressed(getMouseRemove(shape));
+
+		Platform.runLater(new Runnable() {
+
+			public void run() {
+				poolGroup.getChildren().add(shape.getShape());
+			}
+		});
+	}
+
 	public void updateUserList(ArrayList<String> list) {
 
 		listOfUsers.setItems(FXCollections.observableList(list));
+
+	}
+
+	public void closeLogin() {
+
+		login.closeStage();
 
 	}
 
