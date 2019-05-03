@@ -8,6 +8,7 @@ import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.scene.*;
@@ -64,6 +65,8 @@ public class UI extends Application {
 	private Button onlineButton;
 
 	private String username;
+
+	private ObservableList<String> listOfOnlineUser = FXCollections.observableList(new ArrayList<String>());
 
 	/*
 	 * Start method for the javaFX application. Here the components are created and
@@ -297,9 +300,27 @@ public class UI extends Application {
 		});
 	}
 
-	public void updateUserList(ArrayList<String> list) {
+//	public void updateUserList(ArrayList<String> list) {
+//
+//		listOfOnlineUser = list;
+//
+//		listOfUsers.setItems(FXCollections.observableList(listOfOnlineUser));
+//
+//	}
 
-		listOfUsers.setItems(FXCollections.observableList(list));
+	public void updateUserList(String newOnlineUser) {
+
+		listOfOnlineUser.add(newOnlineUser);
+
+		System.out.println("Ny online user::: " + newOnlineUser);
+
+		for (String x : listOfOnlineUser) {
+
+			System.out.println(x);
+
+		}
+
+		listOfUsers.setItems(listOfOnlineUser);
 
 	}
 

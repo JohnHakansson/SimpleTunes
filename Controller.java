@@ -284,7 +284,11 @@ public class Controller {
 
 			InitialStateMessage ism = (InitialStateMessage) obj;
 
-			ui.updateUserList(ism.getConnectedUsers());
+			for (String x : ism.getConnectedUsers()) {
+
+				ui.updateUserList(x);
+
+			}
 
 			ui.closeLogin();
 
@@ -317,7 +321,7 @@ public class Controller {
 
 				Color color = NamedColors.get(msm.getColor());
 
-				MusicTriangle ms = new MusicTriangle(50, 50, color, drumSounds.getDrumSounds(color));
+				MusicTriangle ms = new MusicTriangle(50, 100, color, drumSounds.getDrumSounds(color));
 
 				ui.setShapeFromOnline(ms, msm.getRow(), msm.getColumn());
 
@@ -336,8 +340,6 @@ public class Controller {
 				sounds[msm.getRow()][msm.getColumn()] = ms;
 
 			}
-			
-		
 
 //			ui.setGridPlacement(musicShape, musicShape.getRow(), musicShape.getColumn());
 //
@@ -346,13 +348,23 @@ public class Controller {
 			System.out.println("MusicShape har kommit till controller");
 
 		}
-		
+
 		if (obj instanceof ConnectRequestMessage) {
-			
+
 			ConnectRequestMessage crm = (ConnectRequestMessage) obj;
-			
+
 			ui.openConnectMessage(crm);
-			
+
+		}
+
+		if (obj instanceof UserConnectMessage) {
+
+			System.out.println("Ett user connect message har mottagits i controller !!!");
+
+			UserConnectMessage ucm = (UserConnectMessage) obj;
+
+			ui.updateUserList(ucm.getUsername());
+
 		}
 
 	}
@@ -374,11 +386,11 @@ public class Controller {
 		client.sendObject(message);
 
 	}
-	
+
 	public void sendResponse(ConnectRequestMessage crm) {
-		
+
 		client.sendObject(crm);
-		
+
 	}
 
 	/**
