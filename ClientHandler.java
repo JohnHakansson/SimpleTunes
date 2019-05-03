@@ -41,7 +41,21 @@ public class ClientHandler extends Thread {
 				obj = input.readObject();
 
 				if (obj instanceof ConnectToUserMessage) {
-					setReceivingUser(((ConnectToUserMessage) obj).getUsername());
+					
+					ConnectToUserMessage ctum = (ConnectToUserMessage) obj;
+					
+					ClientHandler tempReceiver = clientMap.get(ctum.getReceiverUsername());
+					
+					ConnectRequestMessage crm = new ConnectRequestMessage(ctum.getSenderUsername());
+					
+					tempReceiver.send(crm);
+					
+					ConnectRequestMessage respons = (ConnectRequestMessage) input.readObject();
+					
+					if (respons.getConnectRequest()) {
+						
+						setReceivingUser(ctum.getReceiverUsername());
+					}
 					
 					System.out.println("ConnectToUserMessage mottagits");
 
