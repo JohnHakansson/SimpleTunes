@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
 import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -21,9 +22,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -57,6 +60,8 @@ public class UI extends Application {
 	private TranslateTransition lineTransition = new TranslateTransition();
 
 	private ChoiceBox<String> listOfUsers;
+
+	private Button onlineButton;
 
 	/*
 	 * Start method for the javaFX application. Here the components are created and
@@ -139,27 +144,19 @@ public class UI extends Application {
 
 		});
 
-		Button onlineButton = new Button("Go Online");
+		onlineButton = new Button("Go Online");
 		onlineButton.setOnAction(e -> {
 
 			login = new LoginWindow(controller);
 			login.display();
-
-		});
-
-		Button connectButton = new Button("Connect");
-		connectButton.setOnAction(e -> {
-
-			String str = listOfUsers.getSelectionModel().getSelectedItem();
-
-			controller.connectToUser(str);
+			
 
 		});
 
 		listOfUsers = new ChoiceBox<String>();
 
 		toolbar = new ToolBar(playButton, pauseButton, new Separator(), refreshButton, resetButton, new Separator(),
-				onlineButton, listOfUsers, connectButton);
+				onlineButton);
 		toolbar.setPrefHeight(48);
 
 		vbox = new VBox();
@@ -308,6 +305,43 @@ public class UI extends Application {
 	public void closeLogin() {
 
 		login.closeStage();
+
+		Text username = new Text(login.getUserName());
+
+		Circle onlineCircle = new Circle(5);
+
+		onlineCircle.setFill(Color.GREEN);
+
+		Button connectButton = new Button("Connect");
+		connectButton.setOnAction(e -> {
+
+			String str = listOfUsers.getSelectionModel().getSelectedItem();
+
+			controller.connectToUser(str);
+
+		});
+
+		Platform.runLater(new Runnable() {
+
+			public void run() {
+
+				onlineButton.setText("Go offline");
+
+				toolbar.getItems().add(listOfUsers);
+
+				toolbar.getItems().add(connectButton);
+
+				Separator sep = new Separator();
+				sep.setHalignment(HPos.RIGHT);
+
+				toolbar.getItems().add(sep);
+
+				toolbar.getItems().add(username);
+
+				toolbar.getItems().add(onlineCircle);
+
+			}
+		});
 
 	}
 
