@@ -63,6 +63,8 @@ public class UI extends Application {
 
 	private Button onlineButton;
 
+	private String username;
+
 	/*
 	 * Start method for the javaFX application. Here the components are created and
 	 * set placed onto the stage.
@@ -149,7 +151,6 @@ public class UI extends Application {
 
 			login = new LoginWindow(controller);
 			login.display();
-			
 
 		});
 
@@ -302,11 +303,38 @@ public class UI extends Application {
 
 	}
 
+	public String getUsername() {
+
+		return username;
+
+	}
+
+	public void openConnectMessage(ConnectRequestMessage crm) {
+
+		Platform.runLater(new Runnable() {
+
+			public void run() {
+				boolean answer;
+
+				answer = new ConnectWindow(crm.getMessage()).display();
+
+				crm.setConnectRequest(answer);
+
+				System.out.println("Answer ==== " + answer);
+
+				controller.sendResponse(crm);
+			}
+		});
+
+	}
+
 	public void closeLogin() {
 
 		login.closeStage();
 
-		Text username = new Text(login.getUserName());
+		username = login.getUserName();
+
+		Text usernameText = new Text(username);
 
 		Circle onlineCircle = new Circle(5);
 
@@ -336,7 +364,7 @@ public class UI extends Application {
 
 				toolbar.getItems().add(sep);
 
-				toolbar.getItems().add(username);
+				toolbar.getItems().add(usernameText);
 
 				toolbar.getItems().add(onlineCircle);
 

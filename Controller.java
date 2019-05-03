@@ -285,7 +285,7 @@ public class Controller {
 			InitialStateMessage ism = (InitialStateMessage) obj;
 
 			ui.updateUserList(ism.getConnectedUsers());
-			
+
 			ui.closeLogin();
 
 			System.out.println("iniialStateMessage mottagits");
@@ -336,6 +336,8 @@ public class Controller {
 				sounds[msm.getRow()][msm.getColumn()] = ms;
 
 			}
+			
+		
 
 //			ui.setGridPlacement(musicShape, musicShape.getRow(), musicShape.getColumn());
 //
@@ -343,6 +345,14 @@ public class Controller {
 
 			System.out.println("MusicShape har kommit till controller");
 
+		}
+		
+		if (obj instanceof ConnectRequestMessage) {
+			
+			ConnectRequestMessage crm = (ConnectRequestMessage) obj;
+			
+			ui.openConnectMessage(crm);
+			
 		}
 
 	}
@@ -359,10 +369,16 @@ public class Controller {
 
 	public void connectToUser(String username) {
 
-		ConnectToUserMessage message = new ConnectToUserMessage(username);
+		ConnectToUserMessage message = new ConnectToUserMessage(ui.getUsername(), username);
 
 		client.sendObject(message);
 
+	}
+	
+	public void sendResponse(ConnectRequestMessage crm) {
+		
+		client.sendObject(crm);
+		
 	}
 
 	/**

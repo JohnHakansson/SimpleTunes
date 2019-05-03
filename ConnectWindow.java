@@ -20,24 +20,19 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class ConnectWindow {
-	private Controller controller;
 	private Stage stage;
-	
-	
-	private String username;
+	private boolean answer = false;
 
-	public ConnectWindow(Controller controller, String username) {
-		this.controller = controller;
-		this.username = username;
+	private String message;
+
+	public ConnectWindow(String message) {
+		this.message = message;
 
 	}
 
-
-	
-	public void display() {
+	public boolean display() {
 
 		stage = new Stage();
-
 		stage.setTitle("JavaFX Welcome");
 		stage.initModality(Modality.APPLICATION_MODAL);
 		GridPane grid = new GridPane();
@@ -46,7 +41,7 @@ public class ConnectWindow {
 		grid.setVgap(10);
 		grid.setPadding(new Insets(25, 25, 25, 25));
 
-		Text scenetitle = new Text(username + " wants to connect!");
+		Text scenetitle = new Text(message);
 		scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		grid.add(scenetitle, 0, 0, 2, 1);
 
@@ -58,19 +53,36 @@ public class ConnectWindow {
 		hbBtn.getChildren().add(btnDecline);
 		grid.add(hbBtn, 1, 4);
 
-
 		btnAccept.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent e) {
 
+				answer = true;
+
+				Platform.runLater(new Runnable() {
+
+					public void run() {
+						stage.close();
+					}
+				});
+
 			}
 		});
-		
+
 		btnDecline.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent e) {
+
+				answer = false;
+
+				Platform.runLater(new Runnable() {
+
+					public void run() {
+						stage.close();
+					}
+				});
 
 			}
 		});
@@ -78,6 +90,8 @@ public class ConnectWindow {
 		Scene scene = new Scene(grid, 300, 275);
 		stage.setScene(scene);
 		stage.showAndWait();
+
+		return answer;
 
 	}
 
@@ -91,5 +105,5 @@ public class ConnectWindow {
 		});
 
 	}
-	
+
 }
