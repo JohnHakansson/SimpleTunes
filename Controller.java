@@ -285,6 +285,8 @@ public class Controller {
 			InitialStateMessage ism = (InitialStateMessage) obj;
 
 			ui.updateUserList(ism.getConnectedUsers());
+			
+			ui.closeLogin();
 
 			System.out.println("iniialStateMessage mottagits");
 
@@ -294,15 +296,20 @@ public class Controller {
 
 			MusicShapeMessage msm = (MusicShapeMessage) obj;
 
+			System.out.println("Color: " + msm.getColor());
+			System.out.println("Shape: " + msm.getShape());
+			System.out.println("Row: " + msm.getRow());
+			System.out.println("Column: " + msm.getColumn());
+
 			if (msm.getShape().equals("square")) {
 
 				Color color = NamedColors.get(msm.getColor());
 
 				MusicSquare ms = new MusicSquare(color, pianoSounds.getPianoSound(color));
 
-				ui.setGridPlacement(ms, ms.getRow(), ms.getColumn());
+				ui.setShapeFromOnline(ms, msm.getRow(), msm.getColumn());
 
-				sounds[ms.getRow()][ms.getColumn()] = ms;
+				sounds[msm.getRow()][msm.getColumn()] = ms;
 
 			}
 
@@ -312,9 +319,9 @@ public class Controller {
 
 				MusicTriangle ms = new MusicTriangle(50, 50, color, drumSounds.getDrumSounds(color));
 
-				ui.setGridPlacement(ms, ms.getRow(), ms.getColumn());
+				ui.setShapeFromOnline(ms, msm.getRow(), msm.getColumn());
 
-				sounds[ms.getRow()][ms.getColumn()] = ms;
+				sounds[msm.getRow()][msm.getColumn()] = ms;
 
 			}
 
@@ -324,9 +331,9 @@ public class Controller {
 
 				MusicCircle ms = new MusicCircle(color, guitarSounds.getGuitarSound(color));
 
-				ui.setGridPlacement(ms, ms.getRow(), ms.getColumn());
+				ui.setShapeFromOnline(ms, msm.getRow(), msm.getColumn());
 
-				sounds[ms.getRow()][ms.getColumn()] = ms;
+				sounds[msm.getRow()][msm.getColumn()] = ms;
 
 			}
 

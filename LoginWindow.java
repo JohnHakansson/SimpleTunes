@@ -1,6 +1,7 @@
 package simpleTunes;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -20,16 +21,19 @@ import javafx.stage.Stage;
 
 public class LoginWindow {
 	private Controller controller;
-	
-	public LoginWindow( Controller controller) {
+
+	private Text actiontarget = new Text();
+
+	private Stage stage;
+
+	public LoginWindow(Controller controller) {
 		this.controller = controller;
-		
-		
+
 	}
 
 	public void display() {
 
-		Stage stage = new Stage();
+		stage = new Stage();
 
 		stage.setTitle("JavaFX Welcome");
 		stage.initModality(Modality.APPLICATION_MODAL);
@@ -55,24 +59,41 @@ public class LoginWindow {
 		hbBtn.getChildren().add(btn);
 		grid.add(hbBtn, 1, 4);
 
-		final Text actiontarget = new Text();
 		grid.add(actiontarget, 1, 6);
-		
 
 		btn.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent e) {
-				actiontarget.setFill(Color.FIREBRICK);
-				actiontarget.setText("Sign in button pressed");
+				actiontarget.setFill(Color.DARKGRAY);
+				actiontarget.setText("Signing in...");
 				controller.sendUsername(userTextField.getText());
-				
+
 			}
 		});
 
 		Scene scene = new Scene(grid, 300, 275);
 		stage.setScene(scene);
 		stage.showAndWait();
+
+	}
+
+	public void userNameNotOK() {
+
+		actiontarget.setFill(Color.RED);
+		actiontarget.setText("Username already in use");
+
+	}
+
+	public void closeStage() {
+
+		Platform.runLater(new Runnable() {
+
+			public void run() {
+				stage.close();
+			}
+		});
+
 	}
 
 }
