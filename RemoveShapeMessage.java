@@ -4,13 +4,13 @@ import java.io.Serializable;
 
 public class RemoveShapeMessage implements Serializable{
 	private static final long serialVersionUID = 6117382832070187915L;
-	private MusicShape shape;
+	private MusicShapeMessage MusicShapeMessage;
 	
-	public RemoveShapeMessage(MusicShape shape) {
-		this.shape = shape;
+	public RemoveShapeMessage(MusicShapeMessage MusicShapeMessage) {
+		this.MusicShapeMessage = MusicShapeMessage;
 	}
 	
-	public MusicShape getShape() {
-		return shape;
+	public MusicShapeMessage getShape() {
+		return MusicShapeMessage;
 	}
 }

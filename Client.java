@@ -42,7 +42,10 @@ public class Client {
 
 	public void sendRemoveShape(MusicShape musicShape) {
 
-		RemoveShapeMessage removeShapeMessage = new RemoveShapeMessage(musicShape);
+		MusicShapeMessage msm = new MusicShapeMessage(musicShape.toString(),
+				NamedColors.getColorString(musicShape.getColor()), musicShape.getRow(), musicShape.getColumn());
+
+		RemoveShapeMessage removeShapeMessage = new RemoveShapeMessage(msm);
 
 		try {
 			output.writeObject(removeShapeMessage);
@@ -96,7 +99,7 @@ public class Client {
 				while (true) {
 					Object object = input.readObject();
 					controller.update(object);
-					
+
 					System.out.println("Kleinten har mottagit objekt");
 				}
 
