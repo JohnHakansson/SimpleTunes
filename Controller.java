@@ -276,6 +276,12 @@ public class Controller {
 
 	}
 
+	public void disconnect() {
+
+		client.disconnect();
+
+	}
+
 	public void update(Object obj) {
 
 		if (obj instanceof InitialStateMessage) {
@@ -431,7 +437,9 @@ public class Controller {
 				int columns = 0;
 
 				while (playing) {
-
+					
+					System.out.println("Kolumn : " + columns);
+					
 					for (int i = 0; i < sounds.length; i++) {
 
 						if (sounds[i][columns] != null) {
@@ -450,7 +458,7 @@ public class Controller {
 						columns = 0;
 
 					}
-
+					
 				}
 
 			} catch (InterruptedException e) {

@@ -365,6 +365,12 @@ public class UI extends Application {
 
 				onlineButton.setText("Go offline");
 
+				onlineButton.setOnAction(e -> {
+
+					controller.disconnect();
+
+				});
+
 				toolbar.getItems().add(listOfUsers);
 
 				toolbar.getItems().add(connectButton);
