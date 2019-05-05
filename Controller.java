@@ -379,6 +379,14 @@ public class Controller {
 
 		}
 
+		if (obj instanceof UserDisconnectMessage) {
+
+			UserDisconnectMessage udm = (UserDisconnectMessage) obj;
+
+			ui.removeFromUserList(udm.getUsername());
+
+		}
+
 	}
 
 	public void update(MusicShape musicShape) {

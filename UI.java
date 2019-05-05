@@ -172,7 +172,6 @@ public class UI extends Application {
 
 		mainScene = new Scene(layout, 1800, 1000);
 		mainScene.setFill(Color.BLACK);
-		
 
 		window.setScene(mainScene);
 		window.setResizable(false);
@@ -282,9 +281,6 @@ public class UI extends Application {
 		shape.getShape().setTranslateX(0);
 		shape.getShape().setTranslateY(0);
 
-		System.out.println("ROw : " + row);
-		System.out.println("Column : " + column);
-
 		shape.setLayoutX(squares[row][column].getX());
 
 		shape.setLayoutY(squares[row][column].getY());
@@ -301,25 +297,17 @@ public class UI extends Application {
 		});
 	}
 
-//	public void updateUserList(ArrayList<String> list) {
-//
-//		listOfOnlineUser = list;
-//
-//		listOfUsers.setItems(FXCollections.observableList(listOfOnlineUser));
-//
-//	}
-
 	public void updateUserList(String newOnlineUser) {
 
 		listOfOnlineUser.add(newOnlineUser);
 
-		System.out.println("Ny online user::: " + newOnlineUser);
+		listOfUsers.setItems(listOfOnlineUser);
 
-		for (String x : listOfOnlineUser) {
+	}
 
-			System.out.println(x);
+	public void removeFromUserList(String disconnectedUser) {
 
-		}
+		listOfOnlineUser.remove(disconnectedUser);
 
 		listOfUsers.setItems(listOfOnlineUser);
 
@@ -394,11 +382,11 @@ public class UI extends Application {
 		});
 
 	}
-	
+
 	public void loginNotOK(String info) {
-		
+
 		login.userNameNotOK(info);
-		
+
 	}
 
 	public static void main(String[] args) {

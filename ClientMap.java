@@ -8,17 +8,23 @@ public class ClientMap {
 	public synchronized void put(String username, ClientHandler clienthandler) {
 		onlineUsers.put(username, clienthandler);
 	}
-	
+
 	public synchronized ClientHandler get(String username) {
 		return onlineUsers.get(username);
 	}
-	
+
 	public synchronized boolean contains(String username) {
 		return onlineUsers.containsKey(username);
 	}
-	
-	public synchronized Set getKeySet() {
+
+	public synchronized Set<String> getKeySet() {
 		return onlineUsers.keySet();
+	}
+
+	public synchronized void remove(String user) {
+
+		onlineUsers.remove(user);
+
 	}
 
 }
