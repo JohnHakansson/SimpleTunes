@@ -172,6 +172,7 @@ public class UI extends Application {
 
 		mainScene = new Scene(layout, 1800, 1000);
 		mainScene.setFill(Color.BLACK);
+		
 
 		window.setScene(mainScene);
 		window.setResizable(false);
@@ -392,6 +393,12 @@ public class UI extends Application {
 			}
 		});
 
+	}
+	
+	public void loginNotOK(String info) {
+		
+		login.userNameNotOK(info);
+		
 	}
 
 	public static void main(String[] args) {

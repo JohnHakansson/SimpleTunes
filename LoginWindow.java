@@ -74,16 +74,16 @@ public class LoginWindow {
 			}
 		});
 
-		Scene scene = new Scene(grid, 300, 275);
+		Scene scene = new Scene(grid, 500, 275);
 		stage.setScene(scene);
 		stage.showAndWait();
 
 	}
 
-	public void userNameNotOK() {
+	public void userNameNotOK(String info) {
 
 		actiontarget.setFill(Color.RED);
-		actiontarget.setText("Username already in use");
+		actiontarget.setText(info);
 
 	}
 

@@ -367,6 +367,18 @@ public class Controller {
 
 		}
 
+		if (obj instanceof String) {
+
+			String str = (String) obj;
+
+			if (str.equals("Username already exists, please choose another username ")) {
+
+				ui.loginNotOK(str);
+
+			}
+
+		}
+
 	}
 
 	public void update(MusicShape musicShape) {
@@ -422,7 +434,7 @@ public class Controller {
 
 					}
 
-					Thread.sleep(550);
+					Thread.sleep(500);
 
 					columns++;
 

@@ -84,6 +84,7 @@ public class ClientHandler extends Thread {
 
 			} catch (IOException | ClassNotFoundException e) {
 				e.printStackTrace();
+				
 			}
 
 		}
