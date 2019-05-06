@@ -17,7 +17,7 @@ public class ClientMap {
 		return onlineUsers.containsKey(username);
 	}
 	
-	public synchronized Set getKeySet() {
+	public synchronized Set<String> getKeySet() {
 		return onlineUsers.keySet();
 	}
 

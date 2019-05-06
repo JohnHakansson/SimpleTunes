@@ -1,0 +1,56 @@
+.root {
+	-fx-background-color: #1E1E24;
+}
+
+#squares {
+	-fx-fill: #141204;
+	-fx-stroke: #595758;
+    -fx-stroke-width: 2;
+}
+
+#shapeInsertion {
+	-fx-fill: #1E1E24;
+	-fx-stroke: #DFE0DC;
+    -fx-stroke-width: 2;
+    -fx-stroke-dash-array: 12 2 4 2;
+    -fx-stroke-dash-offset: 6;
+    -fx-stroke-line-cap: butt;  
+}
+
+#toolbar {
+    -fx-background-color: #DFE0DC;
+    -fx-padding: 5;
+}
+
+#movingLine {
+	-fx-stroke: #DFE0DC;
+    -fx-padding: 5;
+}
+
+.button {
+	-fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-padding: 10;
+}
+
+#showSoundButton {
+    -fx-font-family: arial;
+    -fx-font-size: 16px;
+	-fx-text-fill: black;
+    -fx-text-font-weight: bolder;
+}
+
+#musicSquare {
+	-fx-stroke: #DFE0DC;
+    -fx-stroke-width: 2;
+}
+
+#musicCircle {
+	-fx-stroke: #DFE0DC;
+    -fx-stroke-width: 2;
+}
+
+#musicTriangle {
+	-fx-stroke: #DFE0DC;
+    -fx-stroke-width: 2;
+}

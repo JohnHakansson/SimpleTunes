@@ -1,7 +1,8 @@
 package simpleTunes;
 
-import java.io.*;
-import java.net.Socket;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class ClientHandler extends Thread {
 	private ObjectOutputStream output;

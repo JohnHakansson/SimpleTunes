@@ -53,45 +53,54 @@ public class ConnectWindow {
 		hbBtn.getChildren().add(btnDecline);
 		grid.add(hbBtn, 1, 4);
 
-		btnAccept.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent e) {
-
-				answer = true;
-
-				Platform.runLater(new Runnable() {
-
-					public void run() {
-						stage.close();
-					}
-				});
-
-			}
+//		btnAccept.setOnAction(new EventHandler<ActionEvent>() {
+//
+//			@Override
+//			public void handle(ActionEvent e) {
+//
+//				answer = true;
+//
+//				Platform.runLater(new Runnable() {
+//
+//					public void run() {
+//						stage.close();
+//					}
+//				});
+//
+//			}
+//		});
+		
+		btnAccept.setOnAction(e -> {
+			
+			answer =true;
+			
+			Platform.runLater(new Runnable() {
+				public void run() {
+					stage.close();
+				}
+			});
 		});
+
 
 		btnDecline.setOnAction(new EventHandler<ActionEvent>() {
 
-			@Override
-			public void handle(ActionEvent e) {
+	@Override
+	public void handle(ActionEvent e) {
 
-				answer = false;
+		answer = false;
 
-				Platform.runLater(new Runnable() {
+		Platform.runLater(new Runnable() {
 
-					public void run() {
-						stage.close();
-					}
-				});
-
+			public void run() {
+				stage.close();
 			}
 		});
 
-		Scene scene = new Scene(grid, 300, 275);
-		stage.setScene(scene);
-		stage.showAndWait();
+	}});
 
-		return answer;
+	Scene scene = new Scene(grid, 300, 275);stage.setScene(scene);stage.showAndWait();
+
+	return answer;
 
 	}
 

@@ -422,7 +422,7 @@ public class Controller {
 
 					}
 
-					Thread.sleep(550);
+					Thread.sleep(500);
 
 					columns++;
 
