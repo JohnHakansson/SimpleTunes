@@ -37,7 +37,7 @@ public class LoginWindow {
 
 		stage = new Stage();
 
-		stage.setTitle("JavaFX Welcome");
+		stage.setTitle("simpleTunes");
 		stage.initModality(Modality.APPLICATION_MODAL);
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
