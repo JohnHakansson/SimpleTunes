@@ -37,7 +37,7 @@ public class LoginWindow {
 
 		stage = new Stage();
 
-		stage.setTitle("JavaFX Welcome");
+		stage.setTitle("simpleTunes");
 		stage.initModality(Modality.APPLICATION_MODAL);
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
@@ -45,7 +45,7 @@ public class LoginWindow {
 		grid.setVgap(10);
 		grid.setPadding(new Insets(25, 25, 25, 25));
 
-		Text scenetitle = new Text("Fuck You");
+		Text scenetitle = new Text("Inloggning");
 		scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		grid.add(scenetitle, 0, 0, 2, 1);
 

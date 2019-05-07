@@ -206,7 +206,7 @@ public class Controller {
 						if (online) {
 
 							MusicShapeMessage msm = new MusicShapeMessage(shape.toString(),
-									NamedColors.getColorString(shape.getColor()), row, column);
+									NamedColors.getColorString(shape.getColor()), i, column);
 
 							client.sendShape(msm);
 
