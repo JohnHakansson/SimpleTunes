@@ -410,11 +410,14 @@ public class Controller {
 		ConnectToUserMessage message = new ConnectToUserMessage(ui.getUsername(), username);
 
 		client.sendObject(message);
-
 	}
 
 	public void sendResponse(ConnectRequestMessage crm) {
-
+		
+		if (crm.getConnectRequest()) {
+			ui.setUserConnectedMessage("Connected with:");
+		}
+		
 		client.sendObject(crm);
 
 	}

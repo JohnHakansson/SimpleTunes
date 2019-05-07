@@ -14,6 +14,7 @@ import javafx.geometry.HPos;
 import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
@@ -65,6 +66,8 @@ public class UI extends Application {
 	private Button onlineButton;
 
 	private String username;
+	
+	private Label userConnectedMessage;
 
 	private ObservableList<String> listOfOnlineUser = FXCollections.observableList(new ArrayList<String>());
 
@@ -333,9 +336,21 @@ public class UI extends Application {
 				System.out.println("Answer ==== " + answer);
 
 				controller.sendResponse(crm);
+				
+//				if (connectAnswer) {
+//					userConnectedMessage.setText("Connected with:");
+//				}
 			}
 		});
 
+	}
+	
+//	public boolean getConnectAnser() {
+//		return connectAnswer;
+//	}
+//	
+	public void setUserConnectedMessage(String message) {
+		userConnectedMessage.setText(message);
 	}
 
 	public void closeLogin() {
@@ -343,6 +358,8 @@ public class UI extends Application {
 		login.closeStage();
 
 		username = login.getUserName();
+		
+		userConnectedMessage = new Label("Select user:");
 
 		Text usernameText = new Text(username);
 
@@ -358,6 +375,10 @@ public class UI extends Application {
 			controller.connectToUser(str);
 
 		});
+		
+//		if (connectAnswer) {
+//			userConnectedMessage.setText("Connected with:");
+//		}
 
 		Platform.runLater(new Runnable() {
 
@@ -370,6 +391,8 @@ public class UI extends Application {
 					controller.disconnect();
 
 				});
+				
+				toolbar.getItems().add(userConnectedMessage);
 
 				toolbar.getItems().add(listOfUsers);
 
