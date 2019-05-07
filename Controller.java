@@ -276,6 +276,12 @@ public class Controller {
 
 	}
 
+	public void disconnect() {
+
+		client.disconnect();
+
+	}
+
 	public void update(Object obj) {
 
 		if (obj instanceof InitialStateMessage) {
@@ -367,6 +373,26 @@ public class Controller {
 
 		}
 
+		if (obj instanceof String) {
+
+			String str = (String) obj;
+
+			if (str.equals("Username already exists, please choose another username ")) {
+
+				ui.loginNotOK(str);
+
+			}
+
+		}
+
+		if (obj instanceof UserDisconnectMessage) {
+
+			UserDisconnectMessage udm = (UserDisconnectMessage) obj;
+
+			ui.removeFromUserList(udm.getUsername());
+
+		}
+
 	}
 
 	public void update(MusicShape musicShape) {
@@ -411,7 +437,9 @@ public class Controller {
 				int columns = 0;
 
 				while (playing) {
-
+					
+					System.out.println("Kolumn : " + columns);
+					
 					for (int i = 0; i < sounds.length; i++) {
 
 						if (sounds[i][columns] != null) {
@@ -422,7 +450,7 @@ public class Controller {
 
 					}
 
-					Thread.sleep(550);
+					Thread.sleep(500);
 
 					columns++;
 
@@ -430,7 +458,7 @@ public class Controller {
 						columns = 0;
 
 					}
-
+					
 				}
 
 			} catch (InterruptedException e) {

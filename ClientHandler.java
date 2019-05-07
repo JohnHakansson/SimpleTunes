@@ -8,11 +8,16 @@ public class ClientHandler extends Thread {
 	private ObjectInputStream input;
 	private ClientMap clientMap;
 	private String receivingUser;
+	private String username;
+	private Server server;
 
-	public ClientHandler(ObjectInputStream input, ObjectOutputStream output, ClientMap clientMap) {
+	public ClientHandler(String username, ObjectInputStream input, ObjectOutputStream output, ClientMap clientMap,
+			Server server) {
 		this.input = input;
 		this.output = output;
 		this.clientMap = clientMap;
+		this.username = username;
+		this.server = server;
 	}
 
 	public void send(Object obj) {
@@ -51,15 +56,6 @@ public class ClientHandler extends Thread {
 
 					tempReceiver.send(crm);
 
-//					ConnectRequestMessage respons = (ConnectRequestMessage) input.readObject();
-//
-//					if (respons.getConnectRequest()) {
-//
-//						setReceivingUser(ctum.getReceiverUsername());
-//					}
-
-					System.out.println("ConnectToUserMessage mottagits");
-
 				} else if (obj instanceof ConnectRequestMessage) {
 
 					ConnectRequestMessage respons = (ConnectRequestMessage) obj;
@@ -67,7 +63,7 @@ public class ClientHandler extends Thread {
 					if (respons.getConnectRequest()) {
 
 						setReceivingUser(respons.getSenderUsername());
-						
+
 						clientMap.get(respons.getSenderUsername()).setReceivingUser(respons.getReceiverUsername());
 
 					}
@@ -78,12 +74,15 @@ public class ClientHandler extends Thread {
 
 					clientMap.get(receivingUser).send(obj);
 
-					System.out.println("Handler is sending object");
-
 				}
 
-			} catch (IOException | ClassNotFoundException e) {
+			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
+
+			} catch (IOException e1) {
+
+				server.disconnectUser(username);
+
 			}
 
 		}

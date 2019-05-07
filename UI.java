@@ -281,9 +281,6 @@ public class UI extends Application {
 		shape.getShape().setTranslateX(0);
 		shape.getShape().setTranslateY(0);
 
-		System.out.println("ROw : " + row);
-		System.out.println("Column : " + column);
-
 		shape.setLayoutX(squares[row][column].getX());
 
 		shape.setLayoutY(squares[row][column].getY());
@@ -300,25 +297,17 @@ public class UI extends Application {
 		});
 	}
 
-//	public void updateUserList(ArrayList<String> list) {
-//
-//		listOfOnlineUser = list;
-//
-//		listOfUsers.setItems(FXCollections.observableList(listOfOnlineUser));
-//
-//	}
-
 	public void updateUserList(String newOnlineUser) {
 
 		listOfOnlineUser.add(newOnlineUser);
 
-		System.out.println("Ny online user::: " + newOnlineUser);
+		listOfUsers.setItems(listOfOnlineUser);
 
-		for (String x : listOfOnlineUser) {
+	}
 
-			System.out.println(x);
+	public void removeFromUserList(String disconnectedUser) {
 
-		}
+		listOfOnlineUser.remove(disconnectedUser);
 
 		listOfUsers.setItems(listOfOnlineUser);
 
@@ -376,6 +365,12 @@ public class UI extends Application {
 
 				onlineButton.setText("Go offline");
 
+				onlineButton.setOnAction(e -> {
+
+					controller.disconnect();
+
+				});
+
 				toolbar.getItems().add(listOfUsers);
 
 				toolbar.getItems().add(connectButton);
@@ -391,6 +386,12 @@ public class UI extends Application {
 
 			}
 		});
+
+	}
+
+	public void loginNotOK(String info) {
+
+		login.userNameNotOK(info);
 
 	}
 
