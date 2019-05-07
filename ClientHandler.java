@@ -83,14 +83,6 @@ public class ClientHandler extends Thread {
 
 				server.disconnectUser(username);
 
-				try {
-					output.close();
-					input.close();
-
-				} catch (IOException e2) {
-					e2.printStackTrace();
-				}
-
 			}
 
 		}
