@@ -122,6 +122,7 @@ public class Controller {
 		if (shapeGenerator != null) {
 
 			shapeGenerator.interrupt();
+			shapeGenerator = null;
 
 		}
 
@@ -133,6 +134,8 @@ public class Controller {
 
 			shapeGenerator = new ShapeGenerator();
 			shapeGenerator.start();
+
+			System.out.println("starting new shape generator");
 
 		}
 
@@ -521,10 +524,10 @@ public class Controller {
 
 				}
 
-				this.interrupt();
+				stopShapeGenerator();
 
 			} catch (InterruptedException e) {
-				shapeGenerator = null;
+				System.out.println("interrupted exception : generator = null");
 			}
 
 		}
