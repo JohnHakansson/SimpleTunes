@@ -3,6 +3,12 @@ package simpleTunes;
 import java.io.*;
 import java.net.*;
 
+/**
+ * Connects to the given ip and port of a server. Sends and receives information. 
+ * 
+ * @author John Håkansson, Roland Askelöf, Matilda Frimodig
+ *
+ */
 public class Client {
 	private String ip, username;
 	private Thread thread;
@@ -12,6 +18,15 @@ public class Client {
 	private ObjectInputStream input;
 	private Controller controller;
 
+	/**
+	 * Creates a Socket with a connection to the incoming ip and port. Starts the
+	 * thread in the inner-class ClientThread
+	 * 
+	 * @param ip         The ip that the client is connected to
+	 * @param port       The port that the client is listening to
+	 * @param username   The username of the client
+	 * @param controller instance of Controller
+	 */
 	public Client(String ip, int port, String username, Controller controller) {
 		this.ip = ip;
 		this.port = port;
@@ -32,6 +47,9 @@ public class Client {
 		}
 	}
 
+	/**
+	 * Disconnects the client, closes the socket
+	 */
 	public void disconnect() {
 		try {
 			socket.close();
@@ -40,6 +58,10 @@ public class Client {
 		}
 	}
 
+	/**
+	 * 
+	 * @param musicShape
+	 */
 	public void sendRemoveShape(MusicShape musicShape) {
 
 		MusicShapeMessage msm = new MusicShapeMessage(musicShape.toString(),
@@ -55,6 +77,11 @@ public class Client {
 		}
 	}
 
+	/**
+	 * Sending the information about the shape to the Server.
+	 * 
+	 * @param msm Contains information about the shape
+	 */
 	public void sendShape(MusicShapeMessage msm) {
 		try {
 
@@ -66,6 +93,9 @@ public class Client {
 		}
 	}
 
+	/**
+	 * Sending the clients username to the Server.
+	 */
 	public void sendUsername() {
 		try {
 
@@ -78,6 +108,11 @@ public class Client {
 		}
 	}
 
+	/**
+	 * Sending an object to the Server.
+	 * 
+	 * @param obj Object
+	 */
 	public void sendObject(Object obj) {
 
 		try {
@@ -92,18 +127,26 @@ public class Client {
 
 	}
 
+	/**
+	 * Stops the thread
+	 */
 	public void stopThread() {
 
 		if (thread != null) {
 			thread.interrupt();
 			thread = null;
-			
-			System.out.println("Client Thread stopped");
 
 		}
 
 	}
 
+	/**
+	 * The class reads incoming objects from the server and sends the incoming
+	 * objects to the controller.
+	 * 
+	 * @author John Håkansson, Roland Askelöf, Matilda Frimodig
+	 *
+	 */
 	private class ClientThread extends Thread {
 		public void run() {
 			try {
@@ -112,7 +155,6 @@ public class Client {
 					Object object = input.readObject();
 					controller.update(object);
 
-					System.out.println("Kleinten har mottagit objekt");
 				}
 
 			} catch (ClassNotFoundException e) {

@@ -3,6 +3,13 @@ package simpleTunes;
 import java.io.*;
 import java.net.Socket;
 
+/**
+ * Every client connected to the server has a ClientHandler handling the flow of
+ * information between client and server
+ * 
+ * @author John Håkansson, Roland Askelöf, Matilda Frimodig
+ *
+ */
 public class ClientHandler extends Thread {
 	private ObjectOutputStream output;
 	private ObjectInputStream input;
@@ -11,6 +18,14 @@ public class ClientHandler extends Thread {
 	private String username;
 	private Server server;
 
+	/**
+	 * 
+	 * @param username  The username of the connected to the ClientHandler
+	 * @param input     The ObjectInputStream connected to the client
+	 * @param output    The ObjectOutputStream connected to the client
+	 * @param clientMap
+	 * @param server    instance of Server
+	 */
 	public ClientHandler(String username, ObjectInputStream input, ObjectOutputStream output, ClientMap clientMap,
 			Server server) {
 		this.input = input;
@@ -20,6 +35,11 @@ public class ClientHandler extends Thread {
 		this.server = server;
 	}
 
+	/**
+	 * Sending an object to the client
+	 * 
+	 * @param obj Object
+	 */
 	public void send(Object obj) {
 
 		try {
@@ -30,12 +50,19 @@ public class ClientHandler extends Thread {
 		}
 
 	}
-
+/**
+ * Sets the receiving user
+ * @param receivingUser The receiving user
+ */
 	public void setReceivingUser(String receivingUser) {
 		this.receivingUser = receivingUser;
 
 	}
-
+/**
+ * 
+ * 
+ * 
+ */
 	public void run() {
 		Object obj;
 
@@ -53,7 +80,7 @@ public class ClientHandler extends Thread {
 
 					ConnectRequestMessage crm = new ConnectRequestMessage(ctum.getSenderUsername(),
 							ctum.getReceiverUsername());
-					
+
 					crm.setIsResponse(true);
 					tempReceiver.send(crm);
 
@@ -68,12 +95,11 @@ public class ClientHandler extends Thread {
 						clientMap.get(response.getSenderUsername()).setReceivingUser(response.getReceiverUsername());
 
 					}
-					
+
 					ClientHandler tempReceiver = clientMap.get(response.getSenderUsername());
 					response.setIsResponse(false);
 					tempReceiver.send(response);
-					System.out.println("response skickat i ClientHandler");
-					
+
 				}
 
 				else {
