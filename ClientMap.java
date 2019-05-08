@@ -2,6 +2,14 @@ package simpleTunes;
 
 import java.util.*;
 
+	/**
+	 * The class represents the container component
+	 * used by the server and clienthandler to store
+	 * information about the users which are interacting
+	 * with the server.
+	 *
+	 */
+
 public class ClientMap {
 	private HashMap<String, ClientHandler> onlineUsers = new HashMap<String, ClientHandler>();
 

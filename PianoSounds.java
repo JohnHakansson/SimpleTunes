@@ -6,6 +6,12 @@ import java.util.HashMap;
 import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
 
+	/**
+	 * The Class represents the three piano-sounds which are stored
+	 * in its own HashMap and accessed by the controller.
+	 *
+	 */
+
 public class PianoSounds {
 	private HashMap<Color, Media> pianoSounds = new HashMap<Color, Media>();
 
