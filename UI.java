@@ -440,8 +440,8 @@ public class UI extends Application {
 
 			public void run() {
 
-				listOfUsers.setDisable(false);
-				connectButton.setDisable(false);
+				listOfUsers.setDisable(true);
+				connectButton.setDisable(true);
 				connectMessage.setText("Connected to: " + username);
 
 			}
