@@ -312,6 +312,8 @@ public class Controller {
 	public void disconnect() {
 
 		client.disconnect();
+		
+		System.out.println("disconnectin...");
 
 	}
 

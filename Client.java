@@ -34,7 +34,6 @@ public class Client {
 
 	public void disconnect() {
 		try {
-			stopThread();
 			socket.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -98,6 +97,8 @@ public class Client {
 		if (thread != null) {
 			thread.interrupt();
 			thread = null;
+			
+			System.out.println("Client Thread stopped");
 
 		}
 
@@ -117,7 +118,7 @@ public class Client {
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
-
+				stopThread();
 			}
 
 		}

@@ -187,7 +187,7 @@ public class UI extends Application {
 
 	public void startMovingLine() {
 		lineTransition.play();
-
+		
 	}
 
 	public void stopMovingLine() {
@@ -335,7 +335,7 @@ public class UI extends Application {
 		listOfOnlineUser.remove(disconnectedUser);
 
 		listOfUsers.setItems(listOfOnlineUser);
-
+		
 	}
 
 	public String getUsername() {
@@ -379,7 +379,7 @@ public class UI extends Application {
 		connectButton.setOnAction(e -> {
 
 			String str = listOfUsers.getSelectionModel().getSelectedItem();
-
+			
 			controller.connectToUser(str);
 
 		});
