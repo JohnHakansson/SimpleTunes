@@ -178,6 +178,8 @@ public class UI extends Application {
 		window.setTitle("SimpleTunes");
 		window.show();
 
+		controller.startShapeGenerator();
+
 	}
 
 	public void startMovingLine() {
@@ -243,12 +245,33 @@ public class UI extends Application {
 	 * @param shape the random shape generated in the controller.
 	 */
 	public void addShape(MusicShape shape) {
+
+		poolGroup.getChildren().add(shape.getShape());
+
+	}
+
+	public void setRandomLocation(MusicShape shape) {
+
 		Random rand = new Random();
+
+		shape.getShape().setTranslateX(0);
+		shape.getShape().setTranslateY(0);
 
 		shape.setLayoutX(rand.nextInt((int) ((mainScene.getWidth() - 100))));
 		shape.setLayoutY(rand.nextInt((int) ((mainScene.getHeight() - toolbar.getHeight()) - 550)));
 
-		poolGroup.getChildren().add(shape.getShape());
+		for (Node x : poolGroup.getChildren()) {
+
+			if (shape.getShape().getBoundsInParent().intersects(x.getBoundsInParent())) {
+
+				setRandomLocation(shape);
+				
+				
+				System.out.println("Redo location");
+
+			}
+
+		}
 
 	}
 

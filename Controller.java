@@ -2,6 +2,8 @@ package simpleTunes;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
@@ -16,6 +18,7 @@ import javafx.scene.shape.Shape;
 public class Controller {
 	private UI ui;
 	private Thread thread;
+	private Thread shapeGenerator;
 
 	private DrumSounds drumSounds = new DrumSounds();
 	private GuitarSounds guitarSounds = new GuitarSounds();
@@ -51,7 +54,7 @@ public class Controller {
 	 * @param limit an integer the number of shapes that needs to be generated
 	 */
 
-	public void generateShape(int limit) {
+	public synchronized void generateShape(int limit) {
 		int nbrOfShapes = 0;
 		MusicShape randomShape = null;
 
@@ -78,6 +81,7 @@ public class Controller {
 			nbrOfShapes++;
 			shapeList.add(randomShape);
 			randomShape.getShape().setOnMouseReleased(ui.getMouseEventReleased(randomShape));
+			ui.setRandomLocation(randomShape);
 			ui.addShape(randomShape);
 
 		} while (nbrOfShapes < limit);
@@ -108,6 +112,27 @@ public class Controller {
 		if (thread != null) {
 			playing = false;
 			thread.interrupt();
+
+		}
+
+	}
+
+	public void stopShapeGenerator() {
+
+		if (shapeGenerator != null) {
+
+			shapeGenerator.interrupt();
+
+		}
+
+	}
+
+	public void startShapeGenerator() {
+
+		if (shapeGenerator == null) {
+
+			shapeGenerator = new ShapeGenerator();
+			shapeGenerator.start();
 
 		}
 
@@ -217,7 +242,7 @@ public class Controller {
 					}
 
 				} else {
-					System.out.println("Row is full");
+					ui.setRandomLocation(shape);
 					return;
 
 				}
@@ -239,6 +264,8 @@ public class Controller {
 	 */
 
 	public void refreshShapesFromPool(Group group) {
+
+		stopShapeGenerator();
 
 		for (MusicShape ms : shapeList) {
 
@@ -267,6 +294,9 @@ public class Controller {
 		sounds = new MusicShape[4][18];
 
 		shapeList.clear();
+
+		startShapeGenerator();
+
 	}
 
 	public void sendUsername(String userName) {
@@ -437,9 +467,9 @@ public class Controller {
 				int columns = 0;
 
 				while (playing) {
-					
+
 					System.out.println("Kolumn : " + columns);
-					
+
 					for (int i = 0; i < sounds.length; i++) {
 
 						if (sounds[i][columns] != null) {
@@ -458,7 +488,7 @@ public class Controller {
 						columns = 0;
 
 					}
-					
+
 				}
 
 			} catch (InterruptedException e) {
@@ -468,6 +498,36 @@ public class Controller {
 
 		}
 
+	}
+
+	private class ShapeGenerator extends Thread {
+
+		public void run() {
+
+			try {
+
+				for (int i = 0; i < 10; i++) {
+
+					Thread.sleep(1000);
+
+					Platform.runLater(new Runnable() {
+
+						public void run() {
+
+							generateShape(1);
+
+						}
+					});
+
+				}
+
+				this.interrupt();
+
+			} catch (InterruptedException e) {
+				shapeGenerator = null;
+			}
+
+		}
 	}
 
 }
