@@ -15,6 +15,7 @@ import javafx.geometry.HPos;
 import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
@@ -64,8 +65,15 @@ public class UI extends Application {
 	private ChoiceBox<String> listOfUsers;
 
 	private Button onlineButton;
+	private Button connectButton;
 
 	private String username;
+
+	private Label connectMessage;
+
+	private Circle onlineCircle;
+
+	private Text usernameText;
 
 	private ObservableList<String> listOfOnlineUser = FXCollections.observableList(new ArrayList<String>());
 
@@ -112,7 +120,7 @@ public class UI extends Application {
 		lineTransition.setCycleCount(Animation.INDEFINITE);
 		lineTransition.setNode(movingLine);
 		lineTransition.setRate(1.0);
-		
+
 		lineTransition.setInterpolator(Interpolator.LINEAR);
 
 		poolGroup.getChildren().add(movingLine);
@@ -187,7 +195,7 @@ public class UI extends Application {
 
 	public void startMovingLine() {
 		lineTransition.play();
-		
+
 	}
 
 	public void stopMovingLine() {
@@ -335,7 +343,7 @@ public class UI extends Application {
 		listOfOnlineUser.remove(disconnectedUser);
 
 		listOfUsers.setItems(listOfOnlineUser);
-		
+
 	}
 
 	public String getUsername() {
@@ -358,6 +366,11 @@ public class UI extends Application {
 				System.out.println("Answer ==== " + answer);
 
 				controller.sendResponse(crm);
+
+				if (answer) {
+					System.out.println("Användare:" + crm.getSenderUsername() + " answer: true och updateMenue kallas");
+					updateMenue(crm.getSenderUsername());
+				}
 			}
 		});
 
@@ -369,17 +382,19 @@ public class UI extends Application {
 
 		username = login.getUserName();
 
-		Text usernameText = new Text(username);
+		usernameText = new Text(username);
 
-		Circle onlineCircle = new Circle(5);
+		connectMessage = new Label("Connect with user:");
+
+		onlineCircle = new Circle(5);
 
 		onlineCircle.setFill(Color.GREEN);
 
-		Button connectButton = new Button("Connect");
+		connectButton = new Button("Connect");
 		connectButton.setOnAction(e -> {
 
 			String str = listOfUsers.getSelectionModel().getSelectedItem();
-			
+
 			controller.connectToUser(str);
 
 		});
@@ -396,6 +411,8 @@ public class UI extends Application {
 
 				});
 
+				toolbar.getItems().add(connectMessage);
+
 				toolbar.getItems().add(listOfUsers);
 
 				toolbar.getItems().add(connectButton);
@@ -408,6 +425,24 @@ public class UI extends Application {
 				toolbar.getItems().add(usernameText);
 
 				toolbar.getItems().add(onlineCircle);
+
+			}
+		});
+
+	}
+
+	public void updateMenue(String username) {
+
+
+		Platform.runLater(new Runnable() {
+
+			public void run() {
+
+				toolbar.getItems().remove(listOfUsers);
+				connectMessage.setText("Connected to: " + username);
+				
+				System.out.println("Användare: " + username + " updateMenue kallas i UI");
+
 
 			}
 		});

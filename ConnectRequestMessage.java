@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class ConnectRequestMessage implements Serializable {
 	private static final long serialVersionUID = 3860405176225664345L;
 	private boolean connectRequest = false;
+	private boolean isResponse = false;
 	private String message;
 	private String recieverUsername;
 	private String senderUsername;
@@ -19,6 +20,10 @@ public class ConnectRequestMessage implements Serializable {
 	public boolean getConnectRequest() {
 		return connectRequest;
 	}
+	
+	public boolean getIsResponse() {
+		return isResponse;
+	}
 
 	public String getSenderUsername() {
 		return senderUsername;
@@ -26,6 +31,10 @@ public class ConnectRequestMessage implements Serializable {
 
 	public void setConnectRequest(boolean connectRequest) {
 		this.connectRequest = connectRequest;
+	}
+	
+	public void setIsResponse(boolean isResponse) {
+		this.isResponse = isResponse;
 	}
 
 	public String getMessage() {
@@ -36,5 +45,6 @@ public class ConnectRequestMessage implements Serializable {
 		return recieverUsername;
 
 	}
+	
 
 }

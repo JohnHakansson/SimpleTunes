@@ -393,8 +393,22 @@ public class Controller {
 		if (obj instanceof ConnectRequestMessage) {
 
 			ConnectRequestMessage crm = (ConnectRequestMessage) obj;
+			
+			if (crm.getIsResponse()) {
 
 			ui.openConnectMessage(crm);
+			
+			} else {
+				
+				System.out.println("response false i Controller");
+				if (crm.getConnectRequest()) {
+					
+					ui.updateMenue(crm.getReceiverUsername());
+				
+				} else {
+					
+				}
+			}
 
 		}
 
