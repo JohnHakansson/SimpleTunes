@@ -1,7 +1,6 @@
 package simpleTunes;
 
 import java.io.*;
-import java.net.Socket;
 
 /**
  * Every client connected to the server has a ClientHandler handling the flow of
@@ -50,19 +49,22 @@ public class ClientHandler extends Thread {
 		}
 
 	}
-/**
- * Sets the receiving user
- * @param receivingUser The receiving user
- */
+
+	/**
+	 * Sets the receiving user
+	 * 
+	 * @param receivingUser The receiving user
+	 */
 	public void setReceivingUser(String receivingUser) {
 		this.receivingUser = receivingUser;
 
 	}
-/**
- * 
- * 
- * 
- */
+
+	/**
+	 * 
+	 * 
+	 * 
+	 */
 	public void run() {
 		Object obj;
 

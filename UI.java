@@ -219,7 +219,7 @@ public class UI extends Application {
 	 * 
 	 * @return the event handler.
 	 */
-	public EventHandler<MouseEvent> getMouseRemove(MusicShape shape) {
+	public EventHandler<MouseEvent> getMouseRemove(MusicShape shape, int row, int column) {
 		EventHandler<MouseEvent> OnMouseClicked = new EventHandler<MouseEvent>() {
 
 			@Override
@@ -227,7 +227,13 @@ public class UI extends Application {
 				poolGroup.getChildren().remove(shape.getShape());
 				controller.removeSound(shape.getRow(), shape.getColumn());
 
+				if (controller.isOnline()) {
+					controller.sendRemoveShape(row, column);
+					
+				}
+
 			}
+
 		};
 
 		return OnMouseClicked;
@@ -273,6 +279,22 @@ public class UI extends Application {
 	public void addShape(MusicShape shape) {
 
 		poolGroup.getChildren().add(shape.getShape());
+
+	}
+
+	public void removeShape(MusicShape shape) {
+
+		Platform.runLater(new Runnable() {
+			public void run() {
+				
+				System.out.println(shape.toString());
+				
+				poolGroup.getChildren().remove(shape.getShape());
+				
+				controller.removeSound(shape.getRow(), shape.getColumn());
+			}
+			
+		});
 
 	}
 
@@ -327,7 +349,7 @@ public class UI extends Application {
 
 		shape.nullifyEventHandlers();
 
-		shape.getShape().setOnMousePressed(getMouseRemove(shape));
+		shape.getShape().setOnMousePressed(getMouseRemove(shape, row, column));
 
 		controller.generateShape(1);
 
@@ -353,7 +375,7 @@ public class UI extends Application {
 
 		shape.nullifyEventHandlers();
 
-		shape.getShape().setOnMousePressed(getMouseRemove(shape));
+		shape.getShape().setOnMousePressed(getMouseRemove(shape, row , column));
 
 		Platform.runLater(new Runnable() {
 

@@ -22,6 +22,7 @@ public class Server implements Runnable {
 		try {
 			serverSocket = new ServerSocket(port);
 			thread.start();
+			System.out.println("Server is Running");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
