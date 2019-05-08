@@ -403,7 +403,7 @@ public class Controller {
 				System.out.println("response false i Controller");
 				if (crm.getConnectRequest()) {
 					
-					ui.updateMenue(crm.getReceiverUsername());
+					ui.updateMenueConnected(crm.getReceiverUsername());
 				
 				} else {
 					

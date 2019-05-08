@@ -360,7 +360,9 @@ public class UI extends Application {
 				boolean answer;
 
 				answer = new ConnectWindow(crm.getMessage()).display();
-
+				System.out.println("Update menu waiting callad från open connect message");
+				
+				
 				crm.setConnectRequest(answer);
 
 				System.out.println("Answer ==== " + answer);
@@ -369,7 +371,7 @@ public class UI extends Application {
 
 				if (answer) {
 					System.out.println("Användare:" + crm.getSenderUsername() + " answer: true och updateMenue kallas");
-					updateMenue(crm.getSenderUsername());
+					updateMenueConnected(crm.getSenderUsername());
 				}
 			}
 		});
@@ -396,6 +398,9 @@ public class UI extends Application {
 			String str = listOfUsers.getSelectionModel().getSelectedItem();
 
 			controller.connectToUser(str);
+			
+			updateMenueWaiting(str);
+
 
 		});
 
@@ -431,7 +436,7 @@ public class UI extends Application {
 
 	}
 
-	public void updateMenue(String username) {
+	public void updateMenueConnected(String username) {
 
 
 		Platform.runLater(new Runnable() {
@@ -439,6 +444,8 @@ public class UI extends Application {
 			public void run() {
 
 				toolbar.getItems().remove(listOfUsers);
+//				toolbar.getItems().add(9, connectButton);
+				connectButton.setDisable(false);
 				connectMessage.setText("Connected to: " + username);
 				
 				System.out.println("Användare: " + username + " updateMenue kallas i UI");
@@ -446,6 +453,26 @@ public class UI extends Application {
 
 			}
 		});
+
+	}
+	
+	public void updateMenueWaiting(String username) {
+
+
+		//Platform.runLater(new Runnable() {
+
+			//public void run() {
+
+				toolbar.getItems().remove(listOfUsers);
+				//toolbar.getItems().remove(connectButton);
+				connectButton.setDisable(true);
+				connectMessage.setText("Waiting for response from: " + username);
+				
+				System.out.println("Updatemenu waiting kallad");
+
+
+			//}
+//		});
 
 	}
 
