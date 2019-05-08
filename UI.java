@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import javafx.animation.Animation;
+import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -111,6 +112,8 @@ public class UI extends Application {
 		lineTransition.setCycleCount(Animation.INDEFINITE);
 		lineTransition.setNode(movingLine);
 		lineTransition.setRate(1.0);
+		
+		lineTransition.setInterpolator(Interpolator.LINEAR);
 
 		poolGroup.getChildren().add(movingLine);
 
@@ -265,8 +268,7 @@ public class UI extends Application {
 			if (shape.getShape().getBoundsInParent().intersects(x.getBoundsInParent())) {
 
 				setRandomLocation(shape);
-				
-				
+
 				System.out.println("Redo location");
 
 			}
