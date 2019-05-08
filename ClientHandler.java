@@ -53,21 +53,27 @@ public class ClientHandler extends Thread {
 
 					ConnectRequestMessage crm = new ConnectRequestMessage(ctum.getSenderUsername(),
 							ctum.getReceiverUsername());
-
+					
+					crm.setIsResponse(true);
 					tempReceiver.send(crm);
 
 				} else if (obj instanceof ConnectRequestMessage) {
 
-					ConnectRequestMessage respons = (ConnectRequestMessage) obj;
+					ConnectRequestMessage response = (ConnectRequestMessage) obj;
 
-					if (respons.getConnectRequest()) {
+					if (response.getConnectRequest()) {
 
-						setReceivingUser(respons.getSenderUsername());
+						setReceivingUser(response.getSenderUsername());
 
-						clientMap.get(respons.getSenderUsername()).setReceivingUser(respons.getReceiverUsername());
+						clientMap.get(response.getSenderUsername()).setReceivingUser(response.getReceiverUsername());
 
 					}
-
+					
+					ClientHandler tempReceiver = clientMap.get(response.getSenderUsername());
+					response.setIsResponse(false);
+					tempReceiver.send(response);
+					System.out.println("response skickat i ClientHandler");
+					
 				}
 
 				else {
