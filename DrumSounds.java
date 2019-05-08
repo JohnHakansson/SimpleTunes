@@ -21,7 +21,7 @@ public class DrumSounds {
 		drumSounds.put(Color.BLUE, new Media(hiHat.toURI().toString()));
 	}
 
-	public synchronized Media getDrumSounds(Color color) {
+	public synchronized Media getDrumSound(Color color) {
 		return drumSounds.get(color);
 	}
 }
