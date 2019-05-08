@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import javafx.animation.Animation;
+import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -111,6 +112,8 @@ public class UI extends Application {
 		lineTransition.setCycleCount(Animation.INDEFINITE);
 		lineTransition.setNode(movingLine);
 		lineTransition.setRate(1.0);
+		
+		lineTransition.setInterpolator(Interpolator.LINEAR);
 
 		poolGroup.getChildren().add(movingLine);
 
@@ -178,11 +181,13 @@ public class UI extends Application {
 		window.setTitle("SimpleTunes");
 		window.show();
 
+		controller.startShapeGenerator();
+
 	}
 
 	public void startMovingLine() {
 		lineTransition.play();
-
+		
 	}
 
 	public void stopMovingLine() {
@@ -243,12 +248,32 @@ public class UI extends Application {
 	 * @param shape the random shape generated in the controller.
 	 */
 	public void addShape(MusicShape shape) {
+
+		poolGroup.getChildren().add(shape.getShape());
+
+	}
+
+	public void setRandomLocation(MusicShape shape) {
+
 		Random rand = new Random();
+
+		shape.getShape().setTranslateX(0);
+		shape.getShape().setTranslateY(0);
 
 		shape.setLayoutX(rand.nextInt((int) ((mainScene.getWidth() - 100))));
 		shape.setLayoutY(rand.nextInt((int) ((mainScene.getHeight() - toolbar.getHeight()) - 550)));
 
-		poolGroup.getChildren().add(shape.getShape());
+		for (Node x : poolGroup.getChildren()) {
+
+			if (shape.getShape().getBoundsInParent().intersects(x.getBoundsInParent())) {
+
+				setRandomLocation(shape);
+
+				System.out.println("Redo location");
+
+			}
+
+		}
 
 	}
 
@@ -310,7 +335,7 @@ public class UI extends Application {
 		listOfOnlineUser.remove(disconnectedUser);
 
 		listOfUsers.setItems(listOfOnlineUser);
-
+		
 	}
 
 	public String getUsername() {
@@ -354,7 +379,7 @@ public class UI extends Application {
 		connectButton.setOnAction(e -> {
 
 			String str = listOfUsers.getSelectionModel().getSelectedItem();
-
+			
 			controller.connectToUser(str);
 
 		});
