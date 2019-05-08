@@ -361,8 +361,7 @@ public class UI extends Application {
 
 				answer = new ConnectWindow(crm.getMessage()).display();
 				System.out.println("Update menu waiting callad från open connect message");
-				
-				
+
 				crm.setConnectRequest(answer);
 
 				System.out.println("Answer ==== " + answer);
@@ -398,9 +397,8 @@ public class UI extends Application {
 			String str = listOfUsers.getSelectionModel().getSelectedItem();
 
 			controller.connectToUser(str);
-			
-			updateMenueWaiting(str);
 
+			updateMenueWaiting(str);
 
 		});
 
@@ -438,41 +436,39 @@ public class UI extends Application {
 
 	public void updateMenueConnected(String username) {
 
-
 		Platform.runLater(new Runnable() {
 
 			public void run() {
 
-				toolbar.getItems().remove(listOfUsers);
-//				toolbar.getItems().add(9, connectButton);
+				listOfUsers.setDisable(false);
 				connectButton.setDisable(false);
 				connectMessage.setText("Connected to: " + username);
-				
-				System.out.println("Användare: " + username + " updateMenue kallas i UI");
-
 
 			}
 		});
 
 	}
-	
+
 	public void updateMenueWaiting(String username) {
 
+		listOfUsers.setDisable(true);
+		connectButton.setDisable(true);
+		connectMessage.setText("Waiting for response from: " + username);
 
-		//Platform.runLater(new Runnable() {
+	}
 
-			//public void run() {
+	public void updateMenueDefault() {
 
-				toolbar.getItems().remove(listOfUsers);
-				//toolbar.getItems().remove(connectButton);
-				connectButton.setDisable(true);
-				connectMessage.setText("Waiting for response from: " + username);
-				
-				System.out.println("Updatemenu waiting kallad");
+		Platform.runLater(new Runnable() {
 
+			public void run() {
 
-			//}
-//		});
+				connectMessage.setText("Connect with user: ");
+				listOfUsers.setDisable(false);
+				connectButton.setDisable(false);
+
+			}
+		});
 
 	}
 

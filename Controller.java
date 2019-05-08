@@ -312,7 +312,7 @@ public class Controller {
 	public void disconnect() {
 
 		client.disconnect();
-		
+
 		System.out.println("disconnectin...");
 
 	}
@@ -393,20 +393,21 @@ public class Controller {
 		if (obj instanceof ConnectRequestMessage) {
 
 			ConnectRequestMessage crm = (ConnectRequestMessage) obj;
-			
+
 			if (crm.getIsResponse()) {
 
-			ui.openConnectMessage(crm);
-			
+				ui.openConnectMessage(crm);
+
 			} else {
-				
+
 				System.out.println("response false i Controller");
 				if (crm.getConnectRequest()) {
-					
+
 					ui.updateMenueConnected(crm.getReceiverUsername());
-				
+
 				} else {
-					
+
+					ui.updateMenueDefault();
 				}
 			}
 
