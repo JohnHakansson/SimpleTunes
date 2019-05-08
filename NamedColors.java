@@ -6,9 +6,22 @@ import java.util.Map.Entry;
 
 import javafx.scene.paint.Color;
 
+/**
+ * 
+ * The class handles the conversion between colors and strings.
+ * Is required in order to create MusicShapeMessages from MusicShapes and vice versa.
+ * 
+ * @author Tom Lanhed Sivertsson, John Håkansson, Matilda Frimodig
+ *
+ */
 public class NamedColors {
 	private static HashMap<String, Color> namedColors = createNamedColors();
 	
+	/**
+	 * 
+	 * @param name Name of the color
+	 * @return the color corresponding to the incoming string
+	 */
 	 public static Color get(String name) {
          return namedColors.get(name);
      }
@@ -168,6 +181,13 @@ public class NamedColors {
          return colors;
      }
      
+     /**
+      * 
+      * Returns the key from the colors hashmap from the value
+      * 
+      * @param color A color object
+      * @return The name of the color as a String
+      */
      public static String getColorString(Color color) {
     	 
     	 for(Entry<String, Color> entry : namedColors.entrySet()) {

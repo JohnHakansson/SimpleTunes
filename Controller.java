@@ -116,7 +116,11 @@ public class Controller {
 		}
 
 	}
-
+	
+	
+	/**
+	 *  Stops the shape generator
+	 */
 	public void stopShapeGenerator() {
 
 		if (shapeGenerator != null) {
@@ -127,15 +131,16 @@ public class Controller {
 		}
 
 	}
-
+	
+	/**
+	 *  Starts the shape generator
+	 */
 	public void startShapeGenerator() {
 
 		if (shapeGenerator == null) {
 
 			shapeGenerator = new ShapeGenerator();
 			shapeGenerator.start();
-
-			System.out.println("starting new shape generator");
 
 		}
 
@@ -165,29 +170,6 @@ public class Controller {
 	}
 
 	/**
-	 * Returns an array of Shape-objects corresponding to the given row in the
-	 * sounds-array.
-	 * 
-	 * @param column integer the row in the sounds-array that's going to be copied.
-	 * @return aRow an array of Shape-objects.
-	 */
-
-	private MusicShape[] getColumn(int column) {
-		MusicShape[] aRow = new MusicShape[4];
-
-		for (int i = 0; i < aRow.length; i++) {
-			if (sounds[i][column] != null) {
-				aRow[i] = sounds[i][column];
-
-			}
-
-		}
-
-		return aRow;
-
-	}
-
-	/**
 	 * Adds the incoming Shape-object on the given 'row' of the sounds-array, if
 	 * there is no space in the array "Row is full" is written to the console.
 	 * 
@@ -213,11 +195,7 @@ public class Controller {
 
 				client.sendShape(msm);
 
-				System.out.println("Sending shape to client");
-
 			}
-
-			System.out.println("Added to row: " + row + " Added to column: " + column);
 
 		} else {
 
@@ -229,7 +207,6 @@ public class Controller {
 						shape.setPlaced(true);
 						shape.setRow(i);
 						ui.setGridPlacement(shape, i, column);
-						System.out.println("Added to row: " + row + " Added to column: " + column);
 
 						if (online) {
 
@@ -238,7 +215,6 @@ public class Controller {
 
 							client.sendShape(msm);
 
-							System.out.println("Sending shape to client");
 
 						}
 
@@ -255,7 +231,14 @@ public class Controller {
 		}
 
 	}
-
+	
+	/**
+	 * 
+	 * Removes musicshape from the sound array
+	 * 
+	 * @param row which row the shape is located in
+	 * @param column which column the shape is located in
+	 */
 	public void removeSound(int row, int column) {
 		sounds[row][column] = null;
 	}
@@ -301,22 +284,35 @@ public class Controller {
 		startShapeGenerator();
 
 	}
-
+	
+	/**
+	 * 
+	 * Sends a username to the server via the client
+	 * 
+	 * @param userName The username to be sent
+	 */
 	public void sendUsername(String userName) {
 
 		client = new Client("localhost", 5555, userName, this);
 		client.sendUsername();
 
 	}
-
+	
+	/**
+	 * disconnects the client from from the server
+	 */
 	public void disconnect() {
 
 		client.disconnect();
 
-		System.out.println("disconnectin...");
-
 	}
-
+	
+	/**
+	 * 
+	 * Handles incoming messages from the server
+	 * 
+	 * @param obj Object from the server via a client
+	 */
 	public void update(Object obj) {
 
 		if (obj instanceof InitialStateMessage) {
@@ -333,18 +329,11 @@ public class Controller {
 
 			ui.closeLogin();
 
-			System.out.println("iniialStateMessage mottagits");
-
 		}
 
 		if (obj instanceof MusicShapeMessage) {
 
 			MusicShapeMessage msm = (MusicShapeMessage) obj;
-
-			System.out.println("Color: " + msm.getColor());
-			System.out.println("Shape: " + msm.getShape());
-			System.out.println("Row: " + msm.getRow());
-			System.out.println("Column: " + msm.getColumn());
 
 			if (msm.getShape().equals("square")) {
 
@@ -381,12 +370,6 @@ public class Controller {
 				sounds[msm.getRow()][msm.getColumn()] = ms;
 
 			}
-
-//			ui.setGridPlacement(musicShape, musicShape.getRow(), musicShape.getColumn());
-//
-//			sounds[musicShape.getRow()][musicShape.getColumn()] = musicShape;
-
-			System.out.println("MusicShape har kommit till controller");
 
 		}
 
@@ -444,17 +427,15 @@ public class Controller {
 		}
 
 	}
-
-	public void update(MusicShape musicShape) {
-
-		ui.setGridPlacement(musicShape, musicShape.getRow(), musicShape.getColumn());
-
-		sounds[musicShape.getRow()][musicShape.getColumn()] = musicShape;
-
-		System.out.println("MusicShape har kommit till controller");
-
-	}
-
+	
+	/**
+	 * 
+	 * Sends a new ConnectToUserMessage to the client
+	 * 
+	 * Called when one user wants to connect to another
+	 * 
+	 * @param username The receiving username
+	 */
 	public void connectToUser(String username) {
 
 		ConnectToUserMessage message = new ConnectToUserMessage(ui.getUsername(), username);
@@ -462,7 +443,13 @@ public class Controller {
 		client.sendObject(message);
 
 	}
-
+	
+	/**
+	 * 
+	 * Called when a user has either accepted or declined a connection request from another user
+	 * 
+	 * @param crm ConnectRequestMessage containing either a true or false response boolean
+	 */
 	public void sendResponse(ConnectRequestMessage crm) {
 
 		client.sendObject(crm);
@@ -487,8 +474,6 @@ public class Controller {
 				int columns = 0;
 
 				while (playing) {
-
-					System.out.println("Kolumn : " + columns);
 
 					for (int i = 0; i < sounds.length; i++) {
 
@@ -519,7 +504,14 @@ public class Controller {
 		}
 
 	}
-
+	
+	/**
+	 * 
+	 * Thread which handles the automatic generation of shapes
+	 * 
+	 * @author Tom Lanhed Sivertsson
+	 *
+	 */
 	private class ShapeGenerator extends Thread {
 
 		public void run() {
