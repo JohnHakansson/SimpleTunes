@@ -78,8 +78,8 @@ public class UI extends Application {
 	private ObservableList<String> listOfOnlineUser = FXCollections.observableList(new ArrayList<String>());
 
 	/*
-	 * Start method for the javaFX application. Here the components are created and
-	 * set placed onto the stage.
+	 * Start method for the javaFX application. Here some components are created and
+	 * placed onto the stage.
 	 * 
 	 * @param primaryStage the stage that holds all other components.
 	 * 
@@ -94,7 +94,7 @@ public class UI extends Application {
 
 		poolPane.setStyle("-fx-background-color: Black");
 
-		// Generating the cells used by the grid and placing them in the shapeGroup.
+		// Generating the cells used by the grid and adding them to the UI.
 		for (int i = 0; i < squares.length; i++) {
 			for (int j = 0; j < squares[i].length; j++) {
 				squares[i][j] = new Rectangle(j * 100, i * 100 + 600 - 50, 100, 100);
@@ -193,17 +193,32 @@ public class UI extends Application {
 
 	}
 
+	/*
+	 * Method for starting the moving line.
+	 * 
+	 */
 	public void startMovingLine() {
 		lineTransition.play();
 
 	}
 
+	/*
+	 * Method for stopping the moving line.
+	 * 
+	 */
 	public void stopMovingLine() {
 		lineTransition.stop();
 		lineTransition.setFromX(5);
 
 	}
 
+	/*
+	 * Method for removing a shape when clicked.
+	 * 
+	 * @param shape the random shape generated in the controller.
+	 * 
+	 * @return the event handler.
+	 */
 	public EventHandler<MouseEvent> getMouseRemove(MusicShape shape) {
 		EventHandler<MouseEvent> OnMouseClicked = new EventHandler<MouseEvent>() {
 
@@ -219,7 +234,7 @@ public class UI extends Application {
 	}
 
 	/*
-	 * Method for placing the dragged shape in the sounds array located in the
+	 * Method for adding the dragged shape in the sounds array, located in the
 	 * controller class.
 	 * 
 	 * @param shape the random shape generated in the controller.
@@ -251,7 +266,7 @@ public class UI extends Application {
 	}
 
 	/*
-	 * Method for placing the random generated shape in the poolGroup.
+	 * Method for adding the shape to the UI.
 	 * 
 	 * @param shape the random shape generated in the controller.
 	 */
@@ -261,6 +276,13 @@ public class UI extends Application {
 
 	}
 
+	/*
+	 * Method for setting a random location for the incoming shape. If the incoming
+	 * shape intersects with any shape in the poolGroup the method calls it self
+	 * again, sets a new random position,
+	 * 
+	 * @param shape the random shape generated in the controller.
+	 */
 	public void setRandomLocation(MusicShape shape) {
 
 		Random rand = new Random();
@@ -286,11 +308,13 @@ public class UI extends Application {
 	}
 
 	/*
-	 * Method for removing the shape from the poolGroup and adding the shape to the
-	 * shapeGroup. Also generating one new shape in the poolGroup each time one is
-	 * removed.
+	 * Method for adding the shape to the grid.
 	 * 
 	 * @param shape the random shape generated in the controller.
+	 * 
+	 * @param row the row in the sounds array.
+	 * 
+	 * @param column the column in the sounds array.
 	 */
 	public void setGridPlacement(MusicShape shape, int row, int column) {
 
@@ -309,6 +333,15 @@ public class UI extends Application {
 
 	}
 
+	/*
+	 * Method for adding the shape to the grid when sent from another user online.
+	 * 
+	 * @param shape the shape sent from the other user.
+	 * 
+	 * @param row the row in the sounds array sent from the other user.
+	 * 
+	 * @param column the column in the sounds array sent from the other user.
+	 */
 	public void setShapeFromOnline(MusicShape shape, int row, int column) {
 
 		shape.getShape().setTranslateX(0);
@@ -330,6 +363,11 @@ public class UI extends Application {
 		});
 	}
 
+	/*
+	 * Method for updating the list of online users when a user comes online.
+	 * 
+	 * @param newOnlineUser the new online user.
+	 */
 	public void updateUserList(String newOnlineUser) {
 
 		listOfOnlineUser.add(newOnlineUser);
@@ -338,6 +376,11 @@ public class UI extends Application {
 
 	}
 
+	/*
+	 * Method for updating the list of online users when a user disconnects.
+	 * 
+	 * @param disconnectedUser the disconnected user.
+	 */
 	public void removeFromUserList(String disconnectedUser) {
 
 		listOfOnlineUser.remove(disconnectedUser);
@@ -352,6 +395,13 @@ public class UI extends Application {
 
 	}
 
+	/*
+	 * Method for updating the connect request message depending on the answer given
+	 * from the ConnectWindow. Also altering the UI based on if the answer if true
+	 * or false.
+	 * 
+	 * @param crm the ConnectRequestMessage sent from the online user.
+	 */
 	public void openConnectMessage(ConnectRequestMessage crm) {
 
 		Platform.runLater(new Runnable() {
@@ -360,16 +410,13 @@ public class UI extends Application {
 				boolean answer;
 
 				answer = new ConnectWindow(crm.getMessage()).display();
-				System.out.println("Update menu waiting callad från open connect message");
 
 				crm.setConnectRequest(answer);
-
-				System.out.println("Answer ==== " + answer);
 
 				controller.sendResponse(crm);
 
 				if (answer) {
-					System.out.println("Användare:" + crm.getSenderUsername() + " answer: true och updateMenue kallas");
+
 					updateMenueConnected(crm.getSenderUsername());
 				}
 			}
@@ -377,6 +424,12 @@ public class UI extends Application {
 
 	}
 
+	/*
+	 * Method for updating the UI when a user goes online (closing the login
+	 * window). Adding the list of users, connect button and online indicator to the
+	 * menu.
+	 * 
+	 */
 	public void closeLogin() {
 
 		login.closeStage();
@@ -394,11 +447,11 @@ public class UI extends Application {
 		connectButton = new Button("Connect");
 		connectButton.setOnAction(e -> {
 
-			String str = listOfUsers.getSelectionModel().getSelectedItem();
+			String selectedUsername = listOfUsers.getSelectionModel().getSelectedItem();
 
-			controller.connectToUser(str);
+			controller.connectToUser(selectedUsername);
 
-			updateMenueWaiting(str);
+			updateMenueWaiting(selectedUsername);
 
 		});
 
@@ -434,6 +487,11 @@ public class UI extends Application {
 
 	}
 
+	/*
+	 * Method for updating the UI menu bar when a user connects with another user.
+	 * 
+	 * @param username the username of the selected user.
+	 */
 	public void updateMenueConnected(String username) {
 
 		Platform.runLater(new Runnable() {
@@ -449,6 +507,12 @@ public class UI extends Application {
 
 	}
 
+	/*
+	 * Method for updating the UI menu bar when a user is waiting for the response
+	 * from the request.
+	 * 
+	 * @param username the username of the selected user.
+	 */
 	public void updateMenueWaiting(String username) {
 
 		listOfUsers.setDisable(true);
@@ -457,6 +521,10 @@ public class UI extends Application {
 
 	}
 
+	/*
+	 * Method for resetting the UI menu bar.
+	 * 
+	 */
 	public void updateMenueDefault() {
 
 		Platform.runLater(new Runnable() {
@@ -472,6 +540,11 @@ public class UI extends Application {
 
 	}
 
+	/*
+	 * Method for updating the message in the log in window.
+	 * 
+	 * @param info the message sent when the log in is not accepted.
+	 */
 	public void loginNotOK(String info) {
 
 		login.userNameNotOK(info);
