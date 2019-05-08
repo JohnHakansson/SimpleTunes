@@ -116,10 +116,9 @@ public class Controller {
 		}
 
 	}
-	
-	
+
 	/**
-	 *  Stops the shape generator
+	 * Stops the shape generator
 	 */
 	public void stopShapeGenerator() {
 
@@ -131,9 +130,9 @@ public class Controller {
 		}
 
 	}
-	
+
 	/**
-	 *  Starts the shape generator
+	 * Starts the shape generator
 	 */
 	public void startShapeGenerator() {
 
@@ -144,6 +143,16 @@ public class Controller {
 
 		}
 
+	}
+
+	/**
+	 * Returns a boolean true if the user is online otherwise false
+	 * 
+	 * @return a boolean if the user is online
+	 */
+
+	public boolean isOnline() {
+		return online;
 	}
 
 	/**
@@ -215,7 +224,6 @@ public class Controller {
 
 							client.sendShape(msm);
 
-
 						}
 
 					}
@@ -231,12 +239,12 @@ public class Controller {
 		}
 
 	}
-	
+
 	/**
 	 * 
 	 * Removes musicshape from the sound array
 	 * 
-	 * @param row which row the shape is located in
+	 * @param row    which row the shape is located in
 	 * @param column which column the shape is located in
 	 */
 	public void removeSound(int row, int column) {
@@ -284,7 +292,7 @@ public class Controller {
 		startShapeGenerator();
 
 	}
-	
+
 	/**
 	 * 
 	 * Sends a username to the server via the client
@@ -297,7 +305,7 @@ public class Controller {
 		client.sendUsername();
 
 	}
-	
+
 	/**
 	 * disconnects the client from from the server
 	 */
@@ -306,7 +314,7 @@ public class Controller {
 		client.disconnect();
 
 	}
-	
+
 	/**
 	 * 
 	 * Handles incoming messages from the server
@@ -426,8 +434,16 @@ public class Controller {
 
 		}
 
+		if (obj instanceof RemoveShapeMessage) {
+
+			RemoveShapeMessage rsm = (RemoveShapeMessage) obj;
+
+			ui.removeShape(sounds[rsm.getRow()][rsm.getColumn()]);
+
+		}
+
 	}
-	
+
 	/**
 	 * 
 	 * Sends a new ConnectToUserMessage to the client
@@ -445,15 +461,52 @@ public class Controller {
 	}
 	
 	/**
+	 * Sends 
+	 * @param row the row the shape is in
+	 * @param column the column the shape is in
+	 */
+	
+	public void sendRemoveShape(int row, int column) {
+		
+		RemoveShapeMessage removeShapeMessage = new RemoveShapeMessage(row, column);
+
+		client.sendObject(removeShapeMessage);
+
+	}
+
+	/**
 	 * 
-	 * Called when a user has either accepted or declined a connection request from another user
+	 * Called when a user has either accepted or declined a connection request from
+	 * another user
 	 * 
-	 * @param crm ConnectRequestMessage containing either a true or false response boolean
+	 * @param crm ConnectRequestMessage containing either a true or false response
+	 *            boolean
 	 */
 	public void sendResponse(ConnectRequestMessage crm) {
 
 		client.sendObject(crm);
 
+	}
+
+	public void printArray() {
+
+		int columns = 0;
+
+		while (columns < 18) {
+			for (int i = 0; i < sounds.length; i++) {
+
+				if (sounds[i][columns] != null) {
+
+					System.out.print(i + " " + columns + " = " + sounds[i][columns].toString() + " ");
+
+				} else {
+					System.out.print(i + " " + columns + " = null ");
+				}
+
+			}
+			System.out.println();
+			columns++;
+		}
 	}
 
 	/**
@@ -504,7 +557,7 @@ public class Controller {
 		}
 
 	}
-	
+
 	/**
 	 * 
 	 * Thread which handles the automatic generation of shapes

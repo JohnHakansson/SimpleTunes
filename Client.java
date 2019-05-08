@@ -4,7 +4,8 @@ import java.io.*;
 import java.net.*;
 
 /**
- * Connects to the given ip and port of a server. Sends and receives information. 
+ * Connects to the given ip and port of a server. Sends and receives
+ * information.
  * 
  * @author John Håkansson, Roland Askelöf, Matilda Frimodig
  *
@@ -53,25 +54,6 @@ public class Client {
 	public void disconnect() {
 		try {
 			socket.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * 
-	 * @param musicShape
-	 */
-	public void sendRemoveShape(MusicShape musicShape) {
-
-		MusicShapeMessage msm = new MusicShapeMessage(musicShape.toString(),
-				NamedColors.getColorString(musicShape.getColor()), musicShape.getRow(), musicShape.getColumn());
-
-		RemoveShapeMessage removeShapeMessage = new RemoveShapeMessage(msm);
-
-		try {
-			output.writeObject(removeShapeMessage);
-			output.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
