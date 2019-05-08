@@ -67,7 +67,8 @@ public class UI extends Application {
 
 	private String username;
 	
-	private Label userConnectedMessage;
+	private Label selectUserMessage;
+	private Label selectedUserMessage;
 
 	private ObservableList<String> listOfOnlineUser = FXCollections.observableList(new ArrayList<String>());
 
@@ -337,20 +338,13 @@ public class UI extends Application {
 
 				controller.sendResponse(crm);
 				
-//				if (connectAnswer) {
-//					userConnectedMessage.setText("Connected with:");
-//				}
 			}
 		});
 
 	}
-	
-//	public boolean getConnectAnser() {
-//		return connectAnswer;
-//	}
-//	
-	public void setUserConnectedMessage(String message) {
-		userConnectedMessage.setText(message);
+		
+	public void setSelectedUserMessage(String message) {
+		selectUserMessage.setText(message);
 	}
 
 	public void closeLogin() {
@@ -359,7 +353,7 @@ public class UI extends Application {
 
 		username = login.getUserName();
 		
-		userConnectedMessage = new Label("Select user:");
+		selectUserMessage = new Label("Select user:");
 
 		Text usernameText = new Text(username);
 
@@ -375,10 +369,6 @@ public class UI extends Application {
 			controller.connectToUser(str);
 
 		});
-		
-//		if (connectAnswer) {
-//			userConnectedMessage.setText("Connected with:");
-//		}
 
 		Platform.runLater(new Runnable() {
 
@@ -392,7 +382,7 @@ public class UI extends Application {
 
 				});
 				
-				toolbar.getItems().add(userConnectedMessage);
+				toolbar.getItems().add(selectUserMessage);
 
 				toolbar.getItems().add(listOfUsers);
 

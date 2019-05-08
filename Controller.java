@@ -414,13 +414,10 @@ public class Controller {
 
 	public void sendResponse(ConnectRequestMessage crm) {
 		
-		if (crm.getConnectRequest()) {
-			ui.setUserConnectedMessage("Connected with:");
-		}
-		
 		client.sendObject(crm);
 
 	}
+	
 
 	/**
 	 * An inner class that extends Thread and uses the sounds-array to play the
