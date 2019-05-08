@@ -15,21 +15,37 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * The class handles the display of the window for answering to an incoming connection request from another user
+ * 
+ * @author Tom Lanhed Sivertsson, Matilda Frimodig
+ *
+ */
 public class ConnectWindow {
 	private Stage stage;
 	private boolean answer = false;
 
 	private String message;
-
+	
+	/* 
+	 * @param message Message to be displayed
+	 */
 	public ConnectWindow(String message) {
 		this.message = message;
 
 	}
-
+	
+	/**
+	 * 
+	 * Displays the window with one accept and one decline button
+	 * 
+	 * @return The answer to the connection request
+	 */
 	public boolean display() {
 
 		stage = new Stage();
-		stage.setTitle("JavaFX Welcome");
+		stage.setTitle("SimpleTunes Connection");
 		stage.initModality(Modality.APPLICATION_MODAL);
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
@@ -90,7 +106,11 @@ public class ConnectWindow {
 		return answer;
 
 	}
-
+	
+	
+	/**
+	 * closes the window
+	 */
 	public void closeStage() {
 
 		Platform.runLater(new Runnable() {
