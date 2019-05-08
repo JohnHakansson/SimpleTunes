@@ -4,6 +4,15 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
+/**
+ * The class represents the server part of the system.
+ * The server runs on a single thread and instantiates
+ * a new thread for each connected user. The different
+ * users are handled with its own clienthandler.
+ * users is
+ *
+ */
+
 public class Server implements Runnable {
 	private Thread thread = new Thread(this);
 	private ServerSocket serverSocket;
@@ -18,6 +27,12 @@ public class Server implements Runnable {
 		}
 	}
 
+	/*
+	 * The method handles a disconnect-request from a user
+	 * and removes the client from all of the other connected
+	 * clients interfaces.
+	 */
+	
 	public synchronized void disconnectUser(String disconnectedUser) {
 
 		clientMap.remove(disconnectedUser);
@@ -32,6 +47,12 @@ public class Server implements Runnable {
 
 	}
 
+	/**
+	 * The run method from where the server-thread is waiting for clients
+	 * to connect. A connected client is given its own Clienthandler and
+	 * the client thread is started.
+	 */
+	
 	public void run() {
 
 		while (true) {
@@ -59,7 +80,6 @@ public class Server implements Runnable {
 						ClientHandler tempClient = clientMap.get(onlineUser);
 						tempClient.send(userConnectMessage);
 
-						System.out.println("Sending UserConnectMessage to :" + onlineUser);
 					}
 
 					ClientHandler client = new ClientHandler(username, input, output, clientMap, this);

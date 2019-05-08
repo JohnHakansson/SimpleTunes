@@ -2,9 +2,14 @@ package simpleTunes;
 
 import java.io.File;
 import java.util.HashMap;
-
 import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
+
+	/**
+	 * The Class represents the three drum-sounds which are stored
+	 * in  its own HashMap and accessed by the controller.
+	 *
+	 */
 
 public class DrumSounds {
 	private HashMap<Color, Media> drumSounds = new HashMap<Color, Media>();
