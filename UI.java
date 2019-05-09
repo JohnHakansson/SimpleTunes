@@ -184,7 +184,8 @@ public class UI extends Application {
 		layout = new BorderPane();
 		layout.setCenter(poolPane);
 		layout.setTop(vbox);
-
+		
+		mainScene.getStylesheets().add(getClass().getResource("SimpleTunes.css").toExternalForm());
 		mainScene = new Scene(layout, 1800, 1000);
 		mainScene.setFill(Color.BLACK);
 
