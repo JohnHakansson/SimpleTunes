@@ -18,6 +18,13 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * The class handles the showing of the login window. Will be displayed when a user presses the go-online button
+ * 
+ * @author Tom Lanhed Sivertsson, Matilda Frimodig
+ *
+ */
 public class LoginWindow {
 	private Controller controller;
 
@@ -26,12 +33,19 @@ public class LoginWindow {
 	private Stage stage;
 	
 	private TextField userTextField;
-
+	
+	/**
+	 * 
+	 * @param controller Controller to be called
+	 */
 	public LoginWindow(Controller controller) {
 		this.controller = controller;
 
 	}
-
+	
+	/**
+	 * Displays the window
+	 */
 	public void display() {
 
 		stage = new Stage();
@@ -78,14 +92,23 @@ public class LoginWindow {
 		stage.showAndWait();
 
 	}
-
+	
+	/**
+	 * 
+	 * Is called when the username is not accepted by the server
+	 * 
+	 * @param info Information to be displayed
+	 */
 	public void userNameNotOK(String info) {
 
 		actiontarget.setFill(Color.RED);
 		actiontarget.setText(info);
 
 	}
-
+	
+	/**
+	 *  Closes the window
+	 */
 	public void closeStage() {
 
 		Platform.runLater(new Runnable() {
@@ -97,6 +120,12 @@ public class LoginWindow {
 
 	}
 	
+	/**
+	 * 
+	 * Gathers the String from the text input field
+	 * 
+	 * @return the username
+	 */
 	public String getUserName() {
 		
 		return userTextField.getText();
