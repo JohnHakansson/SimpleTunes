@@ -28,10 +28,4 @@
     -fx-background-position: center center;
 }
 
-#squares {
-	-fx-background-image: url("../images/squaresImage.jpg");
-    -fx-background-repeat: stretch;   
-    -fx-background-size: 100 100;
-    -fx-background-position: center center;
-}
 
