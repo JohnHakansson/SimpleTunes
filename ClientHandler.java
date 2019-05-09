@@ -61,7 +61,8 @@ public class ClientHandler extends Thread {
 	}
 
 	/**
-	 * 
+	 * Overrides Thread.run 
+	 * reads incoming objects and does an action depending on the type of object.
 	 * 
 	 * 
 	 */
@@ -104,7 +105,7 @@ public class ClientHandler extends Thread {
 
 				}
 
-				else {
+				else if (receivingUser != null){
 
 					clientMap.get(receivingUser).send(obj);
 
