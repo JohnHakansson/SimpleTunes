@@ -4,7 +4,22 @@ import javafx.scene.shape.*;
 import javafx.scene.media.*;
 import javafx.scene.paint.*;
 
+/**
+ * This class represents a circle that has a color and the corresponding sound
+ * from the color.
+ * 
+ * @author John Håkansson, Tom Lanhed Sivertsson
+ *
+ */
+
 public class MusicCircle extends MusicShape {
+
+	/**
+	 * Constructs a MusicCircle
+	 * 
+	 * @param color a color-object the color of the circle
+	 * @param sound a mediafile the sound of the circle
+	 */
 
 	public MusicCircle(Color color, Media sound) {
 		super(color, sound);
@@ -34,6 +49,10 @@ public class MusicCircle extends MusicShape {
 		shape.setLayoutY(y + 50);
 
 	}
+
+	/**
+	 * Turns of the eventhandlers for the shape when it's placed in grid.
+	 */
 
 	@Override
 	public void nullifyEventHandlers() {

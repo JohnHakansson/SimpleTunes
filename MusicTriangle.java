@@ -4,6 +4,14 @@ import javafx.scene.shape.*;
 import javafx.scene.media.*;
 import javafx.scene.paint.*;
 
+/**
+ * This class represents a Triangle that has a color and the corresponding sound
+ * from the color.
+ * 
+ * @author John Håkansson, Tom Lanhed Sivertsson
+ *
+ */
+
 public class MusicTriangle extends MusicShape {
 
 	public MusicTriangle(double x, double y, Color color, Media sound) {
@@ -34,6 +42,10 @@ public class MusicTriangle extends MusicShape {
 		shape.setLayoutY(y - 50);
 
 	}
+	
+	/**
+	 * Turns of the eventhandlers for the shape when it's placed in grid.
+	 */
 
 	@Override
 	public void nullifyEventHandlers() {
