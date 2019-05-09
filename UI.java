@@ -92,8 +92,6 @@ public class UI extends Application {
 			System.exit(0);
 		});
 
-		poolPane.setStyle("-fx-background-color: Black");
-
 		// Generating the cells used by the grid and adding them to the UI.
 		for (int i = 0; i < squares.length; i++) {
 			for (int j = 0; j < squares[i].length; j++) {
@@ -176,7 +174,7 @@ public class UI extends Application {
 
 		toolbar = new ToolBar(playButton, stopButton, new Separator(), refreshButton, resetButton, new Separator(),
 				onlineButton);
-		toolbar.setPrefHeight(48);
+		toolbar.setPrefHeight(50);
 
 		vbox = new VBox();
 		vbox.getChildren().addAll(toolbar);
