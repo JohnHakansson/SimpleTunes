@@ -6,7 +6,6 @@ import java.util.Random;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Shape;
 
 /**
  * This class handles all the logic for the system.
@@ -301,7 +300,7 @@ public class Controller {
 	 */
 	public void sendUsername(String userName) {
 
-		client = new Client("localhost", 5555, userName, this);
+		client = new Client("10.2.19.148", 5555, userName, this);
 		client.sendUsername();
 
 	}

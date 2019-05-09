@@ -1,14 +1,8 @@
 package simpleTunes;
 
 import javafx.scene.shape.*;
-import javafx.util.Duration;
-
-import java.util.HashMap;
-
 import javafx.scene.media.*;
-
 import javafx.scene.paint.*;
-import java.util.*;
 
 public class MusicCircle extends MusicShape {
 

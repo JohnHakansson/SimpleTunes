@@ -1,15 +1,8 @@
 package simpleTunes;
 
 import javafx.scene.shape.*;
-import javafx.util.Duration;
-
-import java.util.HashMap;
-import java.util.concurrent.Semaphore;
-
 import javafx.scene.media.*;
-
 import javafx.scene.paint.*;
-import java.util.*;
 
 public class MusicSquare extends MusicShape {
 

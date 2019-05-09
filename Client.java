@@ -11,9 +11,8 @@ import java.net.*;
  *
  */
 public class Client {
-	private String ip, username;
+	private String username;
 	private Thread thread;
-	private int port;
 	private Socket socket;
 	private ObjectOutputStream output;
 	private ObjectInputStream input;
@@ -29,8 +28,6 @@ public class Client {
 	 * @param controller instance of Controller
 	 */
 	public Client(String ip, int port, String username, Controller controller) {
-		this.ip = ip;
-		this.port = port;
 		this.username = username;
 		this.controller = controller;
 

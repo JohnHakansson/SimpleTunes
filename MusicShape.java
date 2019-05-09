@@ -1,17 +1,13 @@
 package simpleTunes;
 
-import java.io.Serializable;
-
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
-public abstract class MusicShape implements Serializable {
-	private static final long serialVersionUID = -4447060350509626449L;
+public abstract class MusicShape {
 	private transient AudioClip mediaPlayer;
 	private transient Media sound;
 
