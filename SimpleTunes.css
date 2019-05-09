@@ -1,12 +1,37 @@
-.root {
-	-fx-background-color: #1E1E24;
-}
+
 
 .button {
 	-fx-border-radius: 30;
     -fx-background-radius: 30;
+    -fx-background-color: #c4cace;
     -fx-padding: 7;
+    
 }
 
+.separator {
+	 -fx-border-radius: 10;
+     -fx-background-radius: 10;
 
+}
+
+#poolPane {
+	-fx-background-image: url("../images/poolPaneImage.jpg");
+    -fx-background-repeat: stretch;   
+    -fx-background-size: 1800 1000;
+    -fx-background-position: center center;
+}
+
+#toolbar {
+	-fx-background-image: url("../images/menuBarImage.jpg");
+    -fx-background-repeat: stretch;   
+    -fx-background-size: 1800 50;
+    -fx-background-position: center center;
+}
+
+#squares {
+	-fx-background-image: url("../images/squaresImage.jpg");
+    -fx-background-repeat: stretch;   
+    -fx-background-size: 100 100;
+    -fx-background-position: center center;
+}
 

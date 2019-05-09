@@ -92,12 +92,15 @@ public class UI extends Application {
 			System.exit(0);
 		});
 
+		poolPane.setId("poolPane");
+
 		// Generating the cells used by the grid and adding them to the UI.
 		for (int i = 0; i < squares.length; i++) {
 			for (int j = 0; j < squares[i].length; j++) {
 				squares[i][j] = new Rectangle(j * 100, i * 100 + 600 - 50, 100, 100);
+				squares[i][j].setId("squares");
 				squares[i][j].setFill(Color.BLACK);
-				squares[i][j].setStroke(Color.GREEN);
+				squares[i][j].setStroke(Color.WHITESMOKE);
 				squares[i][j].setStrokeWidth(3);
 				poolGroup.getChildren().add(squares[i][j]);
 
@@ -109,7 +112,7 @@ public class UI extends Application {
 		movingLine.setStartY(550);
 		movingLine.setEndX(5);
 		movingLine.setEndY(995);
-		movingLine.setStroke(Color.WHITE);
+		movingLine.setStroke(Color.YELLOW);
 		movingLine.setStrokeWidth(5);
 
 		lineTransition.setDuration(Duration.seconds(9));
@@ -171,13 +174,15 @@ public class UI extends Application {
 		});
 
 		listOfUsers = new ChoiceBox<String>();
-
+		
 		toolbar = new ToolBar(playButton, stopButton, new Separator(), refreshButton, resetButton, new Separator(),
 				onlineButton);
 		toolbar.setPrefHeight(50);
-
+		toolbar.setId("toolbar");
+		
 		vbox = new VBox();
 		vbox.getChildren().addAll(toolbar);
+		vbox.setId("vbox");
 
 		layout = new BorderPane();
 		layout.setCenter(poolPane);
