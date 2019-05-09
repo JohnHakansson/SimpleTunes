@@ -8,10 +8,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 
 public abstract class MusicShape {
-	private transient AudioClip mediaPlayer;
-	private transient Media sound;
+	private AudioClip mediaPlayer;
+	private Media sound;
 
-	protected transient Shape shape;
+	protected Shape shape;
 
 	private double orgSceneX;
 	private double orgSceneY;
@@ -22,7 +22,7 @@ public abstract class MusicShape {
 
 	private int row;
 	private int column;
-	
+
 	private Color color;
 
 	public MusicShape(Color color, Media sound) {
@@ -101,6 +101,8 @@ public abstract class MusicShape {
 				shape.setTranslateX(newTranslateX);
 				shape.setTranslateY(newTranslateY);
 
+				shape.toFront();
+
 			}
 		};
 
@@ -130,11 +132,11 @@ public abstract class MusicShape {
 	public int getColumn() {
 		return column;
 	}
-	
+
 	public Color getColor() {
 		return color;
 	}
-	
+
 	public abstract void nullifyEventHandlers();
 
 }
