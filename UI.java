@@ -18,6 +18,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.ToolBar;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -125,12 +126,13 @@ public class UI extends Application {
 		poolGroup.getChildren().add(movingLine);
 
 		Image playImage = new Image(getClass().getResourceAsStream("/images/playButton.png"));
-		Image refreshImage = new Image(getClass().getResourceAsStream("/images/refreshButton.png"));
-		Image pauseImage = new Image(getClass().getResourceAsStream("/images/pauseButton.png"));
+		Image refreshImage = new Image(getClass().getResourceAsStream("/images/generateShapesButton.png"));
+		Image pauseImage = new Image(getClass().getResourceAsStream("/images/stopButton.png"));
 		Image clearImage = new Image(getClass().getResourceAsStream("/images/clearButton.png"));
 
 		Button playButton = new Button();
 		playButton.setGraphic(new ImageView(playImage));
+		playButton.setTooltip(new Tooltip("Start the timeline and play music!"));
 		playButton.setOnAction(e -> {
 			startMovingLine();
 			controller.startPlaying();
@@ -139,21 +141,24 @@ public class UI extends Application {
 
 		Button refreshButton = new Button();
 		refreshButton.setGraphic(new ImageView(refreshImage));
+		refreshButton.setTooltip(new Tooltip("Generate new shapes."));
 		refreshButton.setOnAction(e -> {
 			controller.refreshShapesFromPool(poolGroup);
 			controller.generateShape(10);
 
 		});
 
-		Button pauseButton = new Button();
-		pauseButton.setGraphic(new ImageView(pauseImage));
-		pauseButton.setOnAction(e -> {
+		Button stopButton = new Button();
+		stopButton.setGraphic(new ImageView(pauseImage));
+		stopButton.setTooltip(new Tooltip("Stop the timeline."));
+		stopButton.setOnAction(e -> {
 			stopMovingLine();
 			controller.stopPlaying();
 		});
 
 		Button resetButton = new Button();
 		resetButton.setGraphic(new ImageView(clearImage));
+		resetButton.setTooltip(new Tooltip("Reset the window."));
 		resetButton.setOnAction(e -> {
 			controller.removeShapesFromPool(poolGroup);
 
@@ -169,7 +174,7 @@ public class UI extends Application {
 
 		listOfUsers = new ChoiceBox<String>();
 
-		toolbar = new ToolBar(playButton, pauseButton, new Separator(), refreshButton, resetButton, new Separator(),
+		toolbar = new ToolBar(playButton, stopButton, new Separator(), refreshButton, resetButton, new Separator(),
 				onlineButton);
 		toolbar.setPrefHeight(48);
 
