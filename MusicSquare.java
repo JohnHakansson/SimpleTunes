@@ -4,8 +4,23 @@ import javafx.scene.shape.*;
 import javafx.scene.media.*;
 import javafx.scene.paint.*;
 
+/**
+ * This class represents a square that has a color and the corresponding sound
+ * from the color.
+ * 
+ * @author John Håkansson, Tom Lanhed Sivertsson
+ *
+ */
+
 public class MusicSquare extends MusicShape {
 
+	/**
+	 * Constructs a MusicSquare
+	 * 
+	 * @param color a color-object the color of the circle
+	 * @param sound a mediafile the sound of the circle
+	 */
+	
 	public MusicSquare(Color color, Media sound) {
 		super(color, sound);
 
@@ -32,6 +47,10 @@ public class MusicSquare extends MusicShape {
 		shape.setLayoutY(y);
 	}
 
+	/**
+	 * Turns of the eventhandlers for the shape when it's placed in grid.
+	 */
+	
 	@Override
 	public void nullifyEventHandlers() {
 		shape.setOnMousePressed(null);

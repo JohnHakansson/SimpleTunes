@@ -2,10 +2,19 @@ package simpleTunes;
 
 import java.io.Serializable;
 
+/**
+ * This class represents a shape when it's used to send to another user using a
+ * TCP-server.
+ * 
+ * @author John Håkansson, Roland Askelöf, Matilda Frimodig, Tom Lanhed
+ *         Sivertsson
+ *
+ */
+
 public class MusicShapeMessage implements Serializable {
 	private static final long serialVersionUID = 4494869902849409822L;
 	private String shape;
-	
+
 	private String color;
 
 	private int row;
