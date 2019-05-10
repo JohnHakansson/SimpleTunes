@@ -300,7 +300,7 @@ public class Controller {
 	 */
 	public void sendUsername(String userName) {
 
-		client = new Client("localhose", 5555, userName, this);
+		client = new Client("localhost", 5555, userName, this);
 		client.sendUsername();
 
 	}
