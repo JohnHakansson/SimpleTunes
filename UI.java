@@ -233,7 +233,7 @@ public class UI extends Application {
 
 				if (controller.isOnline()) {
 					controller.sendRemoveShape(row, column);
-					
+
 				}
 
 			}
@@ -290,14 +290,14 @@ public class UI extends Application {
 
 		Platform.runLater(new Runnable() {
 			public void run() {
-				
+
 				System.out.println(shape.toString());
-				
+
 				poolGroup.getChildren().remove(shape.getShape());
-				
+
 				controller.removeSound(shape.getRow(), shape.getColumn());
 			}
-			
+
 		});
 
 	}
@@ -321,7 +321,7 @@ public class UI extends Application {
 
 		for (Node x : poolGroup.getChildren()) {
 
-			if (shape.getShape().getBoundsInParent().intersects(x.getBoundsInParent())) {
+			if (shape.getShape().getBoundsInParent().intersects(x.getBoundsInParent()) && !shape.getShape().equals(x)) {
 
 				setRandomLocation(shape);
 
@@ -379,7 +379,7 @@ public class UI extends Application {
 
 		shape.nullifyEventHandlers();
 
-		shape.getShape().setOnMousePressed(getMouseRemove(shape, row , column));
+		shape.getShape().setOnMousePressed(getMouseRemove(shape, row, column));
 
 		Platform.runLater(new Runnable() {
 
