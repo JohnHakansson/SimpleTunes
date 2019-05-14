@@ -82,12 +82,16 @@ public class LoginWindow {
 			public void handle(ActionEvent e) {
 				actiontarget.setFill(Color.DARKGRAY);
 				actiontarget.setText("Signing in...");
+				System.out.println("sending username");
+
 				controller.sendUsername(userTextField.getText());
+				
 
 			}
 		});
 
 		Scene scene = new Scene(grid, 500, 275);
+		scene.getStylesheets().add("simpleTunes/login.css");
 		stage.setScene(scene);
 		stage.showAndWait();
 

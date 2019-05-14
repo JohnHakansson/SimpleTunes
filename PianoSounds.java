@@ -19,6 +19,8 @@ public class PianoSounds {
 
 		File kick = new File("PianoSounds/C.wav");
 		pianoSounds.put(Color.RED, new Media(kick.toURI().toString()));
+		
+		System.out.println(new Media(kick.toURI().toString()));
 
 		File snare = new File("PianoSounds/E.wav");
 		pianoSounds.put(Color.GREEN, new Media(snare.toURI().toString()));

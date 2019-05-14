@@ -228,7 +228,9 @@ public class Controller {
 					}
 
 				} else {
-					ui.setRandomLocation(shape);
+					
+				ui.setRandomLocation(shape);
+					
 					return;
 
 				}
@@ -300,7 +302,7 @@ public class Controller {
 	 */
 	public void sendUsername(String userName) {
 
-		client = new Client("10.2.19.148", 5555, userName, this);
+		client = new Client("localhost", 5555, userName, this);
 		client.sendUsername();
 
 	}

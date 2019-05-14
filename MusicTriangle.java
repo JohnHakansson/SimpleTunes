@@ -8,7 +8,7 @@ import javafx.scene.paint.*;
  * This class represents a Triangle that has a color and the corresponding sound
  * from the color.
  * 
- * @author John Håkansson, Tom Lanhed Sivertsson
+ * @author John Hï¿½kansson, Tom Lanhed Sivertsson
  *
  */
 
@@ -20,9 +20,20 @@ public class MusicTriangle extends MusicShape {
 		shape = new Polygon();
 		((Polygon) shape).getPoints().addAll(new Double[] { x, y - 50, x + 50, y + 50, x - 50, y + 50 });
 
-		shape.setFill(color);
-		shape.setStroke(Color.WHITESMOKE);
+		if (color.equals(Color.RED)) {
 
+			shape.setId("shapeRed");
+
+		} else if (color.equals(Color.BLUE)) {
+
+			shape.setId("shapeBlue");
+
+		} else {
+
+			shape.setId("shapeGreen");
+
+		}
+		
 		shape.setOnMouseClicked(getMouseEvent());
 		shape.setOnMousePressed(getMouseEventPressed());
 		shape.setOnMouseDragged(getMouseEventDragged());
@@ -42,7 +53,7 @@ public class MusicTriangle extends MusicShape {
 		shape.setLayoutY(y - 50);
 
 	}
-	
+
 	/**
 	 * Turns of the eventhandlers for the shape when it's placed in grid.
 	 */

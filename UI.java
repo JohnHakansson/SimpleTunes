@@ -74,6 +74,7 @@ public class UI extends Application {
 	private Circle onlineCircle;
 
 	private Text usernameText;
+	
 
 	private ObservableList<String> listOfOnlineUser = FXCollections.observableList(new ArrayList<String>());
 
@@ -92,14 +93,18 @@ public class UI extends Application {
 			System.exit(0);
 		});
 
-		poolPane.setStyle("-fx-background-color: Black");
+//		poolPane.setStyle("-fx-background-color: Black");
+
+//		poolPane.getStylesheets().add("simpleTunes/SimpleTunes.css");
 
 		// Generating the cells used by the grid and adding them to the UI.
 		for (int i = 0; i < squares.length; i++) {
 			for (int j = 0; j < squares[i].length; j++) {
 				squares[i][j] = new Rectangle(j * 100, i * 100 + 600 - 50, 100, 100);
-				squares[i][j].setFill(Color.BLACK);
-				squares[i][j].setStroke(Color.GREEN);
+//				squares[i][j].setFill(Color.BLACK);
+				squares[i][j].setId("rectengle-test");
+
+//				squares[i][j].setStroke();
 				squares[i][j].setStrokeWidth(3);
 				poolGroup.getChildren().add(squares[i][j]);
 
@@ -163,7 +168,7 @@ public class UI extends Application {
 			controller.removeShapesFromPool(poolGroup);
 
 		});
-
+		
 		onlineButton = new Button("Go Online");
 		onlineButton.setOnAction(e -> {
 
@@ -186,7 +191,8 @@ public class UI extends Application {
 		layout.setTop(vbox);
 
 		mainScene = new Scene(layout, 1800, 1000);
-		mainScene.setFill(Color.BLACK);
+
+		mainScene.getStylesheets().add("simpleTunes/SimpleTunes.css");
 
 		window.setScene(mainScene);
 		window.setResizable(false);
@@ -194,6 +200,11 @@ public class UI extends Application {
 		window.show();
 
 		controller.startShapeGenerator();
+
+		toolbar.setId("toolbar");
+		
+		
+		
 
 	}
 
@@ -233,7 +244,7 @@ public class UI extends Application {
 
 				if (controller.isOnline()) {
 					controller.sendRemoveShape(row, column);
-					
+
 				}
 
 			}
@@ -290,14 +301,14 @@ public class UI extends Application {
 
 		Platform.runLater(new Runnable() {
 			public void run() {
-				
+
 				System.out.println(shape.toString());
-				
+
 				poolGroup.getChildren().remove(shape.getShape());
-				
+
 				controller.removeSound(shape.getRow(), shape.getColumn());
 			}
-			
+
 		});
 
 	}
@@ -312,24 +323,30 @@ public class UI extends Application {
 	public void setRandomLocation(MusicShape shape) {
 
 		Random rand = new Random();
+		boolean collision;
 
-		shape.getShape().setTranslateX(0);
-		shape.getShape().setTranslateY(0);
+		do {
 
-		shape.setLayoutX(rand.nextInt((int) ((mainScene.getWidth() - 100))));
-		shape.setLayoutY(rand.nextInt((int) ((mainScene.getHeight() - toolbar.getHeight()) - 550)));
+			collision = false;
 
-		for (Node x : poolGroup.getChildren()) {
+			shape.setLayoutX(rand.nextInt((int) ((mainScene.getWidth() - 100))));
+			shape.setLayoutY(rand.nextInt((int) ((mainScene.getHeight() - toolbar.getHeight()) - 550)));
 
-			if (shape.getShape().getBoundsInParent().intersects(x.getBoundsInParent())) {
+			shape.getShape().setTranslateX(0);
+			shape.getShape().setTranslateY(0);
 
-				setRandomLocation(shape);
+			for (Node x : poolGroup.getChildren()) {
 
-				System.out.println("Redo location");
+				if (shape.getShape().getBoundsInParent().intersects(x.getBoundsInParent())
+						&& !x.equals(shape.getShape())) {
+
+					collision = true;
+
+				}
 
 			}
 
-		}
+		} while (collision);
 
 	}
 
@@ -379,7 +396,7 @@ public class UI extends Application {
 
 		shape.nullifyEventHandlers();
 
-		shape.getShape().setOnMousePressed(getMouseRemove(shape, row , column));
+		shape.getShape().setOnMousePressed(getMouseRemove(shape, row, column));
 
 		Platform.runLater(new Runnable() {
 
