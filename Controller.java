@@ -284,12 +284,41 @@ public class Controller {
 
 		}
 
+		if (online) {
+
+			RemoveShapeMessage rsm = new RemoveShapeMessage(true);
+
+			client.sendObject(rsm);
+		}
+
 		sounds = new MusicShape[4][18];
 
 		shapeList.clear();
 
 		startShapeGenerator();
 
+	}
+
+	public void removeShapesFromGrid() {
+		
+		Platform.runLater(new Runnable() {
+			public void run() {
+				Group group = ui.getPoolGroup();
+				
+				for(int i = 0; i < sounds.length; i++) {
+					for(int j = 0; j < sounds[i].length; j++) {
+						if(sounds[i][j] != null) {
+							
+							
+									group.getChildren().remove(sounds[i][j].getShape());
+								}
+							
+						}
+						
+					} 
+					sounds=new MusicShape[4][18];
+			}
+		});
 	}
 
 	/**
@@ -350,6 +379,8 @@ public class Controller {
 
 				ui.setShapeFromOnline(ms, msm.getRow(), msm.getColumn());
 
+				shapeList.add(ms);
+
 				sounds[msm.getRow()][msm.getColumn()] = ms;
 
 			}
@@ -358,11 +389,13 @@ public class Controller {
 
 				Color color = NamedColors.get(msm.getColor());
 
-				MusicTriangle ms = new MusicTriangle(50, 100, color, drumSounds.getDrumSound(color));
+				MusicTriangle mt = new MusicTriangle(50, 100, color, drumSounds.getDrumSound(color));
 
-				ui.setShapeFromOnline(ms, msm.getRow(), msm.getColumn());
+				ui.setShapeFromOnline(mt, msm.getRow(), msm.getColumn());
 
-				sounds[msm.getRow()][msm.getColumn()] = ms;
+				shapeList.add(mt);
+
+				sounds[msm.getRow()][msm.getColumn()] = mt;
 
 			}
 
@@ -370,11 +403,13 @@ public class Controller {
 
 				Color color = NamedColors.get(msm.getColor());
 
-				MusicCircle ms = new MusicCircle(color, guitarSounds.getGuitarSound(color));
+				MusicCircle mc = new MusicCircle(color, guitarSounds.getGuitarSound(color));
 
-				ui.setShapeFromOnline(ms, msm.getRow(), msm.getColumn());
+				ui.setShapeFromOnline(mc, msm.getRow(), msm.getColumn());
 
-				sounds[msm.getRow()][msm.getColumn()] = ms;
+				shapeList.add(mc);
+
+				sounds[msm.getRow()][msm.getColumn()] = mc;
 
 			}
 
@@ -437,7 +472,16 @@ public class Controller {
 
 			RemoveShapeMessage rsm = (RemoveShapeMessage) obj;
 
-			ui.removeShape(sounds[rsm.getRow()][rsm.getColumn()]);
+			if (rsm.isRemoveAll()) {
+
+				removeShapesFromGrid();
+
+			} else {
+
+				ui.removeShape(sounds[rsm.getRow()][rsm.getColumn()]);
+
+				removeSound(rsm.getRow(), rsm.getColumn());
+			}
 
 		}
 
@@ -458,15 +502,16 @@ public class Controller {
 		client.sendObject(message);
 
 	}
-	
+
 	/**
-	 * Sends 
-	 * @param row the row the shape is in
+	 * Sends
+	 * 
+	 * @param row    the row the shape is in
 	 * @param column the column the shape is in
 	 */
-	
+
 	public void sendRemoveShape(int row, int column) {
-		
+
 		RemoveShapeMessage removeShapeMessage = new RemoveShapeMessage(row, column);
 
 		client.sendObject(removeShapeMessage);
