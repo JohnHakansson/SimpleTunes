@@ -295,7 +295,6 @@ public class UI extends Application {
 
 				poolGroup.getChildren().remove(shape.getShape());
 
-				controller.removeSound(shape.getRow(), shape.getColumn());
 			}
 
 		});
@@ -575,6 +574,10 @@ public class UI extends Application {
 
 		login.userNameNotOK(info);
 
+	}
+	
+	public Group getPoolGroup() {
+		return poolGroup;
 	}
 
 	public static void main(String[] args) {
