@@ -99,7 +99,7 @@ public class UI extends Application {
 			for (int j = 0; j < squares[i].length; j++) {
 				squares[i][j] = new Rectangle(j * 100, i * 100 + 600 - 50, 100, 100);
 				squares[i][j].setFill(Color.BLACK);
-				squares[i][j].setStroke(Color.WHITESMOKE);
+				squares[i][j].setStroke(Color.SADDLEBROWN);
 				squares[i][j].setStrokeWidth(3);
 				poolGroup.getChildren().add(squares[i][j]);
 
