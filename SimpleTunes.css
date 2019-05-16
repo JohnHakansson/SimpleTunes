@@ -1,13 +1,5 @@
 
 
-.button {
-	-fx-border-radius: 30;
-    -fx-background-radius: 30;
-    -fx-background-color: #c4cace;
-    -fx-padding: 7;
-    
-}
-
 .separator {
 	 -fx-border-radius: 10;
      -fx-background-radius: 10;
