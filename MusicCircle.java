@@ -21,18 +21,22 @@ public class MusicCircle extends MusicShape {
 	 * @param sound a mediafile the sound of the circle
 	 */
 
-	public MusicCircle(Color color, Media sound) {
+	public MusicCircle(String color, Media sound) {
 		super(color, sound);
 
 		shape = new Circle(50);
 
-		shape.setFill(color);
+		shape.setFill(getColor());
 		shape.setStroke(Color.WHITESMOKE);
 
 		shape.setOnMouseClicked(getMouseEvent());
 		shape.setOnMousePressed(getMouseEventPressed());
 		shape.setOnMouseDragged(getMouseEventDragged());
 
+	}
+	
+	public String getColorName() {
+		return "Red";
 	}
 
 	public Shape getShape() {

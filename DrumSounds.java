@@ -12,21 +12,27 @@ import javafx.scene.paint.Color;
 	 */
 
 public class DrumSounds {
-	private HashMap<Color, Media> drumSounds = new HashMap<Color, Media>();
+	private HashMap<String, Media> drumSounds = new HashMap<String, Media>();
 
 	public DrumSounds() {
 
 		File kick = new File("DrumSounds/HiHat2.wav");
-		drumSounds.put(Color.RED, new Media(kick.toURI().toString()));
+		drumSounds.put("Orange1", new Media(kick.toURI().toString()));
 
 		File snare = new File("DrumSounds/Kick3.wav");
-		drumSounds.put(Color.GREEN, new Media(snare.toURI().toString()));
+		drumSounds.put("Orange2", new Media(snare.toURI().toString()));
 
 		File hiHat = new File("DrumSounds/Snare3.wav");
-		drumSounds.put(Color.BLUE, new Media(hiHat.toURI().toString()));
+		drumSounds.put("Orange3", new Media(hiHat.toURI().toString()));
+		
+		File hiHat2 = new File("DrumSounds/Snare3.wav");
+		drumSounds.put("Orange4", new Media(hiHat2.toURI().toString()));
+		
+		File hiHat3 = new File("DrumSounds/Snare3.wav");
+		drumSounds.put("Orange5", new Media(hiHat3.toURI().toString()));
 	}
 
-	public synchronized Media getDrumSound(Color color) {
+	public synchronized Media getDrumSound(String color) {
 		return drumSounds.get(color);
 	}
 }

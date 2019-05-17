@@ -21,12 +21,12 @@ public class MusicSquare extends MusicShape {
 	 * @param sound a mediafile the sound of the circle
 	 */
 	
-	public MusicSquare(Color color, Media sound) {
+	public MusicSquare(String color, Media sound) {
 		super(color, sound);
 
 		shape = new Rectangle(100, 100);
 
-		shape.setFill(color);
+		shape.setFill(getColor());
 		shape.setStroke(Color.WHITESMOKE);
 
 		shape.setOnMouseClicked(getMouseEvent());

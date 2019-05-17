@@ -28,7 +28,8 @@ public class Controller {
 
 	private boolean playing = false;
 	private Random rand = new Random();
-	private Color[] colors = { Color.RED, Color.BLUE, Color.GREEN };
+//	private Color[] colors = { Color.RED, Color.BLUE, Color.GREEN };
+	private String[] colors = { "Blue", "Red", "Orange", "Purple", "Green", "Turquoise" };
 	private Client client;
 
 	private boolean online = false;
@@ -56,23 +57,42 @@ public class Controller {
 	public synchronized void generateShape(int limit) {
 		int nbrOfShapes = 0;
 		MusicShape randomShape = null;
+		String color = "";
 
 		do {
-			switch (rand.nextInt(3)) {
+			switch (rand.nextInt(6)) {
 
 			case 0:
-				Color randomSquare = colors[rand.nextInt(3)];
-				randomShape = new MusicSquare(randomSquare, pianoSounds.getPianoSound(randomSquare));
+				color = colors[0] + (rand.nextInt(5)+1);
+				System.out.println(color);
+				randomShape = new MusicSquare(color, pianoSounds.getPianoSound(color));
 				break;
 
 			case 1:
-				Color randomCircle = colors[rand.nextInt(3)];
-				randomShape = new MusicCircle(randomCircle, guitarSounds.getGuitarSound(randomCircle));
+				color = colors[3] + (rand.nextInt(5)+1);
+				System.out.println(color);
+				randomShape = new MusicCircle(color, guitarSounds.getGuitarSound(color));
 				break;
 
 			case 2:
-				Color randomTrinagle = colors[rand.nextInt(3)];
-				randomShape = new MusicTriangle(50, 100, randomTrinagle, drumSounds.getDrumSound(randomTrinagle));
+				color = colors[2] + (rand.nextInt(5)+1);
+				System.out.println(color);
+				randomShape = new MusicTriangle(50, 100, color, drumSounds.getDrumSound(color));
+				break;
+			case 3:
+				color = colors[0] + (rand.nextInt(5)+1);
+				System.out.println(color);
+				randomShape = new MusicDiamond(color, pianoSounds.getPianoSound(color));
+				break;
+			case 4: 
+				color = colors[3] + (rand.nextInt(5)+1);
+				System.out.println(color);
+				randomShape = new MusicRightTriangle(color, guitarSounds.getGuitarSound(color));
+				break;
+			case 5: 
+				color = colors[2] + (rand.nextInt(5)+1);
+				System.out.println(color);
+				randomShape = new MusicPentagon(color, drumSounds.getDrumSound(color));
 				break;
 
 			}
@@ -367,53 +387,53 @@ public class Controller {
 
 		}
 
-		if (obj instanceof MusicShapeMessage) {
+//		if (obj instanceof MusicShapeMessage) {
+//
+//			MusicShapeMessage msm = (MusicShapeMessage) obj;
+//
+//			if (msm.getShape().equals("square")) {
+//
+//				Color color = NamedColors.get(msm.getColor());
+//
+//				MusicSquare ms = new MusicSquare(color, pianoSounds.getPianoSound(color));
+//
+//				ui.setShapeFromOnline(ms, msm.getRow(), msm.getColumn());
+//
+//				shapeList.add(ms);
+//
+//				sounds[msm.getRow()][msm.getColumn()] = ms;
+//
+//			}
+//
+//			if (msm.getShape().equals("triangle")) {
+//
+//				Color color = NamedColors.get(msm.getColor());
+//
+//				MusicTriangle mt = new MusicTriangle(50, 100, color, drumSounds.getDrumSound(color));
+//
+//				ui.setShapeFromOnline(mt, msm.getRow(), msm.getColumn());
+//
+//				shapeList.add(mt);
+//
+//				sounds[msm.getRow()][msm.getColumn()] = mt;
+//
+//			}
+//
+//			if (msm.getShape().equals("circle")) {
+//
+//				Color color = NamedColors.get(msm.getColor());
+//
+//				MusicCircle mc = new MusicCircle(color, guitarSounds.getGuitarSound(color));
+//
+//				ui.setShapeFromOnline(mc, msm.getRow(), msm.getColumn());
+//
+//				shapeList.add(mc);
+//
+//				sounds[msm.getRow()][msm.getColumn()] = mc;
+//
+//			}
 
-			MusicShapeMessage msm = (MusicShapeMessage) obj;
-
-			if (msm.getShape().equals("square")) {
-
-				Color color = NamedColors.get(msm.getColor());
-
-				MusicSquare ms = new MusicSquare(color, pianoSounds.getPianoSound(color));
-
-				ui.setShapeFromOnline(ms, msm.getRow(), msm.getColumn());
-
-				shapeList.add(ms);
-
-				sounds[msm.getRow()][msm.getColumn()] = ms;
-
-			}
-
-			if (msm.getShape().equals("triangle")) {
-
-				Color color = NamedColors.get(msm.getColor());
-
-				MusicTriangle mt = new MusicTriangle(50, 100, color, drumSounds.getDrumSound(color));
-
-				ui.setShapeFromOnline(mt, msm.getRow(), msm.getColumn());
-
-				shapeList.add(mt);
-
-				sounds[msm.getRow()][msm.getColumn()] = mt;
-
-			}
-
-			if (msm.getShape().equals("circle")) {
-
-				Color color = NamedColors.get(msm.getColor());
-
-				MusicCircle mc = new MusicCircle(color, guitarSounds.getGuitarSound(color));
-
-				ui.setShapeFromOnline(mc, msm.getRow(), msm.getColumn());
-
-				shapeList.add(mc);
-
-				sounds[msm.getRow()][msm.getColumn()] = mc;
-
-			}
-
-		}
+//		}
 
 		if (obj instanceof ConnectRequestMessage) {
 

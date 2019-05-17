@@ -37,9 +37,10 @@ public abstract class MusicShape {
 	 * @param color Color of the shape
 	 * @param sound Sound to be connected with the shape
 	 */
-	public MusicShape(Color color, Media sound) {
+	public MusicShape(String color, Media sound) {
+		this.color = NewNamedColors.get(color);
 		setSound(sound);
-		this.color = color;
+		
 
 	}
 	
