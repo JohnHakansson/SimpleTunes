@@ -28,4 +28,7 @@
     -fx-background-position: center center;
 }
 
+#randomShapes {
+	-fx-effect: dropshadow(one-pass-box, black, 50, 0, 0, 0);
 
+}

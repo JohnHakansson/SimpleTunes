@@ -8,7 +8,7 @@ import javafx.scene.paint.*;
  * This class represents a circle that has a color and the corresponding sound
  * from the color.
  * 
- * @author John Håkansson, Tom Lanhed Sivertsson
+ * @author John Hï¿½kansson, Tom Lanhed Sivertsson
  *
  */
 
@@ -27,7 +27,6 @@ public class MusicCircle extends MusicShape {
 		shape = new Circle(50);
 
 		shape.setFill(color);
-		shape.setStroke(Color.WHITESMOKE);
 
 		shape.setOnMouseClicked(getMouseEvent());
 		shape.setOnMousePressed(getMouseEventPressed());

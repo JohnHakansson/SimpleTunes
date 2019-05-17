@@ -76,7 +76,7 @@ public class Controller {
 				break;
 
 			}
-
+			randomShape.getShape().setId("randomShapes");
 			nbrOfShapes++;
 			shapeList.add(randomShape);
 			randomShape.getShape().setOnMouseReleased(ui.getMouseEventReleased(randomShape));
