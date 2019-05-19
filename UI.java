@@ -3,6 +3,8 @@ package simpleTunes;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.print.DocFlavor.URL;
+
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
@@ -77,6 +79,8 @@ public class UI extends Application {
 	private Text usernameText;
 	
 	private double yOffset, xOffset;
+	
+	private ImageCursor defualtCursor;
 
 	private ObservableList<String> listOfOnlineUser = FXCollections.observableList(new ArrayList<String>());
 
@@ -126,7 +130,11 @@ public class UI extends Application {
 		lineTransition.setInterpolator(Interpolator.LINEAR);
 
 		poolGroup.getChildren().add(movingLine);
-
+		
+		java.net.URL defaultCursorImage = getClass().getResource("/images/defaultCursor.png");
+		Image img = new Image(defaultCursorImage.openStream());
+		defualtCursor = new ImageCursor(img);
+		
 		Image playImage = new Image(getClass().getResourceAsStream("/images/playButton.png"));
 		Image refreshImage = new Image(getClass().getResourceAsStream("/images/generateShapesButton.png"));
 		Image pauseImage = new Image(getClass().getResourceAsStream("/images/stopButton.png"));
@@ -196,6 +204,7 @@ public class UI extends Application {
                 primaryStage.setY(event.getScreenY() + yOffset);
             }
         });
+		toolbar.setCursor(Cursor.DEFAULT);
 
 		vbox = new VBox();
 		vbox.getChildren().addAll(toolbar);
@@ -206,12 +215,15 @@ public class UI extends Application {
 
 		mainScene = new Scene(layout, 1800, 1000);
 		mainScene.getStylesheets().add(getClass().getResource("SimpleTunes.css").toExternalForm());
+		mainScene.setCursor(Cursor.OPEN_HAND);
 		mainScene.setFill(Color.BLACK);
 
 		window.setScene(mainScene);
 		window.setResizable(false);
 		window.setTitle("SimpleTunes");
 		window.initStyle(StageStyle.UNDECORATED);
+		//window.getScene().getRoot().setCursor(new ImageCursor(defaultCursorImage));
+		
 		window.show();
 
 		controller.startShapeGenerator();
@@ -375,6 +387,8 @@ public class UI extends Application {
 		shape.nullifyEventHandlers();
 
 		shape.getShape().setOnMousePressed(getMouseRemove(shape, row, column));
+		
+		shape.getShape().setCursor(Cursor.CROSSHAIR);
 
 		controller.generateShape(1);
 
