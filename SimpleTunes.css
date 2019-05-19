@@ -4,12 +4,14 @@
 	-fx-border-radius: 30;
     -fx-background-radius: 30;
     -fx-background-color: white;
+    -fx-effect: dropshadow(one-pass-box, black, 10, 0, 0, 0);
     -fx-padding: 7;
     
 }
 
 .separator {
 	 -fx-border-radius: 10;
+	 -fx-effect: dropshadow(one-pass-box, black, 10, 0, 0, 0);
      -fx-background-radius: 10;
 
 }
@@ -25,6 +27,7 @@
 	-fx-background-image: url("../images/menuBarImage.jpg");
     -fx-background-repeat: stretch;   
     -fx-background-size: 1800 50;
+    -fx-effect: dropshadow(one-pass-box, black, 30, 0, 0, 0);
     -fx-background-position: center center;
 }
 
@@ -34,7 +37,8 @@
 }
 
 #shapeInsertion {
-   -fx-stroke-width: 1.75;
+   -fx-stroke-width: 1.25;
    -fx-stroke: white;
+   -fx-effect: dropshadow(one-pass-box, black, 30, 0, 0, 0);
    -fx-stroke-dash-array: 2 12 12 2;
 }
