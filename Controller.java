@@ -98,6 +98,7 @@ public class Controller {
 			}
 
 			nbrOfShapes++;
+			randomShape.getShape().setId("randomShapes");
 			shapeList.add(randomShape);
 			randomShape.getShape().setOnMouseReleased(ui.getMouseEventReleased(randomShape));
 			ui.setRandomLocation(randomShape);

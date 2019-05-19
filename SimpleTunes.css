@@ -1,0 +1,40 @@
+
+
+.button {
+	-fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-background-color: white;
+    -fx-padding: 7;
+    
+}
+
+.separator {
+	 -fx-border-radius: 10;
+     -fx-background-radius: 10;
+
+}
+
+#poolPane {
+	-fx-background-image: url("../images/poolPaneImage.jpg");
+    -fx-background-repeat: stretch;   
+    -fx-background-size: 1800 1000;
+    -fx-background-position: center center;
+}
+
+#toolbar {
+	-fx-background-image: url("../images/menuBarImage.jpg");
+    -fx-background-repeat: stretch;   
+    -fx-background-size: 1800 50;
+    -fx-background-position: center center;
+}
+
+#randomShapes {
+	-fx-effect: dropshadow(one-pass-box, black, 30, 0, 0, 0);
+
+}
+
+#shapeInsertion {
+   -fx-stroke-width: 1.75;
+   -fx-stroke: white;
+   -fx-stroke-dash-array: 2 12 12 2;
+}

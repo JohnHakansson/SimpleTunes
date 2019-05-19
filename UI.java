@@ -31,13 +31,14 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 /*
  * This is the main User Interface class. It displays the actual widow,
  * handle event handlers and add/remove shapes from the window.
  * 
- * @author Jesper Lindberg, Matilda Frimodig, Roland Askelöf, Tom Lanhed Sivertsson, John H�kansson
+ * @author Jesper Lindberg, Matilda Frimodig, Roland Askelöf, Tom Lanhed Sivertsson, John H�kansson
  *  
  */
 
@@ -74,6 +75,8 @@ public class UI extends Application {
 	private Circle onlineCircle;
 
 	private Text usernameText;
+	
+	private double yOffset, xOffset;
 
 	private ObservableList<String> listOfOnlineUser = FXCollections.observableList(new ArrayList<String>());
 
@@ -92,15 +95,14 @@ public class UI extends Application {
 			System.exit(0);
 		});
 
-		poolPane.setStyle("-fx-background-color: Black");
+		poolPane.setId("poolPane");
 
 		// Generating the cells used by the grid and adding them to the UI.
 		for (int i = 0; i < squares.length; i++) {
 			for (int j = 0; j < squares[i].length; j++) {
 				squares[i][j] = new Rectangle(j * 100, i * 100 + 600 - 50, 100, 100);
 				squares[i][j].setFill(Color.BLACK);
-				squares[i][j].setStroke(Color.GREEN);
-				squares[i][j].setStrokeWidth(3);
+				squares[i][j].setId("shapeInsertion");
 				poolGroup.getChildren().add(squares[i][j]);
 
 			}
@@ -177,6 +179,23 @@ public class UI extends Application {
 		toolbar = new ToolBar(playButton, stopButton, new Separator(), refreshButton, resetButton, new Separator(),
 				onlineButton);
 		toolbar.setPrefHeight(48);
+		toolbar.setId("toolbar");
+		
+		toolbar.setOnMousePressed(new EventHandler<MouseEvent>() {
+
+            public void handle(MouseEvent event) {
+                xOffset = primaryStage.getX() - event.getScreenX();
+                yOffset = primaryStage.getY() - event.getScreenY();
+            }
+        });
+		
+		toolbar.setOnMouseDragged(new EventHandler<MouseEvent>() {
+ 
+            public void handle(MouseEvent event) {
+                primaryStage.setX(event.getScreenX() + xOffset);
+                primaryStage.setY(event.getScreenY() + yOffset);
+            }
+        });
 
 		vbox = new VBox();
 		vbox.getChildren().addAll(toolbar);
@@ -186,11 +205,13 @@ public class UI extends Application {
 		layout.setTop(vbox);
 
 		mainScene = new Scene(layout, 1800, 1000);
+		mainScene.getStylesheets().add(getClass().getResource("SimpleTunes.css").toExternalForm());
 		mainScene.setFill(Color.BLACK);
 
 		window.setScene(mainScene);
 		window.setResizable(false);
 		window.setTitle("SimpleTunes");
+		window.initStyle(StageStyle.UNDECORATED);
 		window.show();
 
 		controller.startShapeGenerator();
@@ -215,6 +236,7 @@ public class UI extends Application {
 		lineTransition.setFromX(5);
 
 	}
+	
 
 	/*
 	 * Method for removing a shape when clicked.
