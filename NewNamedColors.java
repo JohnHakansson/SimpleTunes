@@ -40,12 +40,6 @@ public class NewNamedColors {
 		colors.put("Blue4", Color.rgb(29, 29, 116));
 		colors.put("Blue5", Color.rgb(12, 12, 88));
 
-		colors.put("Turquoise1", Color.rgb(68, 146, 146));
-		colors.put("Turquoise2", Color.rgb(45, 133, 133));
-		colors.put("Turquoise3", Color.rgb(22, 118, 118));
-		colors.put("Turquoise4", Color.rgb(10, 96, 96));
-		colors.put("Turquoise5", Color.rgb(0, 72, 72));
-
 		colors.put("Green1", Color.rgb(120, 191, 120));
 		colors.put("Green2", Color.rgb(82, 170, 82));
 		colors.put("Green3", Color.rgb(45, 138, 45));
