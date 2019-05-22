@@ -13,21 +13,27 @@ import javafx.scene.paint.Color;
 	 */
 
 public class PianoSounds {
-	private HashMap<Color, Media> pianoSounds = new HashMap<Color, Media>();
+	private HashMap<String, Media> pianoSounds = new HashMap<String, Media>();
 
 	public PianoSounds() {
 
-		File kick = new File("PianoSounds/C.wav");
-		pianoSounds.put(Color.RED, new Media(kick.toURI().toString()));
+		File C = new File("PianoSounds/C.wav");
+		pianoSounds.put("Blue1", new Media(C.toURI().toString()));
 
-		File snare = new File("PianoSounds/E.wav");
-		pianoSounds.put(Color.GREEN, new Media(snare.toURI().toString()));
+		File E = new File("PianoSounds/E.wav");
+		pianoSounds.put("Blue2", new Media(E.toURI().toString()));
 
-		File hiHat = new File("PianoSounds/G.wav");
-		pianoSounds.put(Color.BLUE, new Media(hiHat.toURI().toString()));
+		File G = new File("PianoSounds/G.wav");
+		pianoSounds.put("Blue3", new Media(G.toURI().toString()));
+		
+		File G2 = new File("PianoSounds/G.wav");
+		pianoSounds.put("Blue4", new Media(G2.toURI().toString()));
+		
+		File G3 = new File("PianoSounds/G.wav");
+		pianoSounds.put("Blue5", new Media(G3.toURI().toString()));
 	}
 
-	public synchronized Media getPianoSound(Color color) {
+	public synchronized Media getPianoSound(String color) {
 		return pianoSounds.get(color);
 	}
 

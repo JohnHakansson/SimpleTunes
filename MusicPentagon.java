@@ -7,28 +7,14 @@ import javafx.scene.shape.Shape;
 
 public class MusicPentagon extends MusicShape {
 	
-	public MusicPentagon(double x, double y, Color color, Media sound) {
+	public MusicPentagon(String color, Media sound) {
 		super(color, sound);
 
 		shape = new Polygon();
-		((Polygon) shape).getPoints().addAll(new Double[] { 25.0, 0.0, 75.0 , 0.0, 100.0, 70.0, 75.0, 100.0, 25.0, 100.0, 0.0, 70.0,    });
-
-		shape.setFill(color);
-		shape.setStroke(Color.WHITESMOKE);
-
-		shape.setOnMouseClicked(getMouseEvent());
-		shape.setOnMousePressed(getMouseEventPressed());
-		shape.setOnMouseDragged(getMouseEventDragged());
-
-	}
-	 
-	public MusicPentagon() {
-		super(null, null);
-
-		shape = new Polygon();
-		((Polygon) shape).getPoints().addAll(new Double[] { 25.0, 0.0, 75.0 , 0.0, 100.0, 50.0, 75.0, 100.0, 25.0, 100.0, 0.0, 50.0,    });
-
-		shape.setFill(Color.AQUA);
+		((Polygon) shape).getPoints().addAll(new Double[] { 25.0, 0.0, 75.0 , 0.0, 100.0, 50.0, 75.0, 100.0, 25.0, 100.0, 0.0, 50.0});
+		
+		
+		shape.setFill(getColor());
 		shape.setStroke(Color.WHITESMOKE);
 
 		shape.setOnMouseClicked(getMouseEvent());
@@ -47,7 +33,7 @@ public class MusicPentagon extends MusicShape {
 	}
 
 	public void setLayoutY(double y) {
-		shape.setLayoutY(y - 50);
+		shape.setLayoutY(y);
 
 	}
 	 
@@ -67,10 +53,6 @@ public class MusicPentagon extends MusicShape {
 	public String toString() {
 		return "pentagon";
 
-	}
-	
-	public static void main(String [] args) {
-		MusicPentagon test = new MusicPentagon();
 	}
 
 }

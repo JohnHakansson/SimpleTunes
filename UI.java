@@ -57,7 +57,7 @@ public class UI extends Application {
 
 	private LoginWindow login;
 
-	private Rectangle[][] squares = new Rectangle[4][18];
+	private Rectangle[][] squares = new Rectangle[4][16];
 
 	private Line movingLine = new Line();
 	private TranslateTransition lineTransition = new TranslateTransition();
@@ -114,8 +114,8 @@ public class UI extends Application {
 		movingLine.setStroke(Color.WHITE);
 		movingLine.setStrokeWidth(5);
 
-		lineTransition.setDuration(Duration.seconds(9));
-		lineTransition.setToX(1795);
+		lineTransition.setDuration(Duration.seconds(8));
+		lineTransition.setToX(1595);
 		lineTransition.setAutoReverse(false);
 		lineTransition.setCycleCount(Animation.INDEFINITE);
 		lineTransition.setNode(movingLine);
@@ -185,7 +185,7 @@ public class UI extends Application {
 		layout.setCenter(poolPane);
 		layout.setTop(vbox);
 
-		mainScene = new Scene(layout, 1800, 1000);
+		mainScene = new Scene(layout, 1600, 1000);
 		mainScene.setFill(Color.BLACK);
 
 		window.setScene(mainScene);

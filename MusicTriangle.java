@@ -14,13 +14,13 @@ import javafx.scene.paint.*;
 
 public class MusicTriangle extends MusicShape {
 
-	public MusicTriangle(double x, double y, Color color, Media sound) {
+	public MusicTriangle(double x, double y, String color, Media sound) {
 		super(color, sound);
 
 		shape = new Polygon();
 		((Polygon) shape).getPoints().addAll(new Double[] { x, y - 50, x + 50, y + 50, x - 50, y + 50 });
 
-		shape.setFill(color);
+		shape.setFill(getColor());
 		shape.setStroke(Color.WHITESMOKE);
 
 		shape.setOnMouseClicked(getMouseEvent());
