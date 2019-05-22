@@ -9,6 +9,10 @@
     
 }
 
+#exitButton {
+	-fx-pref-width: 60px;
+}
+
 .separator {
 	 -fx-border-radius: 10;
 	 -fx-effect: dropshadow(one-pass-box, black, 10, 0, 0, 0);

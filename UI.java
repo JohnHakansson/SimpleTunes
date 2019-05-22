@@ -25,7 +25,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -53,6 +55,7 @@ public class UI extends Application {
 	private Group poolGroup = new Group();
 
 	private Pane poolPane = new Pane(poolGroup);
+	Pane rightSpacer;
 
 	private VBox vbox;
 	private ToolBar toolbar;
@@ -69,6 +72,7 @@ public class UI extends Application {
 
 	private Button onlineButton;
 	private Button connectButton;
+	private Button exitButton;
 
 	private String username;
 
@@ -173,6 +177,13 @@ public class UI extends Application {
 			controller.removeShapesFromPool(poolGroup);
 
 		});
+		
+		exitButton = new Button("Exit");
+		exitButton.setId("exitButton");
+		exitButton.setOnAction(e -> {
+			System.exit(0);
+
+		}); 
 
 		onlineButton = new Button("Go Online");
 		onlineButton.setOnAction(e -> {
@@ -184,8 +195,14 @@ public class UI extends Application {
 
 		listOfUsers = new ChoiceBox<String>();
 
+        rightSpacer = new Pane();
+        HBox.setHgrow(
+                rightSpacer,
+                Priority.SOMETIMES
+        );
+
 		toolbar = new ToolBar(playButton, stopButton, new Separator(), refreshButton, resetButton, new Separator(),
-				onlineButton);
+				onlineButton, rightSpacer, exitButton);
 		toolbar.setPrefHeight(48);
 		toolbar.setId("toolbar");
 		
@@ -206,12 +223,12 @@ public class UI extends Application {
         });
 		toolbar.setCursor(Cursor.DEFAULT);
 
-		vbox = new VBox();
-		vbox.getChildren().addAll(toolbar);
+//		vbox = new VBox();
+//		vbox.getChildren().addAll(toolbar);
 
 		layout = new BorderPane();
 		layout.setCenter(poolPane);
-		layout.setTop(vbox);
+		layout.setTop(toolbar);
 
 		mainScene = new Scene(layout, 1800, 1000);
 		mainScene.getStylesheets().add(getClass().getResource("SimpleTunes.css").toExternalForm());
@@ -519,6 +536,9 @@ public class UI extends Application {
 		Platform.runLater(new Runnable() {
 
 			public void run() {
+				
+				toolbar.getItems().remove(rightSpacer);
+				toolbar.getItems().remove(exitButton);
 
 				onlineButton.setText("Go offline");
 
@@ -542,6 +562,9 @@ public class UI extends Application {
 				toolbar.getItems().add(usernameText);
 
 				toolbar.getItems().add(onlineCircle);
+				
+				toolbar.getItems().add(rightSpacer);
+				toolbar.getItems().add(exitButton);
 
 			}
 		});
