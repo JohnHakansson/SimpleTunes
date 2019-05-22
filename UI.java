@@ -23,14 +23,17 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 /*
@@ -50,8 +53,8 @@ public class UI extends Application {
 	private Group poolGroup = new Group();
 
 	private Pane poolPane = new Pane(poolGroup);
+	private Pane rightSpacer = new Pane();
 
-	private VBox vbox;
 	private ToolBar toolbar;
 	private Scene mainScene;
 
@@ -66,6 +69,7 @@ public class UI extends Application {
 
 	private Button onlineButton;
 	private Button connectButton;
+	private Button exitButton;
 
 	private String username;
 
@@ -74,6 +78,14 @@ public class UI extends Application {
 	private Circle onlineCircle;
 
 	private Text usernameText;
+
+	private double xOffset;
+	private double yOffset;
+	
+	private Cursor deleteCursor = new ImageCursor(new Image("images/trashCanImage.png"));
+//	private Cursor defaultCursor = new ImageCursor(new Image("images/defaultCursor.png"));
+	private Cursor handCursor = new ImageCursor(new Image("images/handClick.png"));
+//	private Cursor dragCursor = new ImageCursor(new Image("images/handDrag.png"));
 
 	private ObservableList<String> listOfOnlineUser = FXCollections.observableList(new ArrayList<String>());
 
@@ -93,6 +105,7 @@ public class UI extends Application {
 		});
 
 		poolPane.setStyle("-fx-background-color: Black");
+		poolPane.setId("poolPane");
 
 		// Generating the cells used by the grid and adding them to the UI.
 		for (int i = 0; i < squares.length; i++) {
@@ -101,6 +114,7 @@ public class UI extends Application {
 				squares[i][j].setFill(Color.BLACK);
 				squares[i][j].setStroke(Color.GREEN);
 				squares[i][j].setStrokeWidth(3);
+				squares[i][j].setId("shapeInsertion");
 				poolGroup.getChildren().add(squares[i][j]);
 
 			}
@@ -163,6 +177,12 @@ public class UI extends Application {
 			controller.removeShapesFromPool(poolGroup);
 
 		});
+		
+		exitButton = new Button("Exit");
+		exitButton.setId("exitButton");
+		exitButton.setOnAction(e -> {
+			System.exit(0);
+		});
 
 		onlineButton = new Button("Go Online");
 		onlineButton.setOnAction(e -> {
@@ -175,26 +195,44 @@ public class UI extends Application {
 		listOfUsers = new ChoiceBox<String>();
 
 		toolbar = new ToolBar(playButton, stopButton, new Separator(), refreshButton, resetButton, new Separator(),
-				onlineButton);
+				onlineButton, rightSpacer, exitButton);
 		toolbar.setPrefHeight(48);
-
-		vbox = new VBox();
-		vbox.getChildren().addAll(toolbar);
 
 		layout = new BorderPane();
 		layout.setCenter(poolPane);
-		layout.setTop(vbox);
+		layout.setTop(toolbar);
 
 		mainScene = new Scene(layout, 1600, 1000);
 		mainScene.setFill(Color.BLACK);
+		mainScene.getStylesheets().add(getClass().getResource("SimpleTunes.css").toExternalForm());
+
+//		mainScene.setCursor(defaultCursor);
 
 		window.setScene(mainScene);
 		window.setResizable(false);
-		window.setTitle("SimpleTunes");
+		window.initStyle(StageStyle.UNDECORATED);
 		window.show();
 
 		controller.startShapeGenerator();
 
+		HBox.setHgrow(rightSpacer, Priority.SOMETIMES);
+
+		toolbar.setId("toolbar");
+		toolbar.setOnMousePressed(new EventHandler<MouseEvent>() {
+
+			public void handle(MouseEvent event) {
+				xOffset = primaryStage.getX() - event.getScreenX();
+				yOffset = primaryStage.getY() - event.getScreenY();
+			}
+		});
+
+		toolbar.setOnMouseDragged(new EventHandler<MouseEvent>() {
+
+			public void handle(MouseEvent event) {
+				primaryStage.setX(event.getScreenX() + xOffset);
+				primaryStage.setY(event.getScreenY() + yOffset);
+			}
+		});
 	}
 
 	/*
@@ -255,13 +293,15 @@ public class UI extends Application {
 		EventHandler<MouseEvent> onMouseReleased = new EventHandler<MouseEvent>() {
 
 			public void handle(MouseEvent t) {
+				
+				shape.getShape().setCursor(handCursor);
 
 				for (int i = 0; i < squares.length; i++) {
 					for (int j = 0; j < squares[i].length; j++) {
 
 						if (squares[i][j].contains(t.getSceneX(), t.getSceneY() - toolbar.getHeight())) {
 							controller.addShapestoArray(shape, i, j);
-
+							
 						}
 
 					}
@@ -355,6 +395,12 @@ public class UI extends Application {
 		shape.getShape().setOnMousePressed(getMouseRemove(shape, row, column));
 
 		controller.generateShape(1);
+		
+		Platform.runLater(new Runnable() {
+			public void run() {
+				shape.getShape().setCursor(deleteCursor);
+			}
+		});
 
 	}
 
@@ -464,6 +510,8 @@ public class UI extends Application {
 		usernameText = new Text(username);
 
 		connectMessage = new Label("Connect with user:");
+		
+		connectMessage.setFont(new Font("Arial Bold", 14));
 
 		onlineCircle = new Circle(5);
 
@@ -483,6 +531,9 @@ public class UI extends Application {
 		Platform.runLater(new Runnable() {
 
 			public void run() {
+				
+				toolbar.getItems().remove(rightSpacer);
+				toolbar.getItems().remove(exitButton);
 
 				onlineButton.setText("Go offline");
 
@@ -506,6 +557,9 @@ public class UI extends Application {
 				toolbar.getItems().add(usernameText);
 
 				toolbar.getItems().add(onlineCircle);
+				
+				toolbar.getItems().add(rightSpacer);
+				toolbar.getItems().add(exitButton);
 
 			}
 		});
@@ -575,7 +629,7 @@ public class UI extends Application {
 		login.userNameNotOK(info);
 
 	}
-	
+
 	public Group getPoolGroup() {
 		return poolGroup;
 	}

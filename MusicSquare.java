@@ -27,11 +27,12 @@ public class MusicSquare extends MusicShape {
 		shape = new Rectangle(100, 100);
 
 		shape.setFill(getColor());
-		shape.setStroke(Color.WHITESMOKE);
 
 		shape.setOnMouseClicked(getMouseEvent());
 		shape.setOnMousePressed(getMouseEventPressed());
 		shape.setOnMouseDragged(getMouseEventDragged());
+		
+		shape.setCursor(handCursor);
 
 	}
 

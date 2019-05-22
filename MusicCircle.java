@@ -27,11 +27,12 @@ public class MusicCircle extends MusicShape {
 		shape = new Circle(50);
 
 		shape.setFill(getColor());
-		shape.setStroke(Color.WHITESMOKE);
 
 		shape.setOnMouseClicked(getMouseEvent());
 		shape.setOnMousePressed(getMouseEventPressed());
 		shape.setOnMouseDragged(getMouseEventDragged());
+		
+		shape.setCursor(handCursor);
 
 	}
 	

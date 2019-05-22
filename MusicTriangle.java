@@ -21,11 +21,12 @@ public class MusicTriangle extends MusicShape {
 		((Polygon) shape).getPoints().addAll(new Double[] { x, y - 50, x + 50, y + 50, x - 50, y + 50 });
 
 		shape.setFill(getColor());
-		shape.setStroke(Color.WHITESMOKE);
 
 		shape.setOnMouseClicked(getMouseEvent());
 		shape.setOnMousePressed(getMouseEventPressed());
 		shape.setOnMouseDragged(getMouseEventDragged());
+		
+		shape.setCursor(handCursor);
 
 	}
 
