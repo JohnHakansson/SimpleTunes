@@ -135,9 +135,8 @@ public class UI extends Application {
 
 		poolGroup.getChildren().add(movingLine);
 		
-		java.net.URL defaultCursorImage = getClass().getResource("/images/defaultCursor.png");
-		Image img = new Image(defaultCursorImage.openStream());
-		defualtCursor = new ImageCursor(img);
+		Image defaultCursorImage = new Image("images/defaultCursor.png");
+		defualtCursor = new ImageCursor(defaultCursorImage);
 		
 		Image playImage = new Image(getClass().getResourceAsStream("/images/playButton.png"));
 		Image refreshImage = new Image(getClass().getResourceAsStream("/images/generateShapesButton.png"));
@@ -232,7 +231,7 @@ public class UI extends Application {
 
 		mainScene = new Scene(layout, 1800, 1000);
 		mainScene.getStylesheets().add(getClass().getResource("SimpleTunes.css").toExternalForm());
-		mainScene.setCursor(Cursor.OPEN_HAND);
+		mainScene.setCursor(defualtCursor);
 		mainScene.setFill(Color.BLACK);
 
 		window.setScene(mainScene);
