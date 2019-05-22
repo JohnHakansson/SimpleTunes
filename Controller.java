@@ -19,17 +19,18 @@ public class Controller {
 	private Thread thread;
 	private Thread shapeGenerator;
 
-	private DrumSounds drumSounds = new DrumSounds();
-	private GuitarSounds guitarSounds = new GuitarSounds();
-	private PianoSounds pianoSounds = new PianoSounds();
+	private SoundBass soundBass = new SoundBass();
+	private SoundSynthNotes soundSynthNotes = new SoundSynthNotes();
+	private SoundArp soundArp = new SoundArp();
+	private SoundSynthChords soundSynthChords = new SoundSynthChords();
+	private SoundDrums soundDrums = new SoundDrums();
 
 	private ArrayList<MusicShape> shapeList = new ArrayList<MusicShape>();
 	private MusicShape[][] sounds = new MusicShape[4][16];
 
 	private boolean playing = false;
 	private Random rand = new Random();
-//	private Color[] colors = { Color.RED, Color.BLUE, Color.GREEN };
-	private String[] colors = { "Blue", "Red", "Orange", "Purple", "Green", "Turquoise" };
+	private String[] colors = { "Blue", "Red", "Orange", "Purple", "Green" };
 	private Client client;
 
 	private boolean online = false;
@@ -60,39 +61,33 @@ public class Controller {
 		String color = "";
 
 		do {
-			switch (rand.nextInt(6)) {
-
-			case 0:
-				color = colors[0] + (rand.nextInt(5)+1);
-				System.out.println(color);
-				randomShape = new MusicSquare(color, pianoSounds.getPianoSound(color));
-				break;
+			switch (rand.nextInt(5) + 1) {
 
 			case 1:
-				color = colors[3] + (rand.nextInt(5)+1);
+				color = colors[0] + (rand.nextInt(5) + 1);
 				System.out.println(color);
-				randomShape = new MusicCircle(color, guitarSounds.getGuitarSound(color));
+				randomShape = new MusicCircle(color, soundBass.getBassSound(color));
 				break;
 
 			case 2:
-				color = colors[2] + (rand.nextInt(5)+1);
+				color = colors[2] + (rand.nextInt(5) + 1);
 				System.out.println(color);
-				randomShape = new MusicTriangle(50, 100, color, drumSounds.getDrumSound(color));
+				randomShape = new MusicTriangle(50, 100, color, soundSynthNotes.getSynthNotes(color));
 				break;
 			case 3:
-				color = colors[0] + (rand.nextInt(5)+1);
+				color = colors[1] + (rand.nextInt(5) + 1);
 				System.out.println(color);
-				randomShape = new MusicDiamond(color, pianoSounds.getPianoSound(color));
+				randomShape = new MusicDiamond(color, soundArp.getArpSound(color));
 				break;
-			case 4: 
-				color = colors[3] + (rand.nextInt(5)+1);
+			case 4:
+				color = colors[4] + (rand.nextInt(5) + 1);
 				System.out.println(color);
-				randomShape = new MusicRightTriangle(color, guitarSounds.getGuitarSound(color));
+				randomShape = new MusicRightTriangle(color, soundSynthChords.getSynthChordSound(color));
 				break;
-			case 5: 
-				color = colors[2] + (rand.nextInt(5)+1);
+			case 5:
+				color = colors[3] + (rand.nextInt(5) + 1);
 				System.out.println(color);
-				randomShape = new MusicPentagon(color, drumSounds.getDrumSound(color));
+				randomShape = new MusicPentagon(color, soundDrums.getDrumSounds(color));
 				break;
 
 			}
@@ -219,8 +214,7 @@ public class Controller {
 
 			if (online) {
 
-				MusicShapeMessage msm = new MusicShapeMessage(shape.toString(),
-						NamedColors.getColorString(shape.getColor()), row, column);
+				MusicShapeMessage msm = new MusicShapeMessage(shape.toString(), shape.getColorName(), row, column);
 
 				client.sendShape(msm);
 
@@ -239,8 +233,8 @@ public class Controller {
 
 						if (online) {
 
-							MusicShapeMessage msm = new MusicShapeMessage(shape.toString(),
-									NamedColors.getColorString(shape.getColor()), i, column);
+							MusicShapeMessage msm = new MusicShapeMessage(shape.toString(), shape.getColorName(), i,
+									column);
 
 							client.sendShape(msm);
 
@@ -321,23 +315,22 @@ public class Controller {
 	}
 
 	public void removeShapesFromGrid() {
-		
+
 		Platform.runLater(new Runnable() {
 			public void run() {
 				Group group = ui.getPoolGroup();
-				
-				for(int i = 0; i < sounds.length; i++) {
-					for(int j = 0; j < sounds[i].length; j++) {
-						if(sounds[i][j] != null) {
-							
-							
-									group.getChildren().remove(sounds[i][j].getShape());
-								}
-							
+
+				for (int i = 0; i < sounds.length; i++) {
+					for (int j = 0; j < sounds[i].length; j++) {
+						if (sounds[i][j] != null) {
+
+							group.getChildren().remove(sounds[i][j].getShape());
 						}
-						
-					} 
-					sounds=new MusicShape[4][16];
+
+					}
+
+				}
+				sounds = new MusicShape[4][16];
 			}
 		});
 	}

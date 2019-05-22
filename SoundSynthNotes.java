@@ -17,19 +17,19 @@ public class SoundSynthNotes {
 
 	public SoundSynthNotes() {
 
-		File A = new File("Synth1 - A#.wav");
+		File A = new File("SoundSynthNotes/Synth1 - A#.wav");
 		synthNotesMap.put("Orange1", new Media(A.toURI().toString()));
 
-		File D1 = new File("Synth1 - D#.wav");
+		File D1 = new File("SoundSynthNotes/Synth1 - D#.wav");
 		synthNotesMap.put("Orange2", new Media(D1.toURI().toString()));
 
-		File F = new File("Synth1 - F.wav");
+		File F = new File("SoundSynthNotes/Synth1 - F.wav");
 		synthNotesMap.put("Orange3", new Media(F.toURI().toString()));
 		
-		File G = new File("Synth1 - G.wav");
+		File G = new File("SoundSynthNotes/Synth1 - G.wav");
 		synthNotesMap.put("Orange4", new Media(G.toURI().toString()));
 		
-		File G2 = new File("Synth1 - G#.wav");
+		File G2 = new File("SoundSynthNotes/Synth1 - G#.wav");
 		synthNotesMap.put("Orange5", new Media(G2.toURI().toString()));
 	}
 

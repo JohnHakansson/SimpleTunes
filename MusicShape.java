@@ -39,13 +39,16 @@ public abstract class MusicShape {
 
 	private Color color;
 	
+	private String colorName;
+	
 	/**
 	 * 
 	 * @param color Color of the shape
 	 * @param sound Sound to be connected with the shape
 	 */
-	public MusicShape(String color, Media sound) {
-		this.color = NewNamedColors.get(color);
+	public MusicShape(String colorName, Media sound) {
+		this.colorName = colorName;
+		this.color = NewNamedColors.get(colorName);
 		setSound(sound);
 		
 	}
@@ -249,6 +252,11 @@ public abstract class MusicShape {
 	 */
 	public Color getColor() {
 		return color;
+	}
+	
+	
+	public String getColorName() {
+		return colorName;
 	}
 	
 	/**

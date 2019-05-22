@@ -19,10 +19,10 @@ public class SoundDrums {
 		File kick = new File("SoundDrums/Kick.wav");
 		drumSounds.put("Purple3", new Media(kick.toURI().toString()));
 
-		File openHat = new File("DrumSounds/Open-Hat.wav");
+		File openHat = new File("SoundDrums/Open-Hat.wav");
 		drumSounds.put("Purple4", new Media(openHat.toURI().toString()));
 
-		File snare = new File("DrumSounds/Snare.wav");
+		File snare = new File("SoundDrums/Snare.wav");
 		drumSounds.put("Purple5", new Media(snare.toURI().toString()));
 	}
 
