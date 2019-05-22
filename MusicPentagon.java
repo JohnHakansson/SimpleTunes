@@ -15,12 +15,13 @@ public class MusicPentagon extends MusicShape {
 		
 		
 		shape.setFill(getColor());
-		shape.setStroke(Color.WHITESMOKE);
 
 		shape.setOnMouseClicked(getMouseEvent());
 		shape.setOnMousePressed(getMouseEventPressed());
 		shape.setOnMouseDragged(getMouseEventDragged());
 
+		shape.setCursor(handCursor);
+		
 	}
 
 	public Shape getShape() {

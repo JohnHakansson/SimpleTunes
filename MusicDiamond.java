@@ -13,13 +13,14 @@ public class MusicDiamond extends MusicShape {
 		shape = new Polygon();
 
 		shape.setFill(getColor());
-		shape.setStroke(Color.WHITESMOKE);
 
 		((Polygon) shape).getPoints().addAll(new Double[] { 50.0, 0.0, 100.0, 50.0, 50.0, 100.0, 0.0, 50.0 });
 		
 		shape.setOnMouseClicked(getMouseEvent());
 		shape.setOnMousePressed(getMouseEventPressed());
 		shape.setOnMouseDragged(getMouseEventDragged());
+		
+		shape.setCursor(handCursor);
 
 	}
 
