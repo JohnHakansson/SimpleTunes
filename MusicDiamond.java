@@ -16,6 +16,11 @@ public class MusicDiamond extends MusicShape {
 		shape.setStroke(Color.WHITESMOKE);
 
 		((Polygon) shape).getPoints().addAll(new Double[] { 50.0, 0.0, 100.0, 50.0, 50.0, 100.0, 0.0, 50.0 });
+		
+		shape.setOnMouseClicked(getMouseEvent());
+		shape.setOnMousePressed(getMouseEventPressed());
+		shape.setOnMouseDragged(getMouseEventDragged());
+
 	}
 
 	public Shape getShape() {
@@ -34,6 +39,14 @@ public class MusicDiamond extends MusicShape {
 	}
 
 	public void nullifyEventHandlers() {
+		shape.setOnMousePressed(null);
+		shape.setOnMouseDragged(null);
+		shape.setOnMouseClicked(null);
+		shape.setOnMouseReleased(null);
+	}
+	
+	public String toString() {
+		return "diamond";
 		
 	}
 

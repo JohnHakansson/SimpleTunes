@@ -24,7 +24,7 @@ public class Controller {
 	private PianoSounds pianoSounds = new PianoSounds();
 
 	private ArrayList<MusicShape> shapeList = new ArrayList<MusicShape>();
-	private MusicShape[][] sounds = new MusicShape[4][18];
+	private MusicShape[][] sounds = new MusicShape[4][16];
 
 	private boolean playing = false;
 	private Random rand = new Random();
@@ -311,7 +311,7 @@ public class Controller {
 			client.sendObject(rsm);
 		}
 
-		sounds = new MusicShape[4][18];
+		sounds = new MusicShape[4][16];
 
 		shapeList.clear();
 
@@ -336,7 +336,7 @@ public class Controller {
 						}
 						
 					} 
-					sounds=new MusicShape[4][18];
+					sounds=new MusicShape[4][16];
 			}
 		});
 	}
@@ -556,7 +556,7 @@ public class Controller {
 
 		int columns = 0;
 
-		while (columns < 18) {
+		while (columns < 16) {
 			for (int i = 0; i < sounds.length; i++) {
 
 				if (sounds[i][columns] != null) {
@@ -606,7 +606,7 @@ public class Controller {
 
 					columns++;
 
-					if (columns == 18) {
+					if (columns == 16) {
 						columns = 0;
 
 					}
