@@ -2,7 +2,6 @@ package simpleTunes;
 
 import javafx.scene.shape.*;
 import javafx.scene.media.*;
-import javafx.scene.paint.*;
 
 /**
  * This class represents a circle that has a color and the corresponding sound
@@ -36,10 +35,6 @@ public class MusicCircle extends MusicShape {
 
 	}
 	
-	public String getColorName() {
-		return "Red";
-	}
-
 	public Shape getShape() {
 		return shape;
 	}

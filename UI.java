@@ -40,7 +40,7 @@ import javafx.util.Duration;
  * This is the main User Interface class. It displays the actual widow,
  * handle event handlers and add/remove shapes from the window.
  * 
- * @author Jesper Lindberg, Matilda Frimodig, Roland Askelöf, Tom Lanhed Sivertsson, John H�kansson
+ * @author Jesper Lindberg, Matilda Frimodig, Roland Askelöf, Tom Lanhed Sivertsson, John H�kansson
  *  
  */
 
@@ -81,12 +81,12 @@ public class UI extends Application {
 
 	private double xOffset;
 	private double yOffset;
-	
-	private Cursor deleteCursor = new ImageCursor(new Image("images/trashCanImage.png"));
-//	private Cursor defaultCursor = new ImageCursor(new Image("images/defaultCursor.png"));
-	private Cursor handCursor = new ImageCursor(new Image("images/handClick.png"));
-//	private Cursor dragCursor = new ImageCursor(new Image("images/handDrag.png"));
 
+	private Cursor deleteCursor = new ImageCursor(new Image("images/trashCanImage.png"));
+	private Cursor handCursor = new ImageCursor(new Image("images/handClick.png"));
+	private Separator onlineSeperator;
+	
+	
 	private ObservableList<String> listOfOnlineUser = FXCollections.observableList(new ArrayList<String>());
 
 	/*
@@ -177,7 +177,7 @@ public class UI extends Application {
 			controller.removeShapesFromPool(poolGroup);
 
 		});
-		
+
 		exitButton = new Button("Exit");
 		exitButton.setId("exitButton");
 		exitButton.setOnAction(e -> {
@@ -205,8 +205,6 @@ public class UI extends Application {
 		mainScene = new Scene(layout, 1600, 1000);
 		mainScene.setFill(Color.BLACK);
 		mainScene.getStylesheets().add(getClass().getResource("SimpleTunes.css").toExternalForm());
-
-//		mainScene.setCursor(defaultCursor);
 
 		window.setScene(mainScene);
 		window.setResizable(false);
@@ -293,7 +291,7 @@ public class UI extends Application {
 		EventHandler<MouseEvent> onMouseReleased = new EventHandler<MouseEvent>() {
 
 			public void handle(MouseEvent t) {
-				
+
 				shape.getShape().setCursor(handCursor);
 
 				for (int i = 0; i < squares.length; i++) {
@@ -301,7 +299,7 @@ public class UI extends Application {
 
 						if (squares[i][j].contains(t.getSceneX(), t.getSceneY() - toolbar.getHeight())) {
 							controller.addShapestoArray(shape, i, j);
-							
+
 						}
 
 					}
@@ -395,7 +393,7 @@ public class UI extends Application {
 		shape.getShape().setOnMousePressed(getMouseRemove(shape, row, column));
 
 		controller.generateShape(1);
-		
+
 		Platform.runLater(new Runnable() {
 			public void run() {
 				shape.getShape().setCursor(deleteCursor);
@@ -454,7 +452,14 @@ public class UI extends Application {
 	 */
 	public void removeFromUserList(String disconnectedUser) {
 
-		listOfOnlineUser.remove(disconnectedUser);
+		Platform.runLater(new Runnable() {
+
+			public void run() {
+				listOfOnlineUser.remove(disconnectedUser);
+
+			}
+
+		});
 
 		listOfUsers.setItems(listOfOnlineUser);
 
@@ -489,6 +494,7 @@ public class UI extends Application {
 				if (answer) {
 
 					updateMenueConnected(crm.getSenderUsername());
+					controller.removeShapesFromGrid();
 				}
 			}
 		});
@@ -510,7 +516,7 @@ public class UI extends Application {
 		usernameText = new Text(username);
 
 		connectMessage = new Label("Connect with user:");
-		
+
 		connectMessage.setFont(new Font("Arial Bold", 14));
 
 		onlineCircle = new Circle(5);
@@ -522,16 +528,19 @@ public class UI extends Application {
 
 			String selectedUsername = listOfUsers.getSelectionModel().getSelectedItem();
 
-			controller.connectToUser(selectedUsername);
+			if (selectedUsername != null) {
 
-			updateMenueWaiting(selectedUsername);
+				controller.connectToUser(selectedUsername);
 
+				updateMenueWaiting(selectedUsername);
+
+			}
 		});
 
 		Platform.runLater(new Runnable() {
 
 			public void run() {
-				
+
 				toolbar.getItems().remove(rightSpacer);
 				toolbar.getItems().remove(exitButton);
 
@@ -540,6 +549,22 @@ public class UI extends Application {
 				onlineButton.setOnAction(e -> {
 
 					controller.disconnect();
+					
+					toolbar.getItems().remove(connectButton);
+					toolbar.getItems().remove(listOfUsers);
+					toolbar.getItems().remove(usernameText);
+					toolbar.getItems().remove(onlineCircle);
+					toolbar.getItems().remove(onlineSeperator);
+					toolbar.getItems().remove(connectMessage);
+					
+					onlineButton.setText("Go online");
+					onlineButton.setOnAction(e1 -> {
+
+						login = new LoginWindow(controller);
+						login.display();
+
+					});
+					
 
 				});
 
@@ -549,15 +574,15 @@ public class UI extends Application {
 
 				toolbar.getItems().add(connectButton);
 
-				Separator sep = new Separator();
-				sep.setHalignment(HPos.RIGHT);
+				onlineSeperator = new Separator();
+				onlineSeperator.setHalignment(HPos.RIGHT);
 
-				toolbar.getItems().add(sep);
+				toolbar.getItems().add(onlineSeperator);
 
 				toolbar.getItems().add(usernameText);
 
 				toolbar.getItems().add(onlineCircle);
-				
+
 				toolbar.getItems().add(rightSpacer);
 				toolbar.getItems().add(exitButton);
 
