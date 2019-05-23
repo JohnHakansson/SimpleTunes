@@ -60,33 +60,31 @@ public class Controller {
 		String color = "";
 
 		do {
-			switch (rand.nextInt(5) + 1) {
+			switch (rand.nextInt(5)) {
 
-			case 1:
+			case 0:
 				color = colors[0] + (rand.nextInt(5) + 1);
-				System.out.println(color);
 				randomShape = new MusicCircle(color, soundBass.getBassSound(color));
 				break;
 
-			case 2:
-				color = colors[2] + (rand.nextInt(5) + 1);
-				System.out.println(color);
-				randomShape = new MusicTriangle(color, soundSynthNotes.getSynthNotes(color));
-				break;
-			case 3:
+			case 1:
 				color = colors[1] + (rand.nextInt(5) + 1);
-				System.out.println(color);
 				randomShape = new MusicDiamond(color, soundArp.getArpSound(color));
 				break;
+				
+			case 2:
+				color = colors[2] + (rand.nextInt(5) + 1);
+				randomShape = new MusicTriangle(color, soundSynthNotes.getSynthNotes(color));
+				break;
+				
+			case 3:
+				color = colors[3] + (rand.nextInt(5) + 1);
+				randomShape = new MusicPentagon(color, soundDrums.getDrumSounds(color));
+				break;
+			
 			case 4:
 				color = colors[4] + (rand.nextInt(5) + 1);
-				System.out.println(color);
 				randomShape = new MusicRightTriangle(color, soundSynthChords.getSynthChordSound(color));
-				break;
-			case 5:
-				color = colors[3] + (rand.nextInt(5) + 1);
-				System.out.println(color);
-				randomShape = new MusicPentagon(color, soundDrums.getDrumSounds(color));
 				break;
 
 			}
