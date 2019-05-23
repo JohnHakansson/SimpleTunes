@@ -83,9 +83,7 @@ public class UI extends Application {
 	private double yOffset;
 	
 	private Cursor deleteCursor = new ImageCursor(new Image("images/trashCanImage.png"));
-//	private Cursor defaultCursor = new ImageCursor(new Image("images/defaultCursor.png"));
 	private Cursor handCursor = new ImageCursor(new Image("images/handClick.png"));
-//	private Cursor dragCursor = new ImageCursor(new Image("images/handDrag.png"));
 
 	private ObservableList<String> listOfOnlineUser = FXCollections.observableList(new ArrayList<String>());
 
@@ -205,8 +203,6 @@ public class UI extends Application {
 		mainScene = new Scene(layout, 1600, 1000);
 		mainScene.setFill(Color.BLACK);
 		mainScene.getStylesheets().add(getClass().getResource("SimpleTunes.css").toExternalForm());
-
-//		mainScene.setCursor(defaultCursor);
 
 		window.setScene(mainScene);
 		window.setResizable(false);

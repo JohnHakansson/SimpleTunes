@@ -2,7 +2,6 @@ package simpleTunes;
 
 import javafx.scene.shape.*;
 import javafx.scene.media.*;
-import javafx.scene.paint.*;
 
 /**
  * This class represents a right-angeled triangle that has a color and the

@@ -2,9 +2,7 @@ package simpleTunes;
 
 import java.io.File;
 import java.util.HashMap;
-
 import javafx.scene.media.Media;
-import javafx.scene.paint.Color;
 
 	/**
 	 * The Class represents the three piano-sounds which are stored

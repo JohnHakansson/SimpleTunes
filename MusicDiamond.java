@@ -1,7 +1,6 @@
 package simpleTunes;
 
 import javafx.scene.media.Media;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Shape;
 

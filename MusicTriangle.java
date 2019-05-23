@@ -2,7 +2,6 @@ package simpleTunes;
 
 import javafx.scene.shape.*;
 import javafx.scene.media.*;
-import javafx.scene.paint.*;
 
 /**
  * This class represents a Triangle that has a color and the corresponding sound
@@ -13,8 +12,10 @@ import javafx.scene.paint.*;
  */
 
 public class MusicTriangle extends MusicShape {
+	private double x = 50;
+	private double y = 100;
 
-	public MusicTriangle(double x, double y, String color, Media sound) {
+	public MusicTriangle(String color, Media sound) {
 		super(color, sound);
 
 		shape = new Polygon();

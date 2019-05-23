@@ -2,7 +2,6 @@ package simpleTunes;
 
 import javafx.scene.shape.*;
 import javafx.scene.media.*;
-import javafx.scene.paint.*;
 
 /**
  * This class represents a square that has a color and the corresponding sound
