@@ -81,7 +81,7 @@ public class UI extends Application {
 
 	private double xOffset;
 	private double yOffset;
-	
+
 	private Cursor deleteCursor = new ImageCursor(new Image("images/trashCanImage.png"));
 	private Cursor handCursor = new ImageCursor(new Image("images/handClick.png"));
 
@@ -175,7 +175,7 @@ public class UI extends Application {
 			controller.removeShapesFromPool(poolGroup);
 
 		});
-		
+
 		exitButton = new Button("Exit");
 		exitButton.setId("exitButton");
 		exitButton.setOnAction(e -> {
@@ -289,7 +289,7 @@ public class UI extends Application {
 		EventHandler<MouseEvent> onMouseReleased = new EventHandler<MouseEvent>() {
 
 			public void handle(MouseEvent t) {
-				
+
 				shape.getShape().setCursor(handCursor);
 
 				for (int i = 0; i < squares.length; i++) {
@@ -297,7 +297,7 @@ public class UI extends Application {
 
 						if (squares[i][j].contains(t.getSceneX(), t.getSceneY() - toolbar.getHeight())) {
 							controller.addShapestoArray(shape, i, j);
-							
+
 						}
 
 					}
@@ -391,7 +391,7 @@ public class UI extends Application {
 		shape.getShape().setOnMousePressed(getMouseRemove(shape, row, column));
 
 		controller.generateShape(1);
-		
+
 		Platform.runLater(new Runnable() {
 			public void run() {
 				shape.getShape().setCursor(deleteCursor);
@@ -450,7 +450,14 @@ public class UI extends Application {
 	 */
 	public void removeFromUserList(String disconnectedUser) {
 
-		listOfOnlineUser.remove(disconnectedUser);
+		Platform.runLater(new Runnable() {
+
+			public void run() {
+				listOfOnlineUser.remove(disconnectedUser);
+
+			}
+
+		});
 
 		listOfUsers.setItems(listOfOnlineUser);
 
@@ -506,7 +513,7 @@ public class UI extends Application {
 		usernameText = new Text(username);
 
 		connectMessage = new Label("Connect with user:");
-		
+
 		connectMessage.setFont(new Font("Arial Bold", 14));
 
 		onlineCircle = new Circle(5);
@@ -518,19 +525,19 @@ public class UI extends Application {
 
 			String selectedUsername = listOfUsers.getSelectionModel().getSelectedItem();
 
-			if(selectedUsername != null) {
-			
-			controller.connectToUser(selectedUsername);
+			if (selectedUsername != null) {
 
-			updateMenueWaiting(selectedUsername);
-		
+				controller.connectToUser(selectedUsername);
+
+				updateMenueWaiting(selectedUsername);
+
 			}
 		});
 
 		Platform.runLater(new Runnable() {
 
 			public void run() {
-				
+
 				toolbar.getItems().remove(rightSpacer);
 				toolbar.getItems().remove(exitButton);
 
@@ -556,7 +563,7 @@ public class UI extends Application {
 				toolbar.getItems().add(usernameText);
 
 				toolbar.getItems().add(onlineCircle);
-				
+
 				toolbar.getItems().add(rightSpacer);
 				toolbar.getItems().add(exitButton);
 
@@ -592,12 +599,11 @@ public class UI extends Application {
 	 * @param username the username of the selected user.
 	 */
 	public void updateMenueWaiting(String username) {
-		
 
 		listOfUsers.setDisable(true);
 		connectButton.setDisable(true);
 		connectMessage.setText("Waiting for response from: " + username);
-		
+
 	}
 
 	/*
