@@ -40,7 +40,7 @@ import javafx.util.Duration;
  * This is the main User Interface class. It displays the actual widow,
  * handle event handlers and add/remove shapes from the window.
  * 
- * @author Jesper Lindberg, Matilda Frimodig, Roland Askelöf, Tom Lanhed Sivertsson, John H�kansson
+ * @author Jesper Lindberg, Matilda Frimodig, Roland Askelöf, Tom Lanhed Sivertsson, John H�kansson
  *  
  */
 
@@ -518,7 +518,7 @@ public class UI extends Application {
 
 			String selectedUsername = listOfUsers.getSelectionModel().getSelectedItem();
 
-			if(!selectedUsername.equals(null)) {
+			if(selectedUsername != null) {
 			
 			controller.connectToUser(selectedUsername);
 
