@@ -460,6 +460,7 @@ public class Controller {
 				if (crm.getConnectRequest()) {
 
 					ui.updateMenueConnected(crm.getReceiverUsername());
+					removeShapesFromGrid();
 
 				} else {
 

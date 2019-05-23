@@ -492,6 +492,7 @@ public class UI extends Application {
 				if (answer) {
 
 					updateMenueConnected(crm.getSenderUsername());
+					controller.removeShapesFromGrid();
 				}
 			}
 		});
