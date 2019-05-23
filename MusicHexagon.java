@@ -4,9 +4,9 @@ import javafx.scene.media.Media;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Shape;
 
-public class MusicPentagon extends MusicShape {
+public class MusicHexagon extends MusicShape {
 	
-	public MusicPentagon(String color, Media sound) {
+	public MusicHexagon(String color, Media sound) {
 		super(color, sound);
 
 		shape = new Polygon();
@@ -51,7 +51,7 @@ public class MusicPentagon extends MusicShape {
 	}
 
 	public String toString() {
-		return "pentagon";
+		return "hexagon";
 
 	}
 
