@@ -24,8 +24,6 @@ public class MusicRightTriangle extends MusicShape {
 		shape.setOnMouseClicked(getMouseEvent());
 		shape.setOnMousePressed(getMouseEventPressed());
 		shape.setOnMouseDragged(getMouseEventDragged());
-		
-		shape.setCursor(handCursor);
 	}
 
 	public Shape getShape() {

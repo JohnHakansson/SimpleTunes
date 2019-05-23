@@ -19,7 +19,6 @@ public class MusicDiamond extends MusicShape {
 		shape.setOnMousePressed(getMouseEventPressed());
 		shape.setOnMouseDragged(getMouseEventDragged());
 		
-		shape.setCursor(handCursor);
 
 	}
 

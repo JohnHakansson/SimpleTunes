@@ -82,8 +82,6 @@ public class UI extends Application {
 	private double xOffset;
 	private double yOffset;
 
-	private Cursor deleteCursor = new ImageCursor(new Image("images/trashCanImage.png"));
-	private Cursor handCursor = new ImageCursor(new Image("images/handClick.png"));
 	private Separator onlineSeperator;
 	
 	
@@ -292,8 +290,6 @@ public class UI extends Application {
 
 			public void handle(MouseEvent t) {
 
-				shape.getShape().setCursor(handCursor);
-
 				for (int i = 0; i < squares.length; i++) {
 					for (int j = 0; j < squares[i].length; j++) {
 
@@ -394,11 +390,6 @@ public class UI extends Application {
 
 		controller.generateShape(1);
 
-		Platform.runLater(new Runnable() {
-			public void run() {
-				shape.getShape().setCursor(deleteCursor);
-			}
-		});
 
 	}
 
