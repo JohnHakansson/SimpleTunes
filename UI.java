@@ -518,10 +518,13 @@ public class UI extends Application {
 
 			String selectedUsername = listOfUsers.getSelectionModel().getSelectedItem();
 
+			if(!selectedUsername.equals(null)) {
+			
 			controller.connectToUser(selectedUsername);
 
 			updateMenueWaiting(selectedUsername);
-
+		
+			}
 		});
 
 		Platform.runLater(new Runnable() {
@@ -589,11 +592,12 @@ public class UI extends Application {
 	 * @param username the username of the selected user.
 	 */
 	public void updateMenueWaiting(String username) {
+		
 
 		listOfUsers.setDisable(true);
 		connectButton.setDisable(true);
 		connectMessage.setText("Waiting for response from: " + username);
-
+		
 	}
 
 	/*
