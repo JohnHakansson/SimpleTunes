@@ -84,7 +84,9 @@ public class UI extends Application {
 
 	private Cursor deleteCursor = new ImageCursor(new Image("images/trashCanImage.png"));
 	private Cursor handCursor = new ImageCursor(new Image("images/handClick.png"));
-
+	private Separator onlineSeperator;
+	
+	
 	private ObservableList<String> listOfOnlineUser = FXCollections.observableList(new ArrayList<String>());
 
 	/*
@@ -547,6 +549,22 @@ public class UI extends Application {
 				onlineButton.setOnAction(e -> {
 
 					controller.disconnect();
+					
+					toolbar.getItems().remove(connectButton);
+					toolbar.getItems().remove(listOfUsers);
+					toolbar.getItems().remove(usernameText);
+					toolbar.getItems().remove(onlineCircle);
+					toolbar.getItems().remove(onlineSeperator);
+					toolbar.getItems().remove(connectMessage);
+					
+					onlineButton.setText("Go online");
+					onlineButton.setOnAction(e1 -> {
+
+						login = new LoginWindow(controller);
+						login.display();
+
+					});
+					
 
 				});
 
@@ -556,10 +574,10 @@ public class UI extends Application {
 
 				toolbar.getItems().add(connectButton);
 
-				Separator sep = new Separator();
-				sep.setHalignment(HPos.RIGHT);
+				onlineSeperator = new Separator();
+				onlineSeperator.setHalignment(HPos.RIGHT);
 
-				toolbar.getItems().add(sep);
+				toolbar.getItems().add(onlineSeperator);
 
 				toolbar.getItems().add(usernameText);
 
