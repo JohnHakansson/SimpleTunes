@@ -209,8 +209,8 @@ public class Controller {
 		if (sounds[row][column] == null) {
 			sounds[row][column] = shape;
 			shape.setRow(row);
-			shape.setPlaced(true);
 			ui.setGridPlacement(shape, row, column);
+			shape.setPlaced(true);
 
 			if (online) {
 
@@ -227,9 +227,9 @@ public class Controller {
 					if (sounds[i][column] == null) {
 						sounds[i][column] = shape;
 						shapePlaced = true;
-						shape.setPlaced(true);
 						shape.setRow(i);
 						ui.setGridPlacement(shape, i, column);
+						shape.setPlaced(true);
 
 						if (online) {
 

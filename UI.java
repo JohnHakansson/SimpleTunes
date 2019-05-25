@@ -345,12 +345,23 @@ public class UI extends Application {
 
 							if (squares[i][j].contains(t.getSceneX(), t.getSceneY() - toolbar.getHeight())) {
 								controller.addShapestoArray(shape, i, j);
-								shape.setHasBeenMoved(false);
 
 							}
 
 						}
 					}
+					
+					System.out.println("mouse: " + t.getSceneY() + "target: " + squares[0][0].getY());
+					
+					if(t.getSceneY() < squares[0][0].getY()) {
+						System.out.println("removing sound");
+						poolGroup.getChildren().remove(shape.getShape());
+
+						
+					}
+
+					shape.setHasBeenMoved(false);
+
 				}
 
 			}
@@ -455,7 +466,11 @@ public class UI extends Application {
 		shape.getShape().setOnMouseReleased(getMouseEventReleasedInGrid(shape));
 		shape.getShape().setOnDragDetected(getDragDetected(shape));
 
-		controller.generateShape(1);
+		if (!shape.getPlaced()) {
+
+			controller.generateShape(1);
+
+		}
 //
 //		Platform.runLater(new Runnable() {
 //			public void run() {
