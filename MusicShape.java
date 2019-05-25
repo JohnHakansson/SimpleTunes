@@ -33,6 +33,9 @@ public abstract class MusicShape {
 	private double orgTranslateY;
 
 	private boolean placedInGrid = false;
+	private boolean hasBeenMoved = false;
+
+	
 
 	private int row;
 	private int column;
@@ -125,7 +128,8 @@ public abstract class MusicShape {
 
 			@Override
 			public void handle(MouseEvent t) {
-
+				
+				System.out.println("Playing sound");
 				play();
 
 			}
@@ -257,6 +261,14 @@ public abstract class MusicShape {
 	
 	public String getColorName() {
 		return colorName;
+	}
+	
+	public boolean getHasBeenMoved() {
+		return hasBeenMoved;
+	}
+
+	public void setHasBeenMoved(boolean hasBeenMoved) {
+		this.hasBeenMoved = hasBeenMoved;
 	}
 	
 	/**

@@ -85,8 +85,7 @@ public class UI extends Application {
 //	private Cursor deleteCursor = new ImageCursor(new Image("images/trashCanImage.png"));
 //	private Cursor handCursor = new ImageCursor(new Image("images/handClick.png"));
 	private Separator onlineSeperator;
-	
-	
+
 	private ObservableList<String> listOfOnlineUser = FXCollections.observableList(new ArrayList<String>());
 
 	/*
@@ -264,6 +263,8 @@ public class UI extends Application {
 
 			@Override
 			public void handle(MouseEvent t) {
+				System.out.println("removing shape from grid");
+
 				poolGroup.getChildren().remove(shape.getShape());
 				controller.removeSound(shape.getRow(), shape.getColumn());
 
@@ -292,6 +293,7 @@ public class UI extends Application {
 
 			public void handle(MouseEvent t) {
 
+				System.out.println("Adding shape to grid");
 //				shape.getShape().setCursor(handCursor);
 
 				for (int i = 0; i < squares.length; i++) {
@@ -311,6 +313,66 @@ public class UI extends Application {
 		};
 
 		return onMouseReleased;
+	}
+
+	public EventHandler<MouseEvent> getMouseEventReleasedInGrid(MusicShape shape) {
+		EventHandler<MouseEvent> onMouseReleased = new EventHandler<MouseEvent>() {
+
+			public void handle(MouseEvent t) {
+
+				System.out.println("Adding shape to grid");
+//				shape.getShape().setCursor(handCursor);
+				controller.removeSound(shape.getRow(), shape.getColumn());
+
+				if (!shape.getHasBeenMoved()) {
+
+					System.out.println("removing shape from grid");
+
+					poolGroup.getChildren().remove(shape.getShape());
+
+//					if (controller.isOnline()) {
+//						controller.sendRemoveShape(row, column);
+//
+//					}
+
+				}
+
+				else {
+
+					for (int i = 0; i < squares.length; i++) {
+
+						for (int j = 0; j < squares[i].length; j++) {
+
+							if (squares[i][j].contains(t.getSceneX(), t.getSceneY() - toolbar.getHeight())) {
+								controller.addShapestoArray(shape, i, j);
+								shape.setHasBeenMoved(false);
+
+							}
+
+						}
+					}
+				}
+
+			}
+
+		};
+
+		return onMouseReleased;
+	}
+
+	public EventHandler<MouseEvent> getDragDetected(MusicShape shape) {
+		EventHandler<MouseEvent> onDragDetected = new EventHandler<MouseEvent>() {
+
+			public void handle(MouseEvent t) {
+
+				shape.setHasBeenMoved(true);
+				System.out.println("Set has been moved to : " + shape.getHasBeenMoved());
+			}
+
+		};
+
+		return onDragDetected;
+
 	}
 
 	/*
@@ -388,9 +450,10 @@ public class UI extends Application {
 
 		shape.setLayoutY(squares[row][column].getY());
 
-		shape.nullifyEventHandlers();
+//		shape.nullifyEventHandlers();
 
-		shape.getShape().setOnMousePressed(getMouseRemove(shape, row, column));
+		shape.getShape().setOnMouseReleased(getMouseEventReleasedInGrid(shape));
+		shape.getShape().setOnDragDetected(getDragDetected(shape));
 
 		controller.generateShape(1);
 //
@@ -420,7 +483,7 @@ public class UI extends Application {
 
 		shape.setLayoutY(squares[row][column].getY());
 
-		shape.nullifyEventHandlers();
+//		shape.nullifyEventHandlers();
 
 		shape.getShape().setOnMousePressed(getMouseRemove(shape, row, column));
 
@@ -549,14 +612,14 @@ public class UI extends Application {
 				onlineButton.setOnAction(e -> {
 
 					controller.disconnect();
-					
+
 					toolbar.getItems().remove(connectButton);
 					toolbar.getItems().remove(listOfUsers);
 					toolbar.getItems().remove(usernameText);
 					toolbar.getItems().remove(onlineCircle);
 					toolbar.getItems().remove(onlineSeperator);
 					toolbar.getItems().remove(connectMessage);
-					
+
 					onlineButton.setText("Go online");
 					onlineButton.setOnAction(e1 -> {
 
@@ -564,7 +627,6 @@ public class UI extends Application {
 						login.display();
 
 					});
-					
 
 				});
 
