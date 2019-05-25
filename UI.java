@@ -362,7 +362,7 @@ public class UI extends Application {
 
 				setRandomLocation(shape);
 
-				System.out.println("Redo location");
+//				System.out.println("Redo location");
 
 			}
 
