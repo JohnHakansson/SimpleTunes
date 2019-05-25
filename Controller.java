@@ -420,23 +420,23 @@ public class Controller {
 				sounds[msm.getRow()][msm.getColumn()] = mc;
 
 			}
-			
+
 			else if (msm.getShape().equals("pentagon")) {
-				
+
 				MusicPentagon mp = new MusicPentagon(msm.getColor(), soundDrums.getDrumSounds(msm.getColor()));
-				
+
 				ui.setShapeFromOnline(mp, msm.getRow(), msm.getColumn());
 
 				shapeList.add(mp);
 
 				sounds[msm.getRow()][msm.getColumn()] = mp;
 			}
-			
+
 			else if (msm.getShape().equals("righttriangle")) {
-				
-				
-				MusicRightTriangle mrt = new MusicRightTriangle(msm.getColor(), soundSynthChords.getSynthChordSound(msm.getColor()));
-				
+
+				MusicRightTriangle mrt = new MusicRightTriangle(msm.getColor(),
+						soundSynthChords.getSynthChordSound(msm.getColor()));
+
 				ui.setShapeFromOnline(mrt, msm.getRow(), msm.getColumn());
 
 				shapeList.add(mrt);
@@ -513,6 +513,8 @@ public class Controller {
 				ui.removeShape(sounds[rsm.getRow()][rsm.getColumn()]);
 
 				removeSound(rsm.getRow(), rsm.getColumn());
+
+				System.out.println("Removing : " + rsm.getRow() + ", " + rsm.getColumn());
 			}
 
 		}

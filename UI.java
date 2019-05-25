@@ -263,7 +263,6 @@ public class UI extends Application {
 
 			@Override
 			public void handle(MouseEvent t) {
-				System.out.println("removing shape from grid");
 
 				poolGroup.getChildren().remove(shape.getShape());
 				controller.removeSound(shape.getRow(), shape.getColumn());
@@ -293,7 +292,6 @@ public class UI extends Application {
 
 			public void handle(MouseEvent t) {
 
-				System.out.println("Adding shape to grid");
 //				shape.getShape().setCursor(handCursor);
 
 				for (int i = 0; i < squares.length; i++) {
@@ -320,7 +318,6 @@ public class UI extends Application {
 
 			public void handle(MouseEvent t) {
 
-				System.out.println("Adding shape to grid");
 //				shape.getShape().setCursor(handCursor);
 				controller.removeSound(shape.getRow(), shape.getColumn());
 
@@ -331,7 +328,6 @@ public class UI extends Application {
 
 				if (!shape.getHasBeenMoved()) {
 
-					System.out.println("removing shape from grid");
 
 					poolGroup.getChildren().remove(shape.getShape());
 
@@ -356,10 +352,8 @@ public class UI extends Application {
 						}
 					}
 
-					System.out.println("mouse: " + t.getSceneY() + "target: " + squares[0][0].getY());
 
 					if (t.getSceneY() < squares[0][0].getY()) {
-						System.out.println("removing sound");
 						poolGroup.getChildren().remove(shape.getShape());
 
 					}
@@ -381,7 +375,6 @@ public class UI extends Application {
 			public void handle(MouseEvent t) {
 
 				shape.setHasBeenMoved(true);
-				System.out.println("Set has been moved to : " + shape.getHasBeenMoved());
 			}
 
 		};
@@ -405,8 +398,6 @@ public class UI extends Application {
 
 		Platform.runLater(new Runnable() {
 			public void run() {
-
-				System.out.println(shape.toString());
 
 				poolGroup.getChildren().remove(shape.getShape());
 
@@ -505,8 +496,10 @@ public class UI extends Application {
 
 //		shape.nullifyEventHandlers();
 
-		shape.getShape().setOnMousePressed(getMouseRemove(shape, row, column));
-
+		shape.getShape().setOnMouseClicked(null);
+		shape.getShape().setOnMouseReleased(getMouseEventReleasedInGrid(shape));
+		shape.getShape().setOnDragDetected(getDragDetected(shape));
+		
 		Platform.runLater(new Runnable() {
 
 			public void run() {
