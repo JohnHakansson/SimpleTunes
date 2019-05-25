@@ -1,6 +1,7 @@
 package simpleTunes;
 
 import java.io.File;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import javafx.scene.media.Media;
 
@@ -15,20 +16,25 @@ public class SoundSynthNotes {
 
 	public SoundSynthNotes() {
 
-		File A = new File("SoundSynthNotes/Synth1 - A#.wav");
-		synthNotesMap.put("Orange1", new Media(A.toURI().toString()));
+		try {
+			synthNotesMap.put("Orange1",
+					new Media(getClass().getClassLoader().getResource("Synth1 - A#.wav").toURI().toString()));
 
-		File D1 = new File("SoundSynthNotes/Synth1 - D#.wav");
-		synthNotesMap.put("Orange2", new Media(D1.toURI().toString()));
+			synthNotesMap.put("Orange2",
+					new Media(getClass().getClassLoader().getResource("Synth1 - D#.wav").toURI().toString()));
 
-		File F = new File("SoundSynthNotes/Synth1 - F.wav");
-		synthNotesMap.put("Orange3", new Media(F.toURI().toString()));
-		
-		File G = new File("SoundSynthNotes/Synth1 - G.wav");
-		synthNotesMap.put("Orange4", new Media(G.toURI().toString()));
-		
-		File G2 = new File("SoundSynthNotes/Synth1 - G#.wav");
-		synthNotesMap.put("Orange5", new Media(G2.toURI().toString()));
+			synthNotesMap.put("Orange3",
+					new Media(getClass().getClassLoader().getResource("Synth1 - F.wav").toURI().toString()));
+
+			synthNotesMap.put("Orange4",
+					new Media(getClass().getClassLoader().getResource("Synth1 - G.wav").toURI().toString()));
+
+			synthNotesMap.put("Orange5",
+					new Media(getClass().getClassLoader().getResource("Synth1 - G#.wav").toURI().toString()));
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public synchronized Media getSynthNotes(String color) {

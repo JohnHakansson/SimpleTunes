@@ -82,8 +82,8 @@ public class UI extends Application {
 	private double xOffset;
 	private double yOffset;
 
-//	private Cursor deleteCursor = new ImageCursor(new Image("images/trashCanImage.png"));
-//	private Cursor handCursor = new ImageCursor(new Image("images/handClick.png"));
+	private Cursor deleteCursor = new ImageCursor(new Image("images/trashCanImage.png"));
+	private Cursor handCursor = new ImageCursor(new Image("images/handClick.png"));
 	private Separator onlineSeperator;
 
 	private ObservableList<String> listOfOnlineUser = FXCollections.observableList(new ArrayList<String>());
@@ -292,7 +292,7 @@ public class UI extends Application {
 
 			public void handle(MouseEvent t) {
 
-//				shape.getShape().setCursor(handCursor);
+				shape.getShape().setCursor(handCursor);
 
 				for (int i = 0; i < squares.length; i++) {
 					for (int j = 0; j < squares[i].length; j++) {
@@ -318,7 +318,7 @@ public class UI extends Application {
 
 			public void handle(MouseEvent t) {
 
-//				shape.getShape().setCursor(handCursor);
+				shape.getShape().setCursor(handCursor);
 
 				controller.removeSound(shape.getRow(), shape.getColumn());
 
@@ -330,11 +330,6 @@ public class UI extends Application {
 				if (!shape.getHasBeenMoved()) {
 
 					poolGroup.getChildren().remove(shape.getShape());
-
-//					if (controller.isOnline()) {
-//						controller.sendRemoveShape(row, column);
-//
-//					}
 
 				}
 
@@ -464,12 +459,12 @@ public class UI extends Application {
 			controller.generateShape(1);
 
 		}
-//
-//		Platform.runLater(new Runnable() {
-//			public void run() {
-//				shape.getShape().setCursor(deleteCursor);
-//			}
-//		});
+
+		Platform.runLater(new Runnable() {
+			public void run() {
+				shape.getShape().setCursor(deleteCursor);
+			}
+		});
 
 	}
 
@@ -490,8 +485,6 @@ public class UI extends Application {
 		shape.setLayoutX(squares[row][column].getX());
 
 		shape.setLayoutY(squares[row][column].getY());
-
-//		shape.nullifyEventHandlers();
 
 		shape.getShape().setOnMouseClicked(null);
 		shape.getShape().setOnMouseReleased(getMouseEventReleasedInGrid(shape));
