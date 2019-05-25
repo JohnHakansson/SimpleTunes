@@ -323,7 +323,11 @@ public class UI extends Application {
 				System.out.println("Adding shape to grid");
 //				shape.getShape().setCursor(handCursor);
 				controller.removeSound(shape.getRow(), shape.getColumn());
-				controller.sendRemoveShape(shape.getRow(), shape.getColumn());
+
+				if (controller.isOnline()) {
+					controller.sendRemoveShape(shape.getRow(), shape.getColumn());
+
+				}
 
 				if (!shape.getHasBeenMoved()) {
 
