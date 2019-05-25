@@ -466,7 +466,8 @@ public class UI extends Application {
 		shape.setLayoutY(squares[row][column].getY());
 
 //		shape.nullifyEventHandlers();
-
+		
+		shape.getShape().setOnMouseClicked(null);
 		shape.getShape().setOnMouseReleased(getMouseEventReleasedInGrid(shape));
 		shape.getShape().setOnDragDetected(getDragDetected(shape));
 
