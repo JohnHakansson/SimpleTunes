@@ -7,7 +7,7 @@ import javafx.scene.media.*;
  * This class represents a Triangle that has a color and the corresponding sound
  * from the color.
  * 
- * @author John Håkansson, Tom Lanhed Sivertsson
+ * @author John Hï¿½kansson, Tom Lanhed Sivertsson
  *
  */
 
@@ -27,7 +27,7 @@ public class MusicTriangle extends MusicShape {
 		shape.setOnMousePressed(getMouseEventPressed());
 		shape.setOnMouseDragged(getMouseEventDragged());
 		
-		shape.setCursor(handCursor);
+//		shape.setCursor(handCursor);
 
 	}
 
