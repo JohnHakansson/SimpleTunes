@@ -389,6 +389,9 @@ public class Controller {
 
 				MusicDiamond md = new MusicDiamond(msm.getColor(), soundArp.getArpSound(msm.getColor()));
 
+				md.setRow(msm.getRow());
+				md.setColumn(msm.getColumn());
+
 				ui.setShapeFromOnline(md, msm.getRow(), msm.getColumn());
 
 				shapeList.add(md);
@@ -400,6 +403,9 @@ public class Controller {
 			else if (msm.getShape().equals("triangle")) {
 
 				MusicTriangle mt = new MusicTriangle(msm.getColor(), soundSynthNotes.getSynthNotes(msm.getColor()));
+
+				mt.setRow(msm.getRow());
+				mt.setColumn(msm.getColumn());
 
 				ui.setShapeFromOnline(mt, msm.getRow(), msm.getColumn());
 
@@ -413,6 +419,9 @@ public class Controller {
 
 				MusicCircle mc = new MusicCircle(msm.getColor(), soundBass.getBassSound(msm.getColor()));
 
+				mc.setRow(msm.getRow());
+				mc.setColumn(msm.getColumn());
+
 				ui.setShapeFromOnline(mc, msm.getRow(), msm.getColumn());
 
 				shapeList.add(mc);
@@ -425,6 +434,9 @@ public class Controller {
 
 				MusicPentagon mp = new MusicPentagon(msm.getColor(), soundDrums.getDrumSounds(msm.getColor()));
 
+				mp.setRow(msm.getRow());
+				mp.setColumn(msm.getColumn());
+
 				ui.setShapeFromOnline(mp, msm.getRow(), msm.getColumn());
 
 				shapeList.add(mp);
@@ -436,6 +448,9 @@ public class Controller {
 
 				MusicRightTriangle mrt = new MusicRightTriangle(msm.getColor(),
 						soundSynthChords.getSynthChordSound(msm.getColor()));
+
+				mrt.setRow(msm.getRow());
+				mrt.setColumn(msm.getColumn());
 
 				ui.setShapeFromOnline(mrt, msm.getRow(), msm.getColumn());
 
@@ -456,7 +471,6 @@ public class Controller {
 
 			} else {
 
-				System.out.println("response false i Controller");
 				if (crm.getConnectRequest()) {
 
 					ui.updateMenueConnected(crm.getReceiverUsername());
@@ -471,8 +485,6 @@ public class Controller {
 		}
 
 		if (obj instanceof UserConnectMessage) {
-
-			System.out.println("Ett user connect message har mottagits i controller !!!");
 
 			UserConnectMessage ucm = (UserConnectMessage) obj;
 
@@ -514,7 +526,6 @@ public class Controller {
 
 				removeSound(rsm.getRow(), rsm.getColumn());
 
-				System.out.println("Removing : " + rsm.getRow() + ", " + rsm.getColumn());
 			}
 
 		}
@@ -575,14 +586,10 @@ public class Controller {
 
 				if (sounds[i][columns] != null) {
 
-					System.out.print(i + " " + columns + " = " + sounds[i][columns].toString() + " ");
-
 				} else {
-					System.out.print(i + " " + columns + " = null ");
 				}
 
 			}
-			System.out.println();
 			columns++;
 		}
 	}

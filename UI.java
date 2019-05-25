@@ -319,6 +319,7 @@ public class UI extends Application {
 			public void handle(MouseEvent t) {
 
 //				shape.getShape().setCursor(handCursor);
+
 				controller.removeSound(shape.getRow(), shape.getColumn());
 
 				if (controller.isOnline()) {
@@ -327,7 +328,6 @@ public class UI extends Application {
 				}
 
 				if (!shape.getHasBeenMoved()) {
-
 
 					poolGroup.getChildren().remove(shape.getShape());
 
@@ -351,7 +351,6 @@ public class UI extends Application {
 
 						}
 					}
-
 
 					if (t.getSceneY() < squares[0][0].getY()) {
 						poolGroup.getChildren().remove(shape.getShape());
@@ -430,8 +429,6 @@ public class UI extends Application {
 
 				setRandomLocation(shape);
 
-//				System.out.println("Redo location");
-
 			}
 
 		}
@@ -457,7 +454,7 @@ public class UI extends Application {
 		shape.setLayoutY(squares[row][column].getY());
 
 //		shape.nullifyEventHandlers();
-		
+
 		shape.getShape().setOnMouseClicked(null);
 		shape.getShape().setOnMouseReleased(getMouseEventReleasedInGrid(shape));
 		shape.getShape().setOnDragDetected(getDragDetected(shape));
@@ -499,7 +496,7 @@ public class UI extends Application {
 		shape.getShape().setOnMouseClicked(null);
 		shape.getShape().setOnMouseReleased(getMouseEventReleasedInGrid(shape));
 		shape.getShape().setOnDragDetected(getDragDetected(shape));
-		
+
 		Platform.runLater(new Runnable() {
 
 			public void run() {
