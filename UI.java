@@ -323,6 +323,7 @@ public class UI extends Application {
 				System.out.println("Adding shape to grid");
 //				shape.getShape().setCursor(handCursor);
 				controller.removeSound(shape.getRow(), shape.getColumn());
+				controller.sendRemoveShape(shape.getRow(), shape.getColumn());
 
 				if (!shape.getHasBeenMoved()) {
 
@@ -350,14 +351,13 @@ public class UI extends Application {
 
 						}
 					}
-					
+
 					System.out.println("mouse: " + t.getSceneY() + "target: " + squares[0][0].getY());
-					
-					if(t.getSceneY() < squares[0][0].getY()) {
+
+					if (t.getSceneY() < squares[0][0].getY()) {
 						System.out.println("removing sound");
 						poolGroup.getChildren().remove(shape.getShape());
 
-						
 					}
 
 					shape.setHasBeenMoved(false);
