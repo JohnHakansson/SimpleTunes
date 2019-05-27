@@ -85,8 +85,7 @@ public class UI extends Application {
 	private Cursor deleteCursor = new ImageCursor(new Image("images/trashCanImage.png"));
 	private Cursor handCursor = new ImageCursor(new Image("images/handClick.png"));
 	private Separator onlineSeperator;
-	
-	
+
 	private ObservableList<String> listOfOnlineUser = FXCollections.observableList(new ArrayList<String>());
 
 	/*
@@ -264,6 +263,7 @@ public class UI extends Application {
 
 			@Override
 			public void handle(MouseEvent t) {
+
 				poolGroup.getChildren().remove(shape.getShape());
 				controller.removeSound(shape.getRow(), shape.getColumn());
 
@@ -313,6 +313,70 @@ public class UI extends Application {
 		return onMouseReleased;
 	}
 
+	public EventHandler<MouseEvent> getMouseEventReleasedInGrid(MusicShape shape) {
+		EventHandler<MouseEvent> onMouseReleased = new EventHandler<MouseEvent>() {
+
+			public void handle(MouseEvent t) {
+
+				shape.getShape().setCursor(handCursor);
+
+				controller.removeSound(shape.getRow(), shape.getColumn());
+
+				if (controller.isOnline()) {
+					controller.sendRemoveShape(shape.getRow(), shape.getColumn());
+
+				}
+
+				if (!shape.getHasBeenMoved()) {
+
+					poolGroup.getChildren().remove(shape.getShape());
+
+				}
+
+				else {
+
+					for (int i = 0; i < squares.length; i++) {
+
+						for (int j = 0; j < squares[i].length; j++) {
+
+							if (squares[i][j].contains(t.getSceneX(), t.getSceneY() - toolbar.getHeight())) {
+								controller.addShapestoArray(shape, i, j);
+
+							}
+
+						}
+					}
+
+					if (t.getSceneY() < squares[0][0].getY()) {
+						poolGroup.getChildren().remove(shape.getShape());
+
+					}
+
+					shape.setHasBeenMoved(false);
+
+				}
+
+			}
+
+		};
+
+		return onMouseReleased;
+	}
+
+	public EventHandler<MouseEvent> getDragDetected(MusicShape shape) {
+		EventHandler<MouseEvent> onDragDetected = new EventHandler<MouseEvent>() {
+
+			public void handle(MouseEvent t) {
+
+				shape.setHasBeenMoved(true);
+			}
+
+		};
+
+		return onDragDetected;
+
+	}
+
 	/*
 	 * Method for adding the shape to the UI.
 	 * 
@@ -328,8 +392,6 @@ public class UI extends Application {
 
 		Platform.runLater(new Runnable() {
 			public void run() {
-
-				System.out.println(shape.toString());
 
 				poolGroup.getChildren().remove(shape.getShape());
 
@@ -362,8 +424,6 @@ public class UI extends Application {
 
 				setRandomLocation(shape);
 
-				System.out.println("Redo location");
-
 			}
 
 		}
@@ -388,11 +448,17 @@ public class UI extends Application {
 
 		shape.setLayoutY(squares[row][column].getY());
 
-		shape.nullifyEventHandlers();
+//		shape.nullifyEventHandlers();
 
-		shape.getShape().setOnMousePressed(getMouseRemove(shape, row, column));
+		shape.getShape().setOnMouseClicked(null);
+		shape.getShape().setOnMouseReleased(getMouseEventReleasedInGrid(shape));
+		shape.getShape().setOnDragDetected(getDragDetected(shape));
 
-		controller.generateShape(1);
+		if (!shape.getPlaced()) {
+
+			controller.generateShape(1);
+
+		}
 
 		Platform.runLater(new Runnable() {
 			public void run() {
@@ -420,9 +486,9 @@ public class UI extends Application {
 
 		shape.setLayoutY(squares[row][column].getY());
 
-		shape.nullifyEventHandlers();
-
-		shape.getShape().setOnMousePressed(getMouseRemove(shape, row, column));
+		shape.getShape().setOnMouseClicked(null);
+		shape.getShape().setOnMouseReleased(getMouseEventReleasedInGrid(shape));
+		shape.getShape().setOnDragDetected(getDragDetected(shape));
 
 		Platform.runLater(new Runnable() {
 
@@ -549,14 +615,14 @@ public class UI extends Application {
 				onlineButton.setOnAction(e -> {
 
 					controller.disconnect();
-					
+
 					toolbar.getItems().remove(connectButton);
 					toolbar.getItems().remove(listOfUsers);
 					toolbar.getItems().remove(usernameText);
 					toolbar.getItems().remove(onlineCircle);
 					toolbar.getItems().remove(onlineSeperator);
 					toolbar.getItems().remove(connectMessage);
-					
+
 					onlineButton.setText("Go online");
 					onlineButton.setOnAction(e1 -> {
 
@@ -564,7 +630,6 @@ public class UI extends Application {
 						login.display();
 
 					});
-					
 
 				});
 

@@ -64,28 +64,28 @@ public class Controller {
 
 			case 1:
 				color = colors[0] + (rand.nextInt(5) + 1);
-				System.out.println(color);
+//				System.out.println(color);
 				randomShape = new MusicCircle(color, soundBass.getBassSound(color));
 				break;
 
 			case 2:
 				color = colors[2] + (rand.nextInt(5) + 1);
-				System.out.println(color);
+//				System.out.println(color);
 				randomShape = new MusicTriangle(color, soundSynthNotes.getSynthNotes(color));
 				break;
 			case 3:
 				color = colors[1] + (rand.nextInt(5) + 1);
-				System.out.println(color);
+//				System.out.println(color);
 				randomShape = new MusicDiamond(color, soundArp.getArpSound(color));
 				break;
 			case 4:
 				color = colors[4] + (rand.nextInt(5) + 1);
-				System.out.println(color);
+//				System.out.println(color);
 				randomShape = new MusicRightTriangle(color, soundSynthChords.getSynthChordSound(color));
 				break;
 			case 5:
 				color = colors[3] + (rand.nextInt(5) + 1);
-				System.out.println(color);
+//				System.out.println(color);
 				randomShape = new MusicPentagon(color, soundDrums.getDrumSounds(color));
 				break;
 
@@ -209,8 +209,8 @@ public class Controller {
 		if (sounds[row][column] == null) {
 			sounds[row][column] = shape;
 			shape.setRow(row);
-			shape.setPlaced(true);
 			ui.setGridPlacement(shape, row, column);
+			shape.setPlaced(true);
 
 			if (online) {
 
@@ -227,9 +227,9 @@ public class Controller {
 					if (sounds[i][column] == null) {
 						sounds[i][column] = shape;
 						shapePlaced = true;
-						shape.setPlaced(true);
 						shape.setRow(i);
 						ui.setGridPlacement(shape, i, column);
+						shape.setPlaced(true);
 
 						if (online) {
 
@@ -389,6 +389,9 @@ public class Controller {
 
 				MusicDiamond md = new MusicDiamond(msm.getColor(), soundArp.getArpSound(msm.getColor()));
 
+				md.setRow(msm.getRow());
+				md.setColumn(msm.getColumn());
+
 				ui.setShapeFromOnline(md, msm.getRow(), msm.getColumn());
 
 				shapeList.add(md);
@@ -400,6 +403,9 @@ public class Controller {
 			else if (msm.getShape().equals("triangle")) {
 
 				MusicTriangle mt = new MusicTriangle(msm.getColor(), soundSynthNotes.getSynthNotes(msm.getColor()));
+
+				mt.setRow(msm.getRow());
+				mt.setColumn(msm.getColumn());
 
 				ui.setShapeFromOnline(mt, msm.getRow(), msm.getColumn());
 
@@ -413,6 +419,9 @@ public class Controller {
 
 				MusicCircle mc = new MusicCircle(msm.getColor(), soundBass.getBassSound(msm.getColor()));
 
+				mc.setRow(msm.getRow());
+				mc.setColumn(msm.getColumn());
+
 				ui.setShapeFromOnline(mc, msm.getRow(), msm.getColumn());
 
 				shapeList.add(mc);
@@ -420,23 +429,29 @@ public class Controller {
 				sounds[msm.getRow()][msm.getColumn()] = mc;
 
 			}
-			
+
 			else if (msm.getShape().equals("pentagon")) {
-				
+
 				MusicPentagon mp = new MusicPentagon(msm.getColor(), soundDrums.getDrumSounds(msm.getColor()));
-				
+
+				mp.setRow(msm.getRow());
+				mp.setColumn(msm.getColumn());
+
 				ui.setShapeFromOnline(mp, msm.getRow(), msm.getColumn());
 
 				shapeList.add(mp);
 
 				sounds[msm.getRow()][msm.getColumn()] = mp;
 			}
-			
+
 			else if (msm.getShape().equals("righttriangle")) {
-				
-				
-				MusicRightTriangle mrt = new MusicRightTriangle(msm.getColor(), soundSynthChords.getSynthChordSound(msm.getColor()));
-				
+
+				MusicRightTriangle mrt = new MusicRightTriangle(msm.getColor(),
+						soundSynthChords.getSynthChordSound(msm.getColor()));
+
+				mrt.setRow(msm.getRow());
+				mrt.setColumn(msm.getColumn());
+
 				ui.setShapeFromOnline(mrt, msm.getRow(), msm.getColumn());
 
 				shapeList.add(mrt);
@@ -456,7 +471,6 @@ public class Controller {
 
 			} else {
 
-				System.out.println("response false i Controller");
 				if (crm.getConnectRequest()) {
 
 					ui.updateMenueConnected(crm.getReceiverUsername());
@@ -471,8 +485,6 @@ public class Controller {
 		}
 
 		if (obj instanceof UserConnectMessage) {
-
-			System.out.println("Ett user connect message har mottagits i controller !!!");
 
 			UserConnectMessage ucm = (UserConnectMessage) obj;
 
@@ -513,6 +525,7 @@ public class Controller {
 				ui.removeShape(sounds[rsm.getRow()][rsm.getColumn()]);
 
 				removeSound(rsm.getRow(), rsm.getColumn());
+
 			}
 
 		}
@@ -573,14 +586,10 @@ public class Controller {
 
 				if (sounds[i][columns] != null) {
 
-					System.out.print(i + " " + columns + " = " + sounds[i][columns].toString() + " ");
-
 				} else {
-					System.out.print(i + " " + columns + " = null ");
 				}
 
 			}
-			System.out.println();
 			columns++;
 		}
 	}
@@ -665,7 +674,7 @@ public class Controller {
 				stopShapeGenerator();
 
 			} catch (InterruptedException e) {
-				System.out.println("interrupted exception : generator = null");
+//				System.out.println("interrupted exception : generator = null");
 			}
 
 		}

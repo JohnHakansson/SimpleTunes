@@ -1,6 +1,7 @@
 package simpleTunes;
 
 import java.io.File;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 
 import javafx.scene.media.Media;
@@ -10,20 +11,25 @@ public class SoundDrums {
 
 	public SoundDrums() {
 
-		File clap = new File("SoundDrums/Clap.wav");
-		drumSounds.put("Purple1", new Media(clap.toURI().toString()));
+		try {
+			drumSounds.put("Purple1",
+					new Media(getClass().getClassLoader().getResource("Clap.wav").toURI().toString()));
 
-		File hiHat = new File("SoundDrums/Hi-Hat.wav");
-		drumSounds.put("Purple2", new Media(hiHat.toURI().toString()));
+			drumSounds.put("Purple2",
+					new Media(getClass().getClassLoader().getResource("Hi-Hat.wav").toURI().toString()));
 
-		File kick = new File("SoundDrums/Kick.wav");
-		drumSounds.put("Purple3", new Media(kick.toURI().toString()));
+			drumSounds.put("Purple3",
+					new Media(getClass().getClassLoader().getResource("Kick.wav").toURI().toString()));
 
-		File openHat = new File("SoundDrums/Open-Hat.wav");
-		drumSounds.put("Purple4", new Media(openHat.toURI().toString()));
+			drumSounds.put("Purple4",
+					new Media(getClass().getClassLoader().getResource("Open-Hat.wav").toURI().toString()));
 
-		File snare = new File("SoundDrums/Snare.wav");
-		drumSounds.put("Purple5", new Media(snare.toURI().toString()));
+			drumSounds.put("Purple5",
+					new Media(getClass().getClassLoader().getResource("Snare.wav").toURI().toString()));
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public synchronized Media getDrumSounds(String color) {

@@ -1,6 +1,7 @@
 package simpleTunes;
 
 import java.io.File;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import javafx.scene.media.Media;
 
@@ -9,20 +10,25 @@ public class SoundSynthChords {
 	
 	public SoundSynthChords() {
 
-		File one = new File("SoundSynthChords/Chord - Ab Major.wav");
-		synthChordsSounds.put("Green1", new Media(one.toURI().toString()));
+		try {
+			synthChordsSounds.put("Green1",
+					new Media(getClass().getClassLoader().getResource("Chord - Ab Major.wav").toURI().toString()));
 
-		File two = new File("SoundSynthChords/Chord - Bb Major.wav");
-		synthChordsSounds.put("Green2", new Media(two.toURI().toString()));
+			synthChordsSounds.put("Green2",
+					new Media(getClass().getClassLoader().getResource("Chord - Bb Major.wav").toURI().toString()));
 
-		File three = new File("SoundSynthChords/Chord - Db Major.wav");
-		synthChordsSounds.put("Green3", new Media(three.toURI().toString()));
-		
-		File four = new File("SoundSynthChords/Chord - Eb Major.wav");
-		synthChordsSounds.put("Green4", new Media(four.toURI().toString()));
-		
-		File five = new File("SoundSynthChords/Chord - F Minor.wav");
-		synthChordsSounds.put("Green5", new Media(five.toURI().toString()));
+			synthChordsSounds.put("Green3",
+					new Media(getClass().getClassLoader().getResource("Chord - Db Major.wav").toURI().toString()));
+
+			synthChordsSounds.put("Green4",
+					new Media(getClass().getClassLoader().getResource("Chord - Eb Major.wav").toURI().toString()));
+
+			synthChordsSounds.put("Green5",
+					new Media(getClass().getClassLoader().getResource("Chord - F Minor.wav").toURI().toString()));
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public synchronized Media getSynthChordSound(String color) {

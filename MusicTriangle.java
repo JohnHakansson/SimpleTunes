@@ -7,7 +7,7 @@ import javafx.scene.media.*;
  * This class represents a Triangle that has a color and the corresponding sound
  * from the color.
  * 
- * @author John Håkansson, Tom Lanhed Sivertsson
+ * @author John Hï¿½kansson, Tom Lanhed Sivertsson
  *
  */
 
