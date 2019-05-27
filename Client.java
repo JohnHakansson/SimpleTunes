@@ -7,7 +7,7 @@ import java.net.*;
  * Connects to the given ip and port of a server. Sends and receives
  * information.
  * 
- * @author John Håkansson, Roland Askelöf, Matilda Frimodig
+ * @author John Hï¿½kansson, Roland Askelï¿½f, Matilda Frimodig
  *
  */
 public class Client {
@@ -56,21 +56,6 @@ public class Client {
 		}
 	}
 
-	/**
-	 * Sending the information about the shape to the Server.
-	 * 
-	 * @param msm Contains information about the shape
-	 */
-	public void sendShape(MusicShapeMessage msm) {
-		try {
-
-			output.writeObject(msm);
-			output.flush();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
 	/**
 	 * Sending the clients username to the Server.
@@ -123,7 +108,7 @@ public class Client {
 	 * The class reads incoming objects from the server and sends the incoming
 	 * objects to the controller.
 	 * 
-	 * @author John Håkansson, Roland Askelöf, Matilda Frimodig
+	 * @author John Hï¿½kansson, Roland Askelï¿½f, Matilda Frimodig
 	 *
 	 */
 	private class ClientThread extends Thread {
