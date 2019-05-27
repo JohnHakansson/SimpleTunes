@@ -6,7 +6,7 @@ import java.io.*;
  * Every client connected to the server has a ClientHandler handling the flow of
  * information between client and server
  * 
- * @author John Håkansson, Roland Askelöf, Matilda Frimodig
+ * @author John Hï¿½kansson, Roland Askelï¿½f, Matilda Frimodig
  *
  */
 public class ClientHandler extends Thread {
@@ -117,7 +117,7 @@ public class ClientHandler extends Thread {
 			} catch (IOException e1) {
 
 				server.disconnectUser(username);
-
+				break;
 			}
 
 		}

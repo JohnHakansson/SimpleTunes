@@ -49,7 +49,7 @@ public abstract class MusicShape {
 	 */
 	public MusicShape(String colorName, Media sound) {
 		this.colorName = colorName;
-		this.color = NewNamedColors.get(colorName);
+		this.color = NamedColors.get(colorName);
 		setSound(sound);
 		
 	}

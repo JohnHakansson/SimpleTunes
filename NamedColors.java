@@ -6,7 +6,7 @@ import java.util.Map.Entry;
 
 import javafx.scene.paint.Color;
 
-public class NewNamedColors {
+public class NamedColors {
 	private static HashMap<String, Color> namedColors = createNamedColors();
 
 	public static Color get(String name) {
@@ -14,7 +14,7 @@ public class NewNamedColors {
 	}
 
 	private static HashMap<String, Color> createNamedColors() {
-		HashMap<String, Color> colors = new HashMap<String, Color>(30);
+		HashMap<String, Color> colors = new HashMap<String, Color>(25);
 
 		colors.put("Orange1", Color.rgb(255, 192, 115));
 		colors.put("Orange2", Color.rgb(245, 167, 72));
