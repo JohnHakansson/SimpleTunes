@@ -4,6 +4,11 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import javafx.scene.media.Media;
 
+	/**
+	 * The class uses a hashMap to store all the different sounds from the synth-chords.
+	 * 
+	 */
+
 public class SoundSynthChords {
 	private HashMap<String, Media> synthChordsSounds = new HashMap<String, Media>();
 	

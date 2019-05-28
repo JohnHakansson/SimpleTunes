@@ -5,9 +5,8 @@ import java.util.HashMap;
 import javafx.scene.media.Media;
 
 	/**
-	 * The Class represents the three piano-sounds which are stored
-	 * in its own HashMap and accessed by the controller.
-	 *
+	 * The class uses a hashMap to store all the different sounds from the single synth notes.
+	 * 
 	 */
 
 public class SoundSynthNotes {

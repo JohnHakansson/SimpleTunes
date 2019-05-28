@@ -34,11 +34,21 @@ public class MusicSquare extends MusicShape {
 		shape.setCursor(handCursor);
 
 	}
+	
+	/**
+	 * Returns the MusicSquare
+	 * 
+	 */
 
 	public Shape getShape() {
 		return shape;
 	}
 
+	/**
+	 * 
+	 * 
+	 */
+	
 	public void setLayoutX(double x) {
 		shape.setLayoutX(x);
 	}
