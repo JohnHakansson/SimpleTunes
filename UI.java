@@ -312,7 +312,17 @@ public class UI extends Application {
 
 		return onMouseReleased;
 	}
-
+	
+	/**
+	 * 
+	 * Method for handling events for a shape which has been placed in the grid and is now released.
+	 * Checks whether the shape has been moved or is simply clicked. 
+	 * If it has only been clicked then it is removed from the grid.
+	 * Otherwise it is moved to its new position in the grid.
+	 * 
+	 * @param shape The shape to be handled
+	 * @return The eventhandler
+	 */
 	public EventHandler<MouseEvent> getMouseEventReleasedInGrid(MusicShape shape) {
 		EventHandler<MouseEvent> onMouseReleased = new EventHandler<MouseEvent>() {
 
@@ -362,7 +372,13 @@ public class UI extends Application {
 
 		return onMouseReleased;
 	}
-
+	
+	/**
+	 * Method for handling mouse-drag of a shape which is placed in the grid.
+	 * Sets the boolean which indicates whether a shape has been moved to true.
+	 * 
+	 * @return The eventhandler
+	 */
 	public EventHandler<MouseEvent> getDragDetected(MusicShape shape) {
 		EventHandler<MouseEvent> onDragDetected = new EventHandler<MouseEvent>() {
 
@@ -377,7 +393,7 @@ public class UI extends Application {
 
 	}
 
-	/*
+	/**
 	 * Method for adding the shape to the UI.
 	 * 
 	 * @param shape the random shape generated in the controller.
@@ -532,7 +548,11 @@ public class UI extends Application {
 		listOfUsers.setItems(listOfOnlineUser);
 
 	}
-
+	
+	/**
+	 * 
+	 * @return The username of the online user
+	 */
 	public String getUsername() {
 
 		return username;
@@ -721,11 +741,21 @@ public class UI extends Application {
 		login.userNameNotOK(info);
 
 	}
-
+	
+	/**
+	 * 
+	 * @return The poolgroup ui component
+	 */
 	public Group getPoolGroup() {
 		return poolGroup;
 	}
-
+	
+	/**
+	 * 
+	 * Launches the application
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		launch(args);
 
