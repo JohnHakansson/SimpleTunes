@@ -211,7 +211,7 @@ public class Controller {
 
 				MusicShapeMessage msm = new MusicShapeMessage(shape.toString(), shape.getColorName(), row, column);
 
-				client.sendShape(msm);
+				client.sendObject(msm);
 
 			}
 
@@ -231,7 +231,7 @@ public class Controller {
 							MusicShapeMessage msm = new MusicShapeMessage(shape.toString(), shape.getColorName(), i,
 									column);
 
-							client.sendShape(msm);
+							client.sendObject(msm);
 
 						}
 
