@@ -14,7 +14,12 @@ import javafx.scene.media.*;
 public class MusicTriangle extends MusicShape {
 	private double x = 50;
 	private double y = 100;
-
+	/**
+	 * Constructs a MusicTriangle
+	 * 
+	 * @param color a String representing the color of the triangle
+	 * @param sound a mediafile the sound of the triangle
+	 */
 	public MusicTriangle(String color, Media sound) {
 		super(color, sound);
 
