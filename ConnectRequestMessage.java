@@ -8,7 +8,7 @@ import java.io.Serializable;
  * connect-request. The recipient user can accept or decline the request and the
  * answer is stored in a boolean that is sent back to the sender.
  * 
- * @author John Håkansson, Jesper Lindberg, Tom Lanhed Sivertsson
+ * @author John Håkansson, Jesper Lindberg, Tom Lanhed Sivertsson, Roland Askelöf
  *
  */
 
@@ -56,21 +56,51 @@ public class ConnectRequestMessage implements Serializable {
 		return isResponse;
 	}
 	
+	/**
+	 * Returns a String of the senders username.
+	 * 
+	 * @return a string
+	 */
+	
 	public String getSenderUsername() {
 		return senderUsername;
 	}
+	
+	/**
+	 * Returns true if incoming message is a connect request
+	 * 
+	 * @param connectRequest boolean
+	 */
 
 	public void setConnectRequest(boolean connectRequest) {
 		this.connectRequest = connectRequest;
 	}
+	
+	/**
+	 * Returns true if incoming message is a response message.
+	 * 
+	 * @param isResponse boolean
+	 */
 
 	public void setIsResponse(boolean isResponse) {
 		this.isResponse = isResponse;
 	}
 
+	/**
+	 * Returns a string with the request message.
+	 * 
+	 * @return String
+	 */
+	
 	public String getMessage() {
 		return message;
 	}
+	
+	/**
+	 * Returns a string of the reciever username.
+	 * 
+	 * @return string
+	 */
 
 	public String getReceiverUsername() {
 		return recieverUsername;

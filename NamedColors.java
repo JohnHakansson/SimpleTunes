@@ -6,9 +6,27 @@ import java.util.Map.Entry;
 
 import javafx.scene.paint.Color;
 
+
+	/**
+	 * The Class sets all the colors which are used
+	 * to set the color of all the shapes.
+	 * 
+	 * @author Roland
+	 *
+	 */
+
 public class NamedColors {
 	private static HashMap<String, Color> namedColors = createNamedColors();
 
+	
+	/**
+	 * Reurns the named color from a hashmap
+	 * 
+	 * @param name name of the color
+	 * @return color
+	 */
+	
+	
 	public static Color get(String name) {
 		return namedColors.get(name);
 	}
@@ -48,6 +66,11 @@ public class NamedColors {
 
 		return colors;
 	}
+	
+	/*
+	 * Returns the name of the incoming color object
+	 * 
+	 */
 
 	public static String getColorString(Color color) {
 

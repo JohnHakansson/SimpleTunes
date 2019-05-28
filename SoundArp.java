@@ -6,6 +6,12 @@ import java.util.HashMap;
 import javafx.scene.media.Media;
 
 public class SoundArp {
+	
+	/**
+	 * The class uses a hashMap to store all the different sounds from the Arpeggiator.
+	 * 
+	 */
+	
 
 	private HashMap<String, Media> arpSounds = new HashMap<String, Media>();
 

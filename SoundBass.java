@@ -5,6 +5,12 @@ import java.util.HashMap;
 
 import javafx.scene.media.Media;
 
+
+	/**
+	 * The class uses a hashMap to store all the different sounds from the Bass.
+	 * 
+	 */
+
 public class SoundBass {
 	private HashMap<String, Media> bassSounds = new HashMap<String, Media>();
 
