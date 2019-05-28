@@ -85,7 +85,7 @@ public class Controller {
 				
 			case 4:
 				color = colors[4] + (rand.nextInt(5) + 1);
-				randomShape = new MusicPentagon(color, soundDrums.getDrumSounds(color));
+				randomShape = new MusicHexagon(color, soundDrums.getDrumSounds(color));
 				break;
 
 			}
@@ -444,9 +444,9 @@ public class Controller {
 
 			}
 
-			else if (msm.getShape().equals("pentagon")) {
+			else if (msm.getShape().equals("hexagon")) {
 
-				MusicPentagon mp = new MusicPentagon(msm.getColor(), soundDrums.getDrumSounds(msm.getColor()));
+				MusicHexagon mp = new MusicHexagon(msm.getColor(), soundDrums.getDrumSounds(msm.getColor()));
 
 				mp.setRow(msm.getRow());
 				mp.setColumn(msm.getColumn());

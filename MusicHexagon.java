@@ -10,14 +10,14 @@ import javafx.scene.shape.Shape;
  * @author Roland Askelöf och John Håkansson
  *
  */
-public class MusicPentagon extends MusicShape {
+public class MusicHexagon extends MusicShape {
 	/**
 	 * Constructs a MusicHexagon
 	 * 
 	 * @param color a String representing the color of the hexagon
 	 * @param sound a mediafile the sound of the hexagon
 	 */
-	public MusicPentagon(String color, Media sound) {
+	public MusicHexagon(String color, Media sound) {
 		super(color, sound);
 
 		shape = new Polygon();
@@ -62,7 +62,7 @@ public class MusicPentagon extends MusicShape {
 	}
 
 	public String toString() {
-		return "pentagon";
+		return "hexagon";
 
 	}
 
