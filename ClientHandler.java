@@ -77,15 +77,15 @@ public class ClientHandler extends Thread {
 
 				if (obj instanceof ConnectToUserMessage) {
 
-					ConnectToUserMessage ctum = (ConnectToUserMessage) obj;
+					ConnectToUserMessage connectToUserMessage = (ConnectToUserMessage) obj;
 
-					ClientHandler tempReceiver = clientMap.get(ctum.getReceiverUsername());
+					ClientHandler tempReceiver = clientMap.get(connectToUserMessage.getReceiverUsername());
 
-					ConnectRequestMessage crm = new ConnectRequestMessage(ctum.getSenderUsername(),
-							ctum.getReceiverUsername());
+					ConnectRequestMessage connectRequestMessage = new ConnectRequestMessage(connectToUserMessage.getSenderUsername(),
+							connectToUserMessage.getReceiverUsername());
 
-					crm.setIsResponse(true);
-					tempReceiver.send(crm);
+					connectRequestMessage.setIsResponse(true);
+					tempReceiver.send(connectRequestMessage);
 
 				} else if (obj instanceof ConnectRequestMessage) {
 

@@ -9,7 +9,8 @@ import javafx.scene.Group;
 /**
  * This class handles all the logic for the system.
  * 
- * @author John Hï¿½kansson, Tom Lanhed Sivertsson, Jesper Lindberg
+ * @author John Hï¿½kansson, Tom Lanhed Sivertsson, Jesper Lindberg, Roland
+ *         Askelöf, Matilda Frimodig
  *
  */
 
@@ -29,7 +30,7 @@ public class Controller {
 
 	private boolean playing = false;
 	private Random rand = new Random();
-	private String[] colors = { "Blue", "Red", "Orange", "Purple", "Green" };
+	private String[] colors = { "Blue", "Orange", "Red", "Green", "Purple" };
 	private Client client;
 
 	private boolean online = false;
@@ -60,27 +61,30 @@ public class Controller {
 		String color = "";
 
 		do {
-			switch (rand.nextInt(5) + 1) {
+			switch (rand.nextInt(5)) {
 
-			case 1:
+			case 0:
 				color = colors[0] + (rand.nextInt(5) + 1);
 				randomShape = new MusicCircle(color, soundBass.getBassSound(color));
 				break;
 
-			case 2:
-				color = colors[2] + (rand.nextInt(5) + 1);
+			case 1:
+				color = colors[1] + (rand.nextInt(5) + 1);
 				randomShape = new MusicTriangle(color, soundSynthNotes.getSynthNotes(color));
 				break;
-			case 3:
-				color = colors[1] + (rand.nextInt(5) + 1);
+				
+			case 2:
+				color = colors[2] + (rand.nextInt(5) + 1);
 				randomShape = new MusicDiamond(color, soundArp.getArpSound(color));
 				break;
-			case 4:
-				color = colors[4] + (rand.nextInt(5) + 1);
+				
+			case 3:
+				color = colors[3] + (rand.nextInt(5) + 1);
 				randomShape = new MusicRightTriangle(color, soundSynthChords.getSynthChordSound(color));
 				break;
-			case 5:
-				color = colors[3] + (rand.nextInt(5) + 1);
+				
+			case 4:
+				color = colors[4] + (rand.nextInt(5) + 1);
 				randomShape = new MusicPentagon(color, soundDrums.getDrumSounds(color));
 				break;
 
@@ -251,7 +255,7 @@ public class Controller {
 
 	/**
 	 * 
-	 * Removes musicshape from the sound array
+	 * Removes a musicshape from the sound array
 	 * 
 	 * @param row    which row the shape is located in
 	 * @param column which column the shape is located in
@@ -309,6 +313,10 @@ public class Controller {
 
 	}
 
+	/**
+	 * Removes all the shapes from the grid and empties the sounds-array
+	 */
+
 	public void removeShapesFromGrid() {
 
 		Platform.runLater(new Runnable() {
@@ -331,10 +339,11 @@ public class Controller {
 	}
 
 	/**
+	 * Creates a Client-object with the given ip and port. Sends the new user to the
+	 * Server
 	 * 
-	 * Sends a username to the server via the client
-	 * 
-	 * @param userName The username to be sent
+	 * @param userName the username of the connecting user
+	 * @param ip       the ip of the Server
 	 */
 	public void sendUsername(String userName, String ip) {
 
@@ -360,6 +369,11 @@ public class Controller {
 	 */
 	public void update(Object obj) {
 
+		/**
+		 * when the user connects to the server the user receives a InitialStateMessage
+		 * containing already connected users
+		 */
+
 		if (obj instanceof InitialStateMessage) {
 
 			online = true;
@@ -375,6 +389,11 @@ public class Controller {
 			ui.closeLogin();
 
 		}
+
+		/**
+		 * When a shape is between users it's broken down to be rebuilt in this section
+		 * and is added to the UI
+		 */
 
 		if (obj instanceof MusicShapeMessage) {
 
@@ -456,6 +475,11 @@ public class Controller {
 
 		}
 
+		/**
+		 * When a user receives a ConnectRequestMessage and it open a Window in the UI
+		 * asking if the a connection is wanted
+		 */
+
 		if (obj instanceof ConnectRequestMessage) {
 
 			ConnectRequestMessage crm = (ConnectRequestMessage) obj;
@@ -479,6 +503,11 @@ public class Controller {
 
 		}
 
+		/**
+		 * When a new user connects to the server the username is sent to all connected
+		 * users
+		 */
+
 		if (obj instanceof UserConnectMessage) {
 
 			UserConnectMessage ucm = (UserConnectMessage) obj;
@@ -486,6 +515,10 @@ public class Controller {
 			ui.updateUserList(ucm.getUsername());
 
 		}
+
+		/**
+		 * if the name written is already taken this message is return to the UI
+		 */
 
 		if (obj instanceof String) {
 
@@ -499,6 +532,11 @@ public class Controller {
 
 		}
 
+		/**
+		 * When a user disconnects from the server a message is sent to all connected
+		 * users.
+		 */
+
 		if (obj instanceof UserDisconnectMessage) {
 
 			UserDisconnectMessage udm = (UserDisconnectMessage) obj;
@@ -506,6 +544,10 @@ public class Controller {
 			ui.removeFromUserList(udm.getUsername());
 
 		}
+
+		/**
+		 * When a user removes a shape from the grid when connectede to another user
+		 */
 
 		if (obj instanceof RemoveShapeMessage) {
 
@@ -544,7 +586,7 @@ public class Controller {
 	}
 
 	/**
-	 * Sends
+	 * Sends a message to the server that a shape has been removed
 	 * 
 	 * @param row    the row the shape is in
 	 * @param column the column the shape is in
@@ -570,23 +612,6 @@ public class Controller {
 
 		client.sendObject(crm);
 
-	}
-
-	public void printArray() {
-
-		int columns = 0;
-
-		while (columns < 16) {
-			for (int i = 0; i < sounds.length; i++) {
-
-				if (sounds[i][columns] != null) {
-
-				} else {
-				}
-
-			}
-			columns++;
-		}
 	}
 
 	/**
@@ -668,9 +693,7 @@ public class Controller {
 
 				stopShapeGenerator();
 
-			} catch (InterruptedException e) {
-//				System.out.println("interrupted exception : generator = null");
-			}
+			} catch (InterruptedException e) { }
 
 		}
 	}
