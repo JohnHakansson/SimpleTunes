@@ -3,9 +3,20 @@ package simpleTunes;
 import javafx.scene.media.Media;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Shape;
-
+/**
+ * This class represents a hexagon that has a color and the
+ * corresponding sound from the color.
+ * 
+ * @author Roland Askelöf och John Håkansson
+ *
+ */
 public class MusicPentagon extends MusicShape {
-	
+	/**
+	 * Constructs a MusicHexagon
+	 * 
+	 * @param color a String representing the color of the hexagon
+	 * @param sound a mediafile the sound of the hexagon
+	 */
 	public MusicPentagon(String color, Media sound) {
 		super(color, sound);
 

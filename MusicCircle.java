@@ -16,7 +16,7 @@ public class MusicCircle extends MusicShape {
 	/**
 	 * Constructs a MusicCircle
 	 * 
-	 * @param color a color-object the color of the circle
+	 * @param color a String representing the color of the circle
 	 * @param sound a mediafile the sound of the circle
 	 */
 

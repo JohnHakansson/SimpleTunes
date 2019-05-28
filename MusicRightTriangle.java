@@ -7,12 +7,17 @@ import javafx.scene.media.*;
  * This class represents a right-angeled triangle that has a color and the
  * corresponding sound from the color.
  * 
- * @author Matilda Frimodig
+ * @author Matilda Frimodig och Roland Askelöf
  *
  */
 
 public class MusicRightTriangle extends MusicShape {
-
+	/**
+	 * Constructs a MusicRightTriangle
+	 * 
+	 * @param color a String representing the color of the triangle
+	 * @param sound a mediafile the sound of the triangle
+	 */
 	public MusicRightTriangle(String color, Media sound) {
 		super(color, sound);
 

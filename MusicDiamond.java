@@ -3,9 +3,20 @@ package simpleTunes;
 import javafx.scene.media.Media;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Shape;
-
+/**
+ * This class represents a diamond that has a color and the
+ * corresponding sound from the color.
+ * 
+ * @author Roland Askelöf och Tom Lanhed Sivertsson
+ *
+ */
 public class MusicDiamond extends MusicShape {
-
+	/**
+	 * Constructs a MusicDiamond
+	 * 
+	 * @param color a String representing the color of the diamond
+	 * @param sound a mediafile the sound of the diamond
+	 */
 	public MusicDiamond(String color, Media sound) {
 		super(color, sound);
 
@@ -22,7 +33,9 @@ public class MusicDiamond extends MusicShape {
 		shape.setCursor(handCursor);
 
 	}
-
+/**
+ * Returns a shape
+ */
 	public Shape getShape() {
 		return shape;
 
@@ -37,7 +50,9 @@ public class MusicDiamond extends MusicShape {
 		shape.setLayoutY(y);
 
 	}
-
+	/**
+	 * Turns of the eventhandlers for the shape when it's placed in grid.
+	 */
 	public void nullifyEventHandlers() {
 		shape.setOnMousePressed(null);
 		shape.setOnMouseDragged(null);

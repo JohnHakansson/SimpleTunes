@@ -141,14 +141,7 @@ public class LoginWindow {
 
 	}
 
-	/**
-	 * Gathers the String from the ip input field
-	 * 
-	 * @return the IpAddress
-	 */
 
-	public String getIpAddress() {
-		return ipAddress.getText();
-	}
+
 
 }
