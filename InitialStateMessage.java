@@ -7,7 +7,7 @@ import java.util.*;
  * The Class represents the message that is sent to the recently connected
  * client with information about other clients currently connected.
  * 
- * @author John Håkansson, Roland Askelöf, Matilda Frimodig
+ * @author John Hï¿½kansson, Roland Askelï¿½f, Matilda Frimodig
  *
  */
 
@@ -18,7 +18,11 @@ public class InitialStateMessage implements Serializable {
 	public InitialStateMessage(ArrayList<String> connectedUsers) {
 		this.connectedUsers = connectedUsers;
 	}
-
+	
+	/**
+	 * 
+	 * @return An ArrayList with all connected users
+	 */
 	public ArrayList<String> getConnectedUsers() {
 		return connectedUsers;
 	}
