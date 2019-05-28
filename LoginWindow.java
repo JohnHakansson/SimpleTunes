@@ -20,7 +20,8 @@ import javafx.stage.Stage;
 
 /**
  * 
- * The class handles the showing of the login window. Will be displayed when a user presses the go-online button
+ * The class handles the showing of the login window. Will be displayed when a
+ * user presses the go-online button
  * 
  * @author Tom Lanhed Sivertsson, Matilda Frimodig
  *
@@ -31,9 +32,11 @@ public class LoginWindow {
 	private Text actiontarget = new Text();
 
 	private Stage stage;
-	
+
 	private TextField userTextField;
-	
+
+	private TextField ipAddress;
+
 	/**
 	 * 
 	 * @param controller Controller to be called
@@ -42,7 +45,7 @@ public class LoginWindow {
 		this.controller = controller;
 
 	}
-	
+
 	/**
 	 * Displays the window
 	 */
@@ -58,15 +61,21 @@ public class LoginWindow {
 		grid.setVgap(10);
 		grid.setPadding(new Insets(25, 25, 25, 25));
 
-		Text scenetitle = new Text("Inloggning");
+		Text scenetitle = new Text("Login");
 		scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-		grid.add(scenetitle, 0, 0, 2, 1);
+		grid.add(scenetitle, 0, 0, 4, 1);
 
 		Label userName = new Label("User Name:");
 		grid.add(userName, 0, 1);
 
 		userTextField = new TextField();
 		grid.add(userTextField, 1, 1);
+
+		Label lblIpAddress = new Label("Ip-Address");
+		grid.add(lblIpAddress, 0, 2);
+
+		ipAddress = new TextField();
+		grid.add(ipAddress, 1, 2);
 
 		Button btn = new Button("Sign in");
 		HBox hbBtn = new HBox(10);
@@ -82,7 +91,7 @@ public class LoginWindow {
 			public void handle(ActionEvent e) {
 				actiontarget.setFill(Color.DARKGRAY);
 				actiontarget.setText("Signing in...");
-				controller.sendUsername(userTextField.getText());
+				controller.sendUsername(userTextField.getText(), ipAddress.getText());
 
 			}
 		});
@@ -92,7 +101,7 @@ public class LoginWindow {
 		stage.showAndWait();
 
 	}
-	
+
 	/**
 	 * 
 	 * Is called when the username is not accepted by the server
@@ -105,9 +114,9 @@ public class LoginWindow {
 		actiontarget.setText(info);
 
 	}
-	
+
 	/**
-	 *  Closes the window
+	 * Closes the window
 	 */
 	public void closeStage() {
 
@@ -119,7 +128,7 @@ public class LoginWindow {
 		});
 
 	}
-	
+
 	/**
 	 * 
 	 * Gathers the String from the text input field
@@ -127,9 +136,19 @@ public class LoginWindow {
 	 * @return the username
 	 */
 	public String getUserName() {
-		
+
 		return userTextField.getText();
-		
+
 	}
-	
-}	
+
+	/**
+	 * Gathers the String from the ip input field
+	 * 
+	 * @return the IpAddress
+	 */
+
+	public String getIpAddress() {
+		return ipAddress.getText();
+	}
+
+}

@@ -489,6 +489,8 @@ public class UI extends Application {
 		shape.getShape().setOnMouseClicked(null);
 		shape.getShape().setOnMouseReleased(getMouseEventReleasedInGrid(shape));
 		shape.getShape().setOnDragDetected(getDragDetected(shape));
+		
+		shape.getShape().setCursor(deleteCursor);
 
 		Platform.runLater(new Runnable() {
 
