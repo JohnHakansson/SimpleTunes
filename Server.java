@@ -45,7 +45,6 @@ public class Server implements Runnable {
 
 			clientMap.get(user).send(userDisconnectMessage);
 			
-			System.out.println(user);
 		}
 
 	}

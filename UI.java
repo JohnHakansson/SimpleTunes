@@ -11,6 +11,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -25,6 +27,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -80,7 +83,7 @@ public class UI extends Application {
 
 	private Cursor deleteCursor = new ImageCursor(new Image("images/trashCanImage.png"));
 	private Cursor handCursor = new ImageCursor(new Image("images/handClick.png"));
-	
+
 	private Separator onlineSeperator;
 
 	private ObservableList<String> listOfOnlineUser = FXCollections.observableList(new ArrayList<String>());
@@ -101,7 +104,7 @@ public class UI extends Application {
 		window = primaryStage;
 		window.setOnCloseRequest(e -> {
 			System.exit(0);
-			
+
 		});
 
 		poolPane.setStyle("-fx-background-color: Black");
@@ -109,7 +112,7 @@ public class UI extends Application {
 
 		// Generating the cells used by the grid and adding them to the UI.
 		for (int i = 0; i < squares.length; i++) {
-			
+
 			for (int j = 0; j < squares[i].length; j++) {
 				squares[i][j] = new Rectangle(j * 100, i * 100 + 600 - 50, 100, 100);
 				squares[i][j].setFill(Color.BLACK);
@@ -168,7 +171,7 @@ public class UI extends Application {
 		stopButton.setOnAction(e -> {
 			stopMovingLine();
 			controller.stopPlaying();
-			
+
 		});
 
 		Button resetButton = new Button();
@@ -183,7 +186,7 @@ public class UI extends Application {
 		exitButton.setId("exitButton");
 		exitButton.setOnAction(e -> {
 			System.exit(0);
-			
+
 		});
 
 		onlineButton = new Button("Go Online");
@@ -217,18 +220,18 @@ public class UI extends Application {
 		HBox.setHgrow(rightSpacer, Priority.SOMETIMES);
 
 		toolbar.setId("toolbar");
-		toolbar.setOnMousePressed( e -> {
+		toolbar.setOnMousePressed(e -> {
 			xOffset = primaryStage.getX() - e.getScreenX();
 			yOffset = primaryStage.getY() - e.getScreenY();
-			
+
 		});
-		
-		toolbar.setOnMouseDragged( e -> {
+
+		toolbar.setOnMouseDragged(e -> {
 			primaryStage.setX(e.getScreenX() + xOffset);
 			primaryStage.setY(e.getScreenY() + yOffset);
-			
+
 		});
-		
+
 	}
 
 	/*
@@ -275,7 +278,7 @@ public class UI extends Application {
 		};
 
 		return onMouseClicked;
-		
+
 	}
 
 	/*
@@ -294,7 +297,7 @@ public class UI extends Application {
 				shape.getShape().setCursor(handCursor);
 
 				for (int i = 0; i < squares.length; i++) {
-					
+
 					for (int j = 0; j < squares[i].length; j++) {
 
 						if (squares[i][j].contains(t.getSceneX(), t.getSceneY() - toolbar.getHeight())) {
@@ -311,14 +314,14 @@ public class UI extends Application {
 		};
 
 		return onMouseReleased;
-		
+
 	}
-	
+
 	/**
 	 * 
-	 * Method for handling events for a shape which has been placed in the grid and is now released.
-	 * Checks whether the shape has been moved or is simply clicked. 
-	 * If it has only been clicked then it is removed from the grid.
+	 * Method for handling events for a shape which has been placed in the grid and
+	 * is now released. Checks whether the shape has been moved or is simply
+	 * clicked. If it has only been clicked then it is removed from the grid.
 	 * Otherwise it is moved to its new position in the grid.
 	 * 
 	 * @param shape The shape to be handled
@@ -356,7 +359,7 @@ public class UI extends Application {
 							}
 
 						}
-						
+
 					}
 
 					if (t.getSceneY() < squares[0][0].getY()) {
@@ -373,12 +376,12 @@ public class UI extends Application {
 		};
 
 		return onMouseReleased;
-		
+
 	}
-	
+
 	/**
-	 * Method for handling mouse-drag of a shape which is placed in the grid.
-	 * Sets the boolean which indicates whether a shape has been moved to true.
+	 * Method for handling mouse-drag of a shape which is placed in the grid. Sets
+	 * the boolean which indicates whether a shape has been moved to true.
 	 * 
 	 * @return The eventhandler
 	 */
@@ -388,7 +391,7 @@ public class UI extends Application {
 			public void handle(MouseEvent t) {
 
 				shape.setHasBeenMoved(true);
-				
+
 			}
 
 		};
@@ -407,7 +410,7 @@ public class UI extends Application {
 		poolGroup.getChildren().add(shape.getShape());
 
 	}
-	
+
 	/**
 	 * 
 	 * Removes a shape from the UI
@@ -486,9 +489,9 @@ public class UI extends Application {
 		Platform.runLater(new Runnable() {
 			public void run() {
 				shape.getShape().setCursor(deleteCursor);
-				
+
 			}
-			
+
 		});
 
 	}
@@ -519,11 +522,11 @@ public class UI extends Application {
 
 			public void run() {
 				poolGroup.getChildren().add(shape.getShape());
-				
+
 			}
-			
+
 		});
-		
+
 	}
 
 	/*
@@ -558,7 +561,7 @@ public class UI extends Application {
 		listOfUsers.setItems(listOfOnlineUser);
 
 	}
-	
+
 	/**
 	 * 
 	 * @return The username of the online user
@@ -595,9 +598,9 @@ public class UI extends Application {
 					controller.removeShapesFromGrid();
 					controller.setReceivingUser(connectRequestMessage.getSenderUsername());
 				}
-				
+
 			}
-			
+
 		});
 
 	}
@@ -634,7 +637,7 @@ public class UI extends Application {
 				updateMenuWaiting(selectedUsername);
 
 			}
-			
+
 		});
 
 		Platform.runLater(new Runnable() {
@@ -655,7 +658,7 @@ public class UI extends Application {
 					toolbar.getItems().remove(onlineCircle);
 					toolbar.getItems().remove(onlineSeperator);
 					toolbar.getItems().remove(connectMessage);
-					
+
 					listOfOnlineUser.remove(0, listOfOnlineUser.size());
 
 					onlineButton.setText("Go online");
@@ -671,7 +674,7 @@ public class UI extends Application {
 				toolbar.getItems().add(connectMessage);
 				toolbar.getItems().add(listOfUsers);
 				toolbar.getItems().add(connectButton);
-				
+
 				listOfUsers.setDisable(false);
 
 				onlineSeperator = new Separator();
@@ -704,7 +707,7 @@ public class UI extends Application {
 				connectMessage.setText("Connected to: " + username);
 
 			}
-			
+
 		});
 
 	}
@@ -738,21 +741,22 @@ public class UI extends Application {
 				connectButton.setDisable(false);
 
 			}
-			
+
 		});
 
 	}
-	
-	public void updateUIAfterDisconnect() {
-		Platform.runLater( new Runnable() {
-			
+
+	public void revertUIToStandard() {
+		Platform.runLater(new Runnable() {
+
 			public void run() {
+
 				connectMessage.setText("Connect with user:");
 				listOfUsers.setDisable(false);
 				connectButton.setDisable(false);
 			}
 		});
-	
+
 	}
 
 	/*
@@ -765,34 +769,55 @@ public class UI extends Application {
 		login.userNameNotOK(info);
 
 	}
-	
+
+	/**
+	 * Opens a window telling the user is already making music with someone else
+	 * 
+	 * @param rejected a String
+	 */
+
 	public void openRejecction(String rejected) {
-		
-		Platform.runLater( new Runnable() {
+
+		Platform.runLater(new Runnable() {
 			public void run() {
-				
-				Label label = new Label(rejected);
-				Scene scene = new Scene(label, 200, 200);
 				Stage stage = new Stage();
+
+				Label label = new Label(rejected);
+				label.setFont(new Font("Arial Bold", 16));
+
+				Button button = new Button("Ok");
+				button.setFont(new Font("Arial Bold", 16));
+				button.setOnAction(e -> {
+					stage.close();
+				});
+
+				VBox pane = new VBox();
+				pane.setAlignment(Pos.CENTER);
+				pane.getChildren().addAll(label, new Rectangle(20, 20, Color.WHITESMOKE), button);
+				Scene scene = new Scene(pane, 400, 100);
+
+				stage.setTitle("You where rejected");
 				stage.setScene(scene);
 				stage.show();
 				
+				revertUIToStandard();
+
 			}
-			
+
 		});
-		
+
 	}
-	
+
 	/**
 	 * 
 	 * @return The poolgroup ui component
 	 */
 	public Group getPoolGroup() {
-		
+
 		return poolGroup;
-		
+
 	}
-	
+
 	/**
 	 * 
 	 * Launches the application

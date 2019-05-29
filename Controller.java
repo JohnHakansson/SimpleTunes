@@ -557,7 +557,7 @@ public class Controller {
 			
 			if(receivingUser != null && receivingUser.equals(userDisconnectMessage.getUsername())) {
 				receivingUser = null;
-				ui.updateUIAfterDisconnect();
+				ui.revertUIToStandard();
 				
 			}
 			

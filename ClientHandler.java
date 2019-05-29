@@ -42,6 +42,14 @@ public class ClientHandler extends Thread {
 	 */
 	public void send(Object obj) {
 		
+		if(obj instanceof UserDisconnectMessage) {
+			UserDisconnectMessage userDisconnectMessage = (UserDisconnectMessage)obj;
+			
+			if(userDisconnectMessage.getUsername().equals(receivingUser)) {
+				receivingUser = null;
+			}
+		}
+		
 		try {
 			output.writeObject(obj);
 			output.flush();
@@ -60,6 +68,11 @@ public class ClientHandler extends Thread {
 		this.receivingUser = receivingUser;
 
 	}
+	
+	/**
+	 * Returns the receivingUser
+	 * @return receivingUser a String
+	 */
 	
 	public String getReceivingUser() {
 		return receivingUser;
@@ -87,6 +100,7 @@ public class ClientHandler extends Thread {
 					ClientHandler tempReceiver = clientMap.get(connectToUserMessage.getReceiverUsername());
 					
 					if(tempReceiver.getReceivingUser() == null) {
+						
 						ConnectRequestMessage connectRequestMessage = new ConnectRequestMessage(connectToUserMessage.getSenderUsername(),
 								connectToUserMessage.getReceiverUsername());
 
@@ -95,7 +109,8 @@ public class ClientHandler extends Thread {
 					}
 
 					else {
-						tempReceiver.send(new String("User is already making music with someone else"));
+						send(new String("User is already making music with someone else"));
+						
 					}
 
 				} else if (obj instanceof ConnectRequestMessage) {
@@ -129,6 +144,7 @@ public class ClientHandler extends Thread {
 
 				server.disconnectUser(username);
 				break;
+				
 			}
 
 		}
