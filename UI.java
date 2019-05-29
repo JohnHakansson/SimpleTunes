@@ -733,6 +733,7 @@ public class UI extends Application {
 				connectButton.setDisable(false);
 
 			}
+			
 		});
 
 	}
