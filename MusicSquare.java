@@ -19,7 +19,6 @@ public class MusicSquare extends MusicShape {
 	 * @param color a color-object the color of the circle
 	 * @param sound a mediafile the sound of the circle
 	 */
-	
 	public MusicSquare(String color, Media sound) {
 		super(color, sound);
 
@@ -39,22 +38,19 @@ public class MusicSquare extends MusicShape {
 	 * Returns the MusicSquare
 	 * 
 	 */
-
 	public Shape getShape() {
 		return shape;
+		
 	}
 
-	/**
-	 * 
-	 * 
-	 */
-	
 	public void setLayoutX(double x) {
 		shape.setLayoutX(x);
+		
 	}
 
 	public void setLayoutY(double y) {
 		shape.setLayoutY(y);
+		
 	}
 
 	/**
@@ -67,11 +63,12 @@ public class MusicSquare extends MusicShape {
 		shape.setOnMouseDragged(null);
 		shape.setOnMouseClicked(null);
 		shape.setOnMouseReleased(null);
+		
 	}
 	
 	public String toString() {
-		
 		return "square";
+		
 	}
 
 }

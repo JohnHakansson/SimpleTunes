@@ -14,6 +14,7 @@ import javafx.scene.media.*;
 public class MusicTriangle extends MusicShape {
 	private double x = 50;
 	private double y = 100;
+	
 	/**
 	 * Constructs a MusicTriangle
 	 * 
@@ -38,6 +39,7 @@ public class MusicTriangle extends MusicShape {
 
 	public Shape getShape() {
 		return shape;
+		
 	}
 
 	public void setLayoutX(double x) {
@@ -53,8 +55,6 @@ public class MusicTriangle extends MusicShape {
 	/**
 	 * Turns of the eventhandlers for the shape when it's placed in grid.
 	 */
-
-	@Override
 	public void nullifyEventHandlers() {
 		shape.setOnMousePressed(null);
 		shape.setOnMouseDragged(null);

@@ -10,13 +10,15 @@ import java.io.*;
  *
  */
 public class ClientHandler extends Thread {
+	private Server server;
+
 	private ObjectOutputStream output;
 	private ObjectInputStream input;
+	
 	private ClientMap clientMap;
 	private String receivingUser;
 
 	private String username;
-	private Server server;
 
 	/**
 	 * 
@@ -33,6 +35,7 @@ public class ClientHandler extends Thread {
 		this.clientMap = clientMap;
 		this.username = username;
 		this.server = server;
+		
 	}
 
 	/**
@@ -47,14 +50,18 @@ public class ClientHandler extends Thread {
 			
 			if(userDisconnectMessage.getUsername().equals(receivingUser)) {
 				receivingUser = null;
+				
 			}
+			
 		}
 		
 		try {
 			output.writeObject(obj);
 			output.flush();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
+			
 		}
 
 	}
@@ -73,9 +80,9 @@ public class ClientHandler extends Thread {
 	 * Returns the receivingUser
 	 * @return receivingUser a String
 	 */
-	
 	public String getReceivingUser() {
 		return receivingUser;
+		
 	}
 
 	/**
@@ -106,6 +113,7 @@ public class ClientHandler extends Thread {
 
 						connectRequestMessage.setIsResponse(true);
 						tempReceiver.send(connectRequestMessage);
+						
 					}
 
 					else {
@@ -141,7 +149,6 @@ public class ClientHandler extends Thread {
 				e.printStackTrace();
 
 			} catch (IOException e1) {
-
 				server.disconnectUser(username);
 				break;
 				

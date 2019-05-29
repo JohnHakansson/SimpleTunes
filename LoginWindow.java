@@ -94,6 +94,7 @@ public class LoginWindow {
 				controller.sendUsername(userTextField.getText(), ipAddress.getText());
 
 			}
+			
 		});
 
 		Scene scene = new Scene(grid, 500, 275);
@@ -124,7 +125,9 @@ public class LoginWindow {
 
 			public void run() {
 				stage.close();
+				
 			}
+			
 		});
 
 	}
@@ -136,12 +139,8 @@ public class LoginWindow {
 	 * @return the username
 	 */
 	public String getUserName() {
-
 		return userTextField.getText();
 
 	}
-
-
-
 
 }

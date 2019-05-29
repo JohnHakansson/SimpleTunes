@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * This class represents a connect message from the sending user.
  * 
- * @author John Håkansson, Matilda Frimodig, Roland Askelöf
+ * @author John Hï¿½kansson, Matilda Frimodig, Roland Askelï¿½f
  *
  */
 
@@ -17,6 +17,7 @@ public class ConnectToUserMessage implements Serializable {
 	public ConnectToUserMessage(String senderUsername, String receiverUsername) {
 		this.senderUsername = senderUsername;
 		this.receiverUsername = receiverUsername;
+		
 	}
 	
 	/**
@@ -26,6 +27,7 @@ public class ConnectToUserMessage implements Serializable {
 
 	public String getSenderUsername() {
 		return this.senderUsername;
+		
 	}
 	
 	/**
@@ -35,6 +37,7 @@ public class ConnectToUserMessage implements Serializable {
 	
 	public String getReceiverUsername() {
 		return this.receiverUsername;
+		
 	}
 
 }

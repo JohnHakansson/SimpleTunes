@@ -7,7 +7,7 @@ import javafx.scene.shape.Shape;
  * This class represents a diamond that has a color and the
  * corresponding sound from the color.
  * 
- * @author Roland Askelöf och Tom Lanhed Sivertsson
+ * @author Roland Askelï¿½f och Tom Lanhed Sivertsson
  *
  */
 public class MusicDiamond extends MusicShape {
@@ -33,9 +33,7 @@ public class MusicDiamond extends MusicShape {
 		shape.setCursor(handCursor);
 
 	}
-/**
- * Returns a shape
- */
+	
 	public Shape getShape() {
 		return shape;
 
@@ -50,6 +48,7 @@ public class MusicDiamond extends MusicShape {
 		shape.setLayoutY(y);
 
 	}
+	
 	/**
 	 * Turns of the eventhandlers for the shape when it's placed in grid.
 	 */
@@ -58,6 +57,7 @@ public class MusicDiamond extends MusicShape {
 		shape.setOnMouseDragged(null);
 		shape.setOnMouseClicked(null);
 		shape.setOnMouseReleased(null);
+		
 	}
 	
 	public String toString() {

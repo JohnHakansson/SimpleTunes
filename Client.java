@@ -11,12 +11,14 @@ import java.net.*;
  *
  */
 public class Client {
+	private Controller controller;
+	
 	private String username;
 	private Thread thread;
 	private Socket socket;
+	
 	private ObjectOutputStream output;
 	private ObjectInputStream input;
-	private Controller controller;
 
 	/**
 	 * Creates a Socket with a connection to the incoming ip and port. Starts the
@@ -42,6 +44,7 @@ public class Client {
 
 		} catch (IOException e) {
 			e.printStackTrace();
+			
 		}
 	}
 
@@ -51,8 +54,10 @@ public class Client {
 	public void disconnect() {
 		try {
 			socket.close();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
+			
 		}
 	}
 
@@ -123,8 +128,10 @@ public class Client {
 
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
+				
 			} catch (IOException e) {
 				stopThread();
+				
 			}
 
 		}

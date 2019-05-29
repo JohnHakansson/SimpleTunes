@@ -11,7 +11,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.*;
 import javafx.scene.control.Button;
@@ -43,9 +42,7 @@ import javafx.util.Duration;
  * handle event handlers and add/remove shapes from the window.
  * 
  * @author Jesper Lindberg, Matilda Frimodig, Roland Askelöf, Tom Lanhed Sivertsson, John H�kansson
- *  
  */
-
 public class UI extends Application {
 	private Controller controller;
 
@@ -745,7 +742,10 @@ public class UI extends Application {
 		});
 
 	}
-
+	
+	/**
+	 * Returns the UI to its initial state
+	 */
 	public void revertUIToStandard() {
 		Platform.runLater(new Runnable() {
 
@@ -754,7 +754,9 @@ public class UI extends Application {
 				connectMessage.setText("Connect with user:");
 				listOfUsers.setDisable(false);
 				connectButton.setDisable(false);
+				
 			}
+			
 		});
 
 	}
@@ -775,8 +777,7 @@ public class UI extends Application {
 	 * 
 	 * @param rejected a String
 	 */
-
-	public void openRejecction(String rejected) {
+	public void openRejection(String rejected) {
 
 		Platform.runLater(new Runnable() {
 			public void run() {

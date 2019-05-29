@@ -22,6 +22,7 @@ public class ClientMap {
 	 */
 	public synchronized void put(String username, ClientHandler clienthandler) {
 		onlineUsers.put(username, clienthandler);
+		
 	}
 	
 	/**
@@ -31,6 +32,7 @@ public class ClientMap {
 	 */
 	public synchronized ClientHandler get(String username) {
 		return onlineUsers.get(username);
+		
 	}
 	
 	/**
@@ -40,6 +42,7 @@ public class ClientMap {
 	 */
 	public synchronized boolean contains(String username) {
 		return onlineUsers.containsKey(username);
+		
 	}
 	
 	/**
@@ -48,6 +51,7 @@ public class ClientMap {
 	 */
 	public synchronized Set<String> getKeySet() {
 		return onlineUsers.keySet();
+		
 	}
 
 	/**
@@ -55,7 +59,6 @@ public class ClientMap {
 	 * @param user Username to be removed with its associated clienthandler
 	 */
 	public synchronized void remove(String user) {
-
 		onlineUsers.remove(user);
 
 	}

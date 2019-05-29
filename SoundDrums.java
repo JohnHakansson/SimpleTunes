@@ -5,11 +5,11 @@ import java.util.HashMap;
 
 import javafx.scene.media.Media;
 
-	/**
-	 * The class uses a hashMap to store all the different sounds from the Drums.
-	 * 
-	 */
-
+/**
+ * The class uses a hashMap to store all the different sounds from the Drums.
+ * 
+ * @author John Håkansson, Tom Lanhed Sivertsson
+ */
 public class SoundDrums {
 	private HashMap<String, Media> drumSounds = new HashMap<String, Media>();
 
@@ -30,14 +30,17 @@ public class SoundDrums {
 
 			drumSounds.put("Purple5",
 					new Media(getClass().getClassLoader().getResource("Snare.wav").toURI().toString()));
+			
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+
 		}
+
 	}
 
 	public synchronized Media getDrumSounds(String color) {
 		return drumSounds.get(color);
+
 	}
 
 }

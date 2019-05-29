@@ -10,13 +10,14 @@ import javafx.scene.Group;
  * This class handles all the logic for the system.
  * 
  * @author John Hï¿½kansson, Tom Lanhed Sivertsson, Jesper Lindberg, Roland
- *         Askelöf, Matilda Frimodig
+ *         Askelï¿½f, Matilda Frimodig
  *
  */
-
 public class Controller {
 	private UI ui;
-	private Thread thread;
+	private Client client;
+	
+	private Thread soundPlayerThread;
 	private Thread shapeGenerator;
 
 	private SoundBass soundBass = new SoundBass();
@@ -29,19 +30,17 @@ public class Controller {
 	private MusicShape[][] sounds = new MusicShape[4][16];
 
 	private boolean playing = false;
+	private boolean online = false;
+
 	private Random rand = new Random();
 	private String[] colors = { "Blue", "Orange", "Red", "Green", "Purple" };
-	private Client client;
 	private String receivingUser;
-
-	private boolean online = false;
 
 	/**
 	 * Gives the UI-reference a value
 	 * 
 	 * @param ui an instance of TestUI
 	 */
-
 	public Controller(UI ui) {
 		this.ui = ui;
 
@@ -55,7 +54,6 @@ public class Controller {
 	 * 
 	 * @param limit an integer the number of shapes that needs to be generated
 	 */
-
 	public synchronized void generateShape(int limit) {
 		int nbrOfShapes = 0;
 		MusicShape randomShape = null;
@@ -105,14 +103,13 @@ public class Controller {
 	/**
 	 * Starts the Thread PlaySound.
 	 */
-
 	public void startPlaying() {
 
-		if (thread == null) {
+		if (soundPlayerThread == null) {
 			playing = true;
-			thread = new PlaySound();
-			thread.setPriority(Thread.MAX_PRIORITY);
-			thread.start();
+			soundPlayerThread = new PlaySound();
+			soundPlayerThread.setPriority(Thread.MAX_PRIORITY);
+			soundPlayerThread.start();
 
 		}
 
@@ -121,12 +118,11 @@ public class Controller {
 	/**
 	 * Stops the Thread PlaySound.
 	 */
-
 	public void stopPlaying() {
 
-		if (thread != null) {
+		if (soundPlayerThread != null) {
 			playing = false;
-			thread.interrupt();
+			soundPlayerThread.interrupt();
 
 		}
 
@@ -138,7 +134,6 @@ public class Controller {
 	public void stopShapeGenerator() {
 
 		if (shapeGenerator != null) {
-
 			shapeGenerator.interrupt();
 			shapeGenerator = null;
 
@@ -152,7 +147,6 @@ public class Controller {
 	public void startShapeGenerator() {
 
 		if (shapeGenerator == null) {
-
 			shapeGenerator = new ShapeGenerator();
 			shapeGenerator.start();
 
@@ -165,9 +159,9 @@ public class Controller {
 	 * 
 	 * @return a boolean if the user is online
 	 */
-
 	public boolean isOnline() {
 		return online;
+		
 	}
 
 	/**
@@ -177,11 +171,11 @@ public class Controller {
 	 * @param column an array of Shape-objects
 	 * @return boolean true of there is space in the row or false if it's full.
 	 */
-
 	private boolean checkColumnSpace(int column) {
 		int counter = 0;
 
 		for (int i = 0; i < sounds.length; i++) {
+			
 			if (sounds[i][column] != null) {
 				counter++;
 
@@ -200,7 +194,6 @@ public class Controller {
 	 * @param shape a Shape-object to be added to the sounds-array.
 	 * @param row   integer the row where it shape is going to be added
 	 */
-
 	public void addShapestoArray(MusicShape shape, int row, int column) {
 		boolean shapePlaced = false;
 
@@ -223,7 +216,9 @@ public class Controller {
 		} else {
 
 			for (int i = 0; !shapePlaced; i++) {
+				
 				if (checkColumnSpace(shape.getColumn())) {
+					
 					if (sounds[i][column] == null) {
 						sounds[i][column] = shape;
 						shapePlaced = true;
@@ -263,6 +258,7 @@ public class Controller {
 	 */
 	public void removeSound(int row, int column) {
 		sounds[row][column] = null;
+		
 	}
 
 	/**
@@ -270,7 +266,6 @@ public class Controller {
 	 * 
 	 * @param group a Group-object
 	 */
-
 	public void refreshShapesFromPool(Group group) {
 
 		stopShapeGenerator();
@@ -291,7 +286,6 @@ public class Controller {
 	 * 
 	 * @param group a Group-object
 	 */
-
 	public void removeShapesFromPool(Group group) {
 
 		for (MusicShape ms : shapeList) {
@@ -304,6 +298,7 @@ public class Controller {
 			RemoveShapeMessage removeShapeMessage = new RemoveShapeMessage(true);
 
 			client.sendObject(removeShapeMessage);
+			
 		}
 
 		sounds = new MusicShape[4][16];
@@ -317,19 +312,22 @@ public class Controller {
 	/**
 	 * Removes all the shapes from the grid and empties the sounds-array
 	 */
-
 	public void removeShapesFromGrid() {
 
 		Platform.runLater(new Runnable() {
+			
 			public void run() {
+				
 				Group group = ui.getPoolGroup();
 
 				for (int i = 0; i < sounds.length; i++) {
 					
 					for (int j = 0; j < sounds[i].length; j++) {
+						
 						if (sounds[i][j] != null) {
 
 							group.getChildren().remove(sounds[i][j].getShape());
+							
 						}
 
 					}
@@ -337,6 +335,7 @@ public class Controller {
 				}
 				
 				sounds = new MusicShape[4][16];
+				
 			}
 			
 		});
@@ -378,7 +377,6 @@ public class Controller {
 		 * when the user connects to the server the user receives a InitialStateMessage
 		 * containing already connected users
 		 */
-
 		if (obj instanceof InitialStateMessage) {
 
 			online = true;
@@ -399,7 +397,6 @@ public class Controller {
 		 * When a shape is between users it's broken down to be rebuilt in this section
 		 * and is added to the UI
 		 */
-
 		if (obj instanceof MusicShapeMessage) {
 
 			MusicShapeMessage musicShapeMessage = (MusicShapeMessage) obj;
@@ -461,6 +458,7 @@ public class Controller {
 				shapeList.add(musicHexagon);
 
 				sounds[musicShapeMessage.getRow()][musicShapeMessage.getColumn()] = musicHexagon;
+				
 			}
 
 			else if (musicShapeMessage.getShape().equals("righttriangle")) {
@@ -476,6 +474,7 @@ public class Controller {
 				shapeList.add(musicRightTriangle);
 
 				sounds[musicShapeMessage.getRow()][musicShapeMessage.getColumn()] = musicRightTriangle;
+				
 			}
 
 		}
@@ -484,7 +483,6 @@ public class Controller {
 		 * When a user receives a ConnectRequestMessage and it open a Window in the UI
 		 * asking if the a connection is wanted
 		 */
-
 		if (obj instanceof ConnectRequestMessage) {
 
 			ConnectRequestMessage connectRequestMessage = (ConnectRequestMessage) obj;
@@ -506,6 +504,7 @@ public class Controller {
 					ui.updateMenuDefault();
 					
 				}
+				
 			}
 
 		}
@@ -514,7 +513,6 @@ public class Controller {
 		 * When a new user connects to the server the username is sent to all connected
 		 * users
 		 */
-
 		if (obj instanceof UserConnectMessage) {
 
 			UserConnectMessage userConnectMessage = (UserConnectMessage) obj;
@@ -526,7 +524,6 @@ public class Controller {
 		/**
 		 * if the name written is already taken this message is return to the UI
 		 */
-
 		if (obj instanceof String) {
 
 			String str = (String) obj;
@@ -539,7 +536,8 @@ public class Controller {
 			
 			else if(str.equals("User is already making music with someone else")) {
 				
-				ui.openRejecction(str);
+				ui.openRejection(str);
+				
 			}
 
 		}
@@ -548,7 +546,6 @@ public class Controller {
 		 * When a user disconnects from the server a message is sent to all connected
 		 * users.
 		 */
-
 		if (obj instanceof UserDisconnectMessage) {
 
 			UserDisconnectMessage userDisconnectMessage = (UserDisconnectMessage) obj;
@@ -566,7 +563,6 @@ public class Controller {
 		/**
 		 * When a user removes a shape from the grid when connected to another user
 		 */
-
 		if (obj instanceof RemoveShapeMessage) {
 
 			RemoveShapeMessage removeShapeMessage = (RemoveShapeMessage) obj;
@@ -609,7 +605,6 @@ public class Controller {
 	 * @param row    the row the shape is in
 	 * @param column the column the shape is in
 	 */
-
 	public void sendRemoveShape(int row, int column) {
 
 		RemoveShapeMessage removeShapeMessage = new RemoveShapeMessage(row, column);
@@ -623,22 +618,31 @@ public class Controller {
 	 * Called when a user has either accepted or declined a connection request from
 	 * another user
 	 * 
-	 * @param crm ConnectRequestMessage containing either a true or false response
+	 * @param connectRequestMessage ConnectRequestMessage containing either a true or false response
 	 *            boolean
 	 */
-	public void sendResponse(ConnectRequestMessage crm) {
+	public void sendResponse(ConnectRequestMessage connectRequestMessage) {
 
-		client.sendObject(crm);
+		client.sendObject(connectRequestMessage);
 
 	}
 	
-
+	/**
+	 * 
+	 * @return Receiving user
+	 */
 	public String getReceivingUser() {
 		return receivingUser;
+		
 	}
-
+	
+	/**
+	 * 
+	 * @param receivingUser The connected user
+	 */
 	public void setReceivingUser(String receivingUser) {
 		this.receivingUser = receivingUser;
+		
 	}
 
 	/**
@@ -649,7 +653,6 @@ public class Controller {
 	 * @author John Hï¿½kansson
 	 *
 	 */
-
 	private class PlaySound extends Thread {
 
 		public void run() {
@@ -682,7 +685,7 @@ public class Controller {
 				}
 
 			} catch (InterruptedException e) {
-				thread = null;
+				soundPlayerThread = null;
 
 			}
 
@@ -714,15 +717,19 @@ public class Controller {
 							generateShape(1);
 
 						}
+						
 					});
 
 				}
 
 				stopShapeGenerator();
 
-			} catch (InterruptedException e) { }
+			} catch (InterruptedException e) {
+				
+			}
 
 		}
+		
 	}
 
 }

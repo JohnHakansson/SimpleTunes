@@ -9,7 +9,6 @@ import java.io.Serializable;
  * @author John H�kansson
  *
  */
-
 public class RemoveShapeMessage implements Serializable {
 	private static final long serialVersionUID = 6117382832070187915L;
 	
@@ -62,6 +61,7 @@ public class RemoveShapeMessage implements Serializable {
 	 */
 	public boolean isRemoveAll() {
 		return removeAll;
+		
 	}
 	
 }

@@ -19,7 +19,6 @@ public class MusicCircle extends MusicShape {
 	 * @param color a String representing the color of the circle
 	 * @param sound a mediafile the sound of the circle
 	 */
-
 	public MusicCircle(String color, Media sound) {
 		super(color, sound);
 
@@ -37,11 +36,13 @@ public class MusicCircle extends MusicShape {
 	
 	public Shape getShape() {
 		return shape;
+		
 	}
 
 	@Override
 	public void setLayoutX(double x) {
 		shape.setLayoutX(x + 50);
+	
 	}
 
 	@Override
@@ -64,8 +65,8 @@ public class MusicCircle extends MusicShape {
 	}
 
 	public String toString() {
-
 		return "circle";
+		
 	}
 
 }

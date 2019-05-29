@@ -63,6 +63,7 @@ public abstract class MusicShape {
 	private void setSound(Media sound) {
 		mediaPlayer = new AudioClip(sound.getSource());
 		this.sound = sound;
+		
 	}
 	
 	/**
@@ -73,6 +74,7 @@ public abstract class MusicShape {
 	 */
 	public Media getSounds() {
 		return sound;
+		
 	}
 	
 	/**
@@ -80,6 +82,7 @@ public abstract class MusicShape {
 	 */
 	public void play() {
 		mediaPlayer.play();
+		
 	}
 	
 	/**
@@ -87,6 +90,7 @@ public abstract class MusicShape {
 	 */
 	public void stop() {
 		mediaPlayer.stop();
+		
 	}
 	
 	/**
@@ -94,6 +98,7 @@ public abstract class MusicShape {
 	 */
 	public String toString() {
 		return "MusicShape";
+		
 	}
 	
 	/**
@@ -127,13 +132,13 @@ public abstract class MusicShape {
 			@Override
 			public void handle(MouseEvent t) {
 				
-				System.out.println("Playing sound");
 				play();
 
 			}
 		};
 
 		return OnMouseClicked;
+		
 	}
 	
 	/**
@@ -156,6 +161,7 @@ public abstract class MusicShape {
 		};
 
 		return onMousePressed;
+		
 	}
 
 	/**
@@ -184,6 +190,7 @@ public abstract class MusicShape {
 		};
 
 		return onMouseDragged;
+		
 	}
 	
 	/**
@@ -194,6 +201,7 @@ public abstract class MusicShape {
 	 */
 	public void setPlaced(boolean bool) {
 		placedInGrid = bool;
+		
 	}
 	
 	/**
@@ -204,6 +212,7 @@ public abstract class MusicShape {
 	 */
 	public boolean getPlaced() {
 		return placedInGrid;
+		
 	}
 	
 	/**
@@ -214,6 +223,7 @@ public abstract class MusicShape {
 	 */
 	public void setRow(int row) {
 		this.row = row;
+		
 	}
 	
 	/**
@@ -224,6 +234,7 @@ public abstract class MusicShape {
 	 */
 	public void setColumn(int column) {
 		this.column = column;
+		
 	}
 	
 	/**
@@ -234,6 +245,7 @@ public abstract class MusicShape {
 	 */
 	public int getRow() {
 		return row;
+		
 	}
 	
 	/**
@@ -244,6 +256,7 @@ public abstract class MusicShape {
 	 */
 	public int getColumn() {
 		return column;
+		
 	}
 	
 	/**
@@ -254,19 +267,23 @@ public abstract class MusicShape {
 	 */
 	public Color getColor() {
 		return color;
+		
 	}
 	
 	
 	public String getColorName() {
 		return colorName;
+		
 	}
 	
 	public boolean getHasBeenMoved() {
 		return hasBeenMoved;
+		
 	}
 
 	public void setHasBeenMoved(boolean hasBeenMoved) {
 		this.hasBeenMoved = hasBeenMoved;
+		
 	}
 	
 	/**

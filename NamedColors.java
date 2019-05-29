@@ -11,7 +11,7 @@ import javafx.scene.paint.Color;
 	 * The Class sets all the colors which are used
 	 * to set the color of all the shapes.
 	 * 
-	 * @author Roland
+	 * @author Roland Askelöf, Tom Lanhed Sivertsson, John Håkansson
 	 *
 	 */
 
@@ -25,10 +25,9 @@ public class NamedColors {
 	 * @param name name of the color
 	 * @return color
 	 */
-	
-	
 	public static Color get(String name) {
 		return namedColors.get(name);
+		
 	}
 
 	private static HashMap<String, Color> createNamedColors() {
@@ -65,19 +64,20 @@ public class NamedColors {
 		colors.put("Green5", Color.rgb(0, 71, 0));
 
 		return colors;
+		
 	}
 	
 	/*
 	 * Returns the name of the incoming color object
 	 * 
 	 */
-
 	public static String getColorString(Color color) {
 
 		for (Entry<String, Color> entry : namedColors.entrySet()) {
 
 			if (Objects.equals(color, entry.getValue())) {
 				return entry.getKey();
+				
 			}
 
 		}
@@ -85,4 +85,5 @@ public class NamedColors {
 		return null;
 
 	}
+	
 }

@@ -6,11 +6,11 @@ import java.util.HashMap;
 import javafx.scene.media.Media;
 
 
-	/**
-	 * The class uses a hashMap to store all the different sounds from the Bass.
-	 * 
-	 */
-
+/**
+ * The class uses a hashMap to store all the different sounds from the Bass.
+ * 
+ * @author Matilda Frimodig, Tom Lanhed Sivertsson
+ */
 public class SoundBass {
 	private HashMap<String, Media> bassSounds = new HashMap<String, Media>();
 
@@ -32,12 +32,14 @@ public class SoundBass {
 			bassSounds.put("Blue5",
 					new Media(getClass().getClassLoader().getResource("Bas - G#.wav").toURI().toString()));
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
 		}
+		
 	}
 
 	public synchronized Media getBassSound(String color) {
 		return bassSounds.get(color);
+		
 	}
 }

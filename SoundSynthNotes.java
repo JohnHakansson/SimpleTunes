@@ -4,10 +4,12 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import javafx.scene.media.Media;
 
-	/**
-	 * The class uses a hashMap to store all the different sounds from the single synth notes.
-	 * 
-	 */
+/**
+ *  The class uses a hashMap to store all the different sounds from the single
+ * synth notes.
+ * 
+ * @author Jesper Lindberg, Tom Lanhed Sivertsson
+ */
 
 public class SoundSynthNotes {
 	private HashMap<String, Media> synthNotesMap = new HashMap<String, Media>();
@@ -29,14 +31,17 @@ public class SoundSynthNotes {
 
 			synthNotesMap.put("Orange5",
 					new Media(getClass().getClassLoader().getResource("Synth1 - G#.wav").toURI().toString()));
+			
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
 		}
+		
 	}
 
 	public synchronized Media getSynthNotes(String color) {
 		return synthNotesMap.get(color);
+		
 	}
 
 }

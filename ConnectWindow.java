@@ -67,7 +67,6 @@ public class ConnectWindow {
 
 		btnAccept.setOnAction(new EventHandler<ActionEvent>() {
 
-			@Override
 			public void handle(ActionEvent e) {
 
 				answer = true;
@@ -76,10 +75,13 @@ public class ConnectWindow {
 
 					public void run() {
 						stage.close();
+						
 					}
+					
 				});
 
 			}
+
 		});
 
 		btnDecline.setOnAction(new EventHandler<ActionEvent>() {
@@ -93,10 +95,13 @@ public class ConnectWindow {
 
 					public void run() {
 						stage.close();
+						
 					}
+					
 				});
 
 			}
+			
 		});
 
 		Scene scene = new Scene(grid, 500, 275);
@@ -117,7 +122,9 @@ public class ConnectWindow {
 
 			public void run() {
 				stage.close();
+				
 			}
+			
 		});
 
 	}

@@ -10,7 +10,6 @@ import java.io.Serializable;
  *         Sivertsson
  *
  */
-
 public class MusicShapeMessage implements Serializable {
 	private static final long serialVersionUID = 4494869902849409822L;
 	
@@ -32,6 +31,7 @@ public class MusicShapeMessage implements Serializable {
 		this.row = row;
 		this.column = column;
 		this.color = color;
+		
 	}
 	
 	/**
@@ -40,6 +40,7 @@ public class MusicShapeMessage implements Serializable {
 	 */
 	public String getColor() {
 		return color;
+		
 	}
 	
 	/**
@@ -48,6 +49,7 @@ public class MusicShapeMessage implements Serializable {
 	 */
 	public String getShape() {
 		return shape;
+		
 	}
 	
 	/**
@@ -56,6 +58,7 @@ public class MusicShapeMessage implements Serializable {
 	 */
 	public int getRow() {
 		return row;
+		
 	}
 	
 	/**
@@ -64,6 +67,7 @@ public class MusicShapeMessage implements Serializable {
 	 */
 	public int getColumn() {
 		return column;
+		
 	}
 
 }

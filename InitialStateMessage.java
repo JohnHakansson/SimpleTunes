@@ -17,6 +17,7 @@ public class InitialStateMessage implements Serializable {
 
 	public InitialStateMessage(ArrayList<String> connectedUsers) {
 		this.connectedUsers = connectedUsers;
+		
 	}
 	
 	/**
@@ -25,5 +26,7 @@ public class InitialStateMessage implements Serializable {
 	 */
 	public ArrayList<String> getConnectedUsers() {
 		return connectedUsers;
+		
 	}
+	
 }

@@ -20,13 +20,17 @@ public class Server implements Runnable {
 	private ClientMap clientMap = new ClientMap();
 
 	public Server(int port) {
+		
 		try {
 			serverSocket = new ServerSocket(port);
 			thread.start();
 			System.out.println("Server is Running");
+			
 		} catch (IOException e) {
 			e.printStackTrace();
+			
 		}
+		
 	}
 
 	/*
@@ -54,7 +58,6 @@ public class Server implements Runnable {
 	 * to connect. A connected client is given its own Clienthandler and
 	 * the client thread is started.
 	 */
-	
 	public void run() {
 
 		while (true) {
@@ -92,8 +95,11 @@ public class Server implements Runnable {
 
 			} catch (IOException | ClassNotFoundException e) {
 				e.printStackTrace();
+				
 			}
+			
 		}
+		
 	}
 
 	public static void main(String[] args) {
