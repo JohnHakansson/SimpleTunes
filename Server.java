@@ -11,6 +11,7 @@ import java.util.*;
  * users are handled with its own clienthandler.
  * users is
  *
+ *@author John Håkansson, Roland Askelöf, Matilda Frimodig, Tom Lanhed Sivertsson, Jesper Lindberg
  */
 
 public class Server implements Runnable {

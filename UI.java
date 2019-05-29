@@ -407,7 +407,13 @@ public class UI extends Application {
 		poolGroup.getChildren().add(shape.getShape());
 
 	}
-
+	
+	/**
+	 * 
+	 * Removes a shape from the UI
+	 * 
+	 * @param shape Shape to be removed
+	 */
 	public void removeShape(MusicShape shape) {
 
 		Platform.runLater(new Runnable() {
