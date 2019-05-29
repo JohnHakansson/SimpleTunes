@@ -492,12 +492,12 @@ public class Controller {
 
 				if (crm.getConnectRequest()) {
 
-					ui.updateMenueConnected(crm.getReceiverUsername());
+					ui.updateMenuConnected(crm.getReceiverUsername());
 					removeShapesFromGrid();
 
 				} else {
 
-					ui.updateMenueDefault();
+					ui.updateMenuDefault();
 				}
 			}
 
