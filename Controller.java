@@ -214,9 +214,9 @@ public class Controller {
 
 			if (online) {
 
-				MusicShapeMessage msm = new MusicShapeMessage(shape.toString(), shape.getColorName(), row, column);
+				MusicShapeMessage musicShapeMessage = new MusicShapeMessage(shape.toString(), shape.getColorName(), row, column);
 
-				client.sendObject(msm);
+				client.sendObject(musicShapeMessage);
 
 			}
 
@@ -233,10 +233,10 @@ public class Controller {
 
 						if (online) {
 
-							MusicShapeMessage msm = new MusicShapeMessage(shape.toString(), shape.getColorName(), i,
+							MusicShapeMessage musicShapeMessage = new MusicShapeMessage(shape.toString(), shape.getColorName(), i,
 									column);
 
-							client.sendObject(msm);
+							client.sendObject(musicShapeMessage);
 
 						}
 
@@ -301,9 +301,9 @@ public class Controller {
 
 		if (online) {
 
-			RemoveShapeMessage rsm = new RemoveShapeMessage(true);
+			RemoveShapeMessage removeShapeMessage = new RemoveShapeMessage(true);
 
-			client.sendObject(rsm);
+			client.sendObject(removeShapeMessage);
 		}
 
 		sounds = new MusicShape[4][16];
@@ -325,6 +325,7 @@ public class Controller {
 				Group group = ui.getPoolGroup();
 
 				for (int i = 0; i < sounds.length; i++) {
+					
 					for (int j = 0; j < sounds[i].length; j++) {
 						if (sounds[i][j] != null) {
 
@@ -334,9 +335,12 @@ public class Controller {
 					}
 
 				}
+				
 				sounds = new MusicShape[4][16];
 			}
+			
 		});
+		
 	}
 
 	/**
@@ -379,11 +383,11 @@ public class Controller {
 
 			online = true;
 
-			InitialStateMessage ism = (InitialStateMessage) obj;
+			InitialStateMessage initialStateMessage = (InitialStateMessage) obj;
 
-			for (String x : ism.getConnectedUsers()) {
+			for (String username : initialStateMessage.getConnectedUsers()) {
 
-				ui.updateUserList(x);
+				ui.updateUserList(username);
 
 			}
 
@@ -398,80 +402,80 @@ public class Controller {
 
 		if (obj instanceof MusicShapeMessage) {
 
-			MusicShapeMessage msm = (MusicShapeMessage) obj;
+			MusicShapeMessage musicShapeMessage = (MusicShapeMessage) obj;
 
-			if (msm.getShape().equals("diamond")) {
+			if (musicShapeMessage.getShape().equals("diamond")) {
 
-				MusicDiamond md = new MusicDiamond(msm.getColor(), soundArp.getArpSound(msm.getColor()));
+				MusicDiamond musicDiamond = new MusicDiamond(musicShapeMessage.getColor(), soundArp.getArpSound(musicShapeMessage.getColor()));
 
-				md.setRow(msm.getRow());
-				md.setColumn(msm.getColumn());
+				musicDiamond.setRow(musicShapeMessage.getRow());
+				musicDiamond.setColumn(musicShapeMessage.getColumn());
 
-				ui.setShapeFromOnline(md, msm.getRow(), msm.getColumn());
+				ui.setShapeFromOnline(musicDiamond, musicShapeMessage.getRow(), musicShapeMessage.getColumn());
 
-				shapeList.add(md);
+				shapeList.add(musicDiamond);
 
-				sounds[msm.getRow()][msm.getColumn()] = md;
-
-			}
-
-			else if (msm.getShape().equals("triangle")) {
-
-				MusicTriangle mt = new MusicTriangle(msm.getColor(), soundSynthNotes.getSynthNotes(msm.getColor()));
-
-				mt.setRow(msm.getRow());
-				mt.setColumn(msm.getColumn());
-
-				ui.setShapeFromOnline(mt, msm.getRow(), msm.getColumn());
-
-				shapeList.add(mt);
-
-				sounds[msm.getRow()][msm.getColumn()] = mt;
+				sounds[musicShapeMessage.getRow()][musicShapeMessage.getColumn()] = musicDiamond;
 
 			}
 
-			else if (msm.getShape().equals("circle")) {
+			else if (musicShapeMessage.getShape().equals("triangle")) {
 
-				MusicCircle mc = new MusicCircle(msm.getColor(), soundBass.getBassSound(msm.getColor()));
+				MusicTriangle musicTriangle = new MusicTriangle(musicShapeMessage.getColor(), soundSynthNotes.getSynthNotes(musicShapeMessage.getColor()));
 
-				mc.setRow(msm.getRow());
-				mc.setColumn(msm.getColumn());
+				musicTriangle.setRow(musicShapeMessage.getRow());
+				musicTriangle.setColumn(musicShapeMessage.getColumn());
 
-				ui.setShapeFromOnline(mc, msm.getRow(), msm.getColumn());
+				ui.setShapeFromOnline(musicTriangle, musicShapeMessage.getRow(), musicShapeMessage.getColumn());
 
-				shapeList.add(mc);
+				shapeList.add(musicTriangle);
 
-				sounds[msm.getRow()][msm.getColumn()] = mc;
+				sounds[musicShapeMessage.getRow()][musicShapeMessage.getColumn()] = musicTriangle;
 
 			}
 
-			else if (msm.getShape().equals("hexagon")) {
+			else if (musicShapeMessage.getShape().equals("circle")) {
 
-				MusicHexagon mp = new MusicHexagon(msm.getColor(), soundDrums.getDrumSounds(msm.getColor()));
+				MusicCircle musicCircle = new MusicCircle(musicShapeMessage.getColor(), soundBass.getBassSound(musicShapeMessage.getColor()));
 
-				mp.setRow(msm.getRow());
-				mp.setColumn(msm.getColumn());
+				musicCircle.setRow(musicShapeMessage.getRow());
+				musicCircle.setColumn(musicShapeMessage.getColumn());
 
-				ui.setShapeFromOnline(mp, msm.getRow(), msm.getColumn());
+				ui.setShapeFromOnline(musicCircle, musicShapeMessage.getRow(), musicShapeMessage.getColumn());
 
-				shapeList.add(mp);
+				shapeList.add(musicCircle);
 
-				sounds[msm.getRow()][msm.getColumn()] = mp;
+				sounds[musicShapeMessage.getRow()][musicShapeMessage.getColumn()] = musicCircle;
+
 			}
 
-			else if (msm.getShape().equals("righttriangle")) {
+			else if (musicShapeMessage.getShape().equals("hexagon")) {
 
-				MusicRightTriangle mrt = new MusicRightTriangle(msm.getColor(),
-						soundSynthChords.getSynthChordSound(msm.getColor()));
+				MusicHexagon musicHexagon = new MusicHexagon(musicShapeMessage.getColor(), soundDrums.getDrumSounds(musicShapeMessage.getColor()));
 
-				mrt.setRow(msm.getRow());
-				mrt.setColumn(msm.getColumn());
+				musicHexagon.setRow(musicShapeMessage.getRow());
+				musicHexagon.setColumn(musicShapeMessage.getColumn());
 
-				ui.setShapeFromOnline(mrt, msm.getRow(), msm.getColumn());
+				ui.setShapeFromOnline(musicHexagon, musicShapeMessage.getRow(), musicShapeMessage.getColumn());
 
-				shapeList.add(mrt);
+				shapeList.add(musicHexagon);
 
-				sounds[msm.getRow()][msm.getColumn()] = mrt;
+				sounds[musicShapeMessage.getRow()][musicShapeMessage.getColumn()] = musicHexagon;
+			}
+
+			else if (musicShapeMessage.getShape().equals("righttriangle")) {
+
+				MusicRightTriangle musicRightTriangle = new MusicRightTriangle(musicShapeMessage.getColor(),
+						soundSynthChords.getSynthChordSound(musicShapeMessage.getColor()));
+
+				musicRightTriangle.setRow(musicShapeMessage.getRow());
+				musicRightTriangle.setColumn(musicShapeMessage.getColumn());
+
+				ui.setShapeFromOnline(musicRightTriangle, musicShapeMessage.getRow(), musicShapeMessage.getColumn());
+
+				shapeList.add(musicRightTriangle);
+
+				sounds[musicShapeMessage.getRow()][musicShapeMessage.getColumn()] = musicRightTriangle;
 			}
 
 		}
@@ -483,22 +487,24 @@ public class Controller {
 
 		if (obj instanceof ConnectRequestMessage) {
 
-			ConnectRequestMessage crm = (ConnectRequestMessage) obj;
+			ConnectRequestMessage connectRequestMessage = (ConnectRequestMessage) obj;
 
-			if (crm.getIsResponse()) {
+			if (connectRequestMessage.getIsResponse()) {
 
-				ui.openConnectMessage(crm);
+				ui.openConnectMessage(connectRequestMessage);
 
 			} else {
 
-				if (crm.getConnectRequest()) {
+				if (connectRequestMessage.getConnectRequest()) {
 
-					ui.updateMenuConnected(crm.getReceiverUsername());
+					ui.updateMenuConnected(connectRequestMessage.getReceiverUsername());
 					removeShapesFromGrid();
-
+					setReceivingUser(connectRequestMessage.getReceiverUsername());
+					
 				} else {
 
 					ui.updateMenuDefault();
+					
 				}
 			}
 
@@ -511,9 +517,9 @@ public class Controller {
 
 		if (obj instanceof UserConnectMessage) {
 
-			UserConnectMessage ucm = (UserConnectMessage) obj;
+			UserConnectMessage userConnectMessage = (UserConnectMessage) obj;
 
-			ui.updateUserList(ucm.getUsername());
+			ui.updateUserList(userConnectMessage.getUsername());
 
 		}
 
@@ -530,6 +536,11 @@ public class Controller {
 				ui.loginNotOK(str);
 
 			}
+			
+			else if(str.equals("User is already making music with someone else")) {
+				
+				ui.openRejecction(str);
+			}
 
 		}
 
@@ -540,33 +551,35 @@ public class Controller {
 
 		if (obj instanceof UserDisconnectMessage) {
 
-			UserDisconnectMessage udm = (UserDisconnectMessage) obj;
+			UserDisconnectMessage userDisconnectMessage = (UserDisconnectMessage) obj;
 
-			ui.removeFromUserList(udm.getUsername());
+			ui.removeFromUserList(userDisconnectMessage.getUsername());
 			
-			if(receivingUser.equals(udm.getUsername())) {
+			if(receivingUser != null && receivingUser.equals(userDisconnectMessage.getUsername())) {
 				receivingUser = null;
+				ui.revertUIToStandard();
+				
 			}
 			
 		}
 
 		/**
-		 * When a user removes a shape from the grid when connectede to another user
+		 * When a user removes a shape from the grid when connected to another user
 		 */
 
 		if (obj instanceof RemoveShapeMessage) {
 
-			RemoveShapeMessage rsm = (RemoveShapeMessage) obj;
+			RemoveShapeMessage removeShapeMessage = (RemoveShapeMessage) obj;
 
-			if (rsm.isRemoveAll()) {
+			if (removeShapeMessage.isRemoveAll()) {
 
 				removeShapesFromGrid();
 
 			} else {
 
-				ui.removeShape(sounds[rsm.getRow()][rsm.getColumn()]);
+				ui.removeShape(sounds[removeShapeMessage.getRow()][removeShapeMessage.getColumn()]);
 
-				removeSound(rsm.getRow(), rsm.getColumn());
+				removeSound(removeShapeMessage.getRow(), removeShapeMessage.getColumn());
 
 			}
 
@@ -584,9 +597,9 @@ public class Controller {
 	 */
 	public void connectToUser(String username) {
 
-		ConnectToUserMessage message = new ConnectToUserMessage(ui.getUsername(), username);
+		ConnectToUserMessage connectToUserMessage = new ConnectToUserMessage(ui.getUsername(), username);
 
-		client.sendObject(message);
+		client.sendObject(connectToUserMessage);
 
 	}
 
@@ -617,6 +630,15 @@ public class Controller {
 
 		client.sendObject(crm);
 
+	}
+	
+
+	public String getReceivingUser() {
+		return receivingUser;
+	}
+
+	public void setReceivingUser(String receivingUser) {
+		this.receivingUser = receivingUser;
 	}
 
 	/**

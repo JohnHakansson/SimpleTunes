@@ -14,6 +14,7 @@ public class ClientHandler extends Thread {
 	private ObjectInputStream input;
 	private ClientMap clientMap;
 	private String receivingUser;
+
 	private String username;
 	private Server server;
 
@@ -40,7 +41,15 @@ public class ClientHandler extends Thread {
 	 * @param obj Object
 	 */
 	public void send(Object obj) {
-
+		
+		if(obj instanceof UserDisconnectMessage) {
+			UserDisconnectMessage userDisconnectMessage = (UserDisconnectMessage)obj;
+			
+			if(userDisconnectMessage.getUsername().equals(receivingUser)) {
+				receivingUser = null;
+			}
+		}
+		
 		try {
 			output.writeObject(obj);
 			output.flush();
@@ -58,6 +67,15 @@ public class ClientHandler extends Thread {
 	public void setReceivingUser(String receivingUser) {
 		this.receivingUser = receivingUser;
 
+	}
+	
+	/**
+	 * Returns the receivingUser
+	 * @return receivingUser a String
+	 */
+	
+	public String getReceivingUser() {
+		return receivingUser;
 	}
 
 	/**
@@ -80,12 +98,20 @@ public class ClientHandler extends Thread {
 					ConnectToUserMessage connectToUserMessage = (ConnectToUserMessage) obj;
 
 					ClientHandler tempReceiver = clientMap.get(connectToUserMessage.getReceiverUsername());
+					
+					if(tempReceiver.getReceivingUser() == null) {
+						
+						ConnectRequestMessage connectRequestMessage = new ConnectRequestMessage(connectToUserMessage.getSenderUsername(),
+								connectToUserMessage.getReceiverUsername());
 
-					ConnectRequestMessage connectRequestMessage = new ConnectRequestMessage(connectToUserMessage.getSenderUsername(),
-							connectToUserMessage.getReceiverUsername());
+						connectRequestMessage.setIsResponse(true);
+						tempReceiver.send(connectRequestMessage);
+					}
 
-					connectRequestMessage.setIsResponse(true);
-					tempReceiver.send(connectRequestMessage);
+					else {
+						send(new String("User is already making music with someone else"));
+						
+					}
 
 				} else if (obj instanceof ConnectRequestMessage) {
 
@@ -118,6 +144,7 @@ public class ClientHandler extends Thread {
 
 				server.disconnectUser(username);
 				break;
+				
 			}
 
 		}
