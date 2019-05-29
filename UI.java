@@ -2,7 +2,6 @@ package simpleTunes;
 
 import java.util.ArrayList;
 import java.util.Random;
-
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
@@ -79,14 +78,15 @@ public class UI extends Application {
 
 	private Text usernameText;
 
-	private double xOffset;
-	private double yOffset;
-
 	private Cursor deleteCursor = new ImageCursor(new Image("images/trashCanImage.png"));
 	private Cursor handCursor = new ImageCursor(new Image("images/handClick.png"));
+	
 	private Separator onlineSeperator;
 
 	private ObservableList<String> listOfOnlineUser = FXCollections.observableList(new ArrayList<String>());
+
+	private double xOffset;
+	private double yOffset;
 
 	/*
 	 * Start method for the javaFX application. Here some components are created and
@@ -101,6 +101,7 @@ public class UI extends Application {
 		window = primaryStage;
 		window.setOnCloseRequest(e -> {
 			System.exit(0);
+			
 		});
 
 		poolPane.setStyle("-fx-background-color: Black");
@@ -108,6 +109,7 @@ public class UI extends Application {
 
 		// Generating the cells used by the grid and adding them to the UI.
 		for (int i = 0; i < squares.length; i++) {
+			
 			for (int j = 0; j < squares[i].length; j++) {
 				squares[i][j] = new Rectangle(j * 100, i * 100 + 600 - 50, 100, 100);
 				squares[i][j].setFill(Color.BLACK);
@@ -133,7 +135,6 @@ public class UI extends Application {
 		lineTransition.setCycleCount(Animation.INDEFINITE);
 		lineTransition.setNode(movingLine);
 		lineTransition.setRate(1.0);
-
 		lineTransition.setInterpolator(Interpolator.LINEAR);
 
 		poolGroup.getChildren().add(movingLine);
@@ -167,6 +168,7 @@ public class UI extends Application {
 		stopButton.setOnAction(e -> {
 			stopMovingLine();
 			controller.stopPlaying();
+			
 		});
 
 		Button resetButton = new Button();
@@ -181,11 +183,11 @@ public class UI extends Application {
 		exitButton.setId("exitButton");
 		exitButton.setOnAction(e -> {
 			System.exit(0);
+			
 		});
 
 		onlineButton = new Button("Go Online");
 		onlineButton.setOnAction(e -> {
-
 			login = new LoginWindow(controller);
 			login.display();
 
@@ -215,21 +217,18 @@ public class UI extends Application {
 		HBox.setHgrow(rightSpacer, Priority.SOMETIMES);
 
 		toolbar.setId("toolbar");
-		toolbar.setOnMousePressed(new EventHandler<MouseEvent>() {
-
-			public void handle(MouseEvent event) {
-				xOffset = primaryStage.getX() - event.getScreenX();
-				yOffset = primaryStage.getY() - event.getScreenY();
-			}
+		toolbar.setOnMousePressed( e -> {
+			xOffset = primaryStage.getX() - e.getScreenX();
+			yOffset = primaryStage.getY() - e.getScreenY();
+			
 		});
-
-		toolbar.setOnMouseDragged(new EventHandler<MouseEvent>() {
-
-			public void handle(MouseEvent event) {
-				primaryStage.setX(event.getScreenX() + xOffset);
-				primaryStage.setY(event.getScreenY() + yOffset);
-			}
+		
+		toolbar.setOnMouseDragged( e -> {
+			primaryStage.setX(e.getScreenX() + xOffset);
+			primaryStage.setY(e.getScreenY() + yOffset);
+			
 		});
+		
 	}
 
 	/*
@@ -258,10 +257,9 @@ public class UI extends Application {
 	 * 
 	 * @return the event handler.
 	 */
-	public EventHandler<MouseEvent> getMouseRemove(MusicShape shape, int row, int column) {
-		EventHandler<MouseEvent> OnMouseClicked = new EventHandler<MouseEvent>() {
+	public EventHandler<MouseEvent> getMouseEventRemove(MusicShape shape, int row, int column) {
+		EventHandler<MouseEvent> onMouseClicked = new EventHandler<MouseEvent>() {
 
-			@Override
 			public void handle(MouseEvent t) {
 
 				poolGroup.getChildren().remove(shape.getShape());
@@ -276,7 +274,8 @@ public class UI extends Application {
 
 		};
 
-		return OnMouseClicked;
+		return onMouseClicked;
+		
 	}
 
 	/*
@@ -295,6 +294,7 @@ public class UI extends Application {
 				shape.getShape().setCursor(handCursor);
 
 				for (int i = 0; i < squares.length; i++) {
+					
 					for (int j = 0; j < squares[i].length; j++) {
 
 						if (squares[i][j].contains(t.getSceneX(), t.getSceneY() - toolbar.getHeight())) {
@@ -311,6 +311,7 @@ public class UI extends Application {
 		};
 
 		return onMouseReleased;
+		
 	}
 	
 	/**
@@ -355,6 +356,7 @@ public class UI extends Application {
 							}
 
 						}
+						
 					}
 
 					if (t.getSceneY() < squares[0][0].getY()) {
@@ -371,6 +373,7 @@ public class UI extends Application {
 		};
 
 		return onMouseReleased;
+		
 	}
 	
 	/**
@@ -379,12 +382,13 @@ public class UI extends Application {
 	 * 
 	 * @return The eventhandler
 	 */
-	public EventHandler<MouseEvent> getDragDetected(MusicShape shape) {
+	public EventHandler<MouseEvent> getDragEventDetected(MusicShape shape) {
 		EventHandler<MouseEvent> onDragDetected = new EventHandler<MouseEvent>() {
 
 			public void handle(MouseEvent t) {
 
 				shape.setHasBeenMoved(true);
+				
 			}
 
 		};
@@ -461,14 +465,11 @@ public class UI extends Application {
 		shape.getShape().setTranslateY(0);
 
 		shape.setLayoutX(squares[row][column].getX());
-
 		shape.setLayoutY(squares[row][column].getY());
-
-//		shape.nullifyEventHandlers();
 
 		shape.getShape().setOnMouseClicked(null);
 		shape.getShape().setOnMouseReleased(getMouseEventReleasedInGrid(shape));
-		shape.getShape().setOnDragDetected(getDragDetected(shape));
+		shape.getShape().setOnDragDetected(getDragEventDetected(shape));
 
 		if (!shape.getPlaced()) {
 
@@ -479,7 +480,9 @@ public class UI extends Application {
 		Platform.runLater(new Runnable() {
 			public void run() {
 				shape.getShape().setCursor(deleteCursor);
+				
 			}
+			
 		});
 
 	}
@@ -499,21 +502,22 @@ public class UI extends Application {
 		shape.getShape().setTranslateY(0);
 
 		shape.setLayoutX(squares[row][column].getX());
-
 		shape.setLayoutY(squares[row][column].getY());
 
 		shape.getShape().setOnMouseClicked(null);
 		shape.getShape().setOnMouseReleased(getMouseEventReleasedInGrid(shape));
-		shape.getShape().setOnDragDetected(getDragDetected(shape));
-		
+		shape.getShape().setOnDragDetected(getDragEventDetected(shape));
 		shape.getShape().setCursor(deleteCursor);
 
 		Platform.runLater(new Runnable() {
 
 			public void run() {
 				poolGroup.getChildren().add(shape.getShape());
+				
 			}
+			
 		});
+		
 	}
 
 	/*
@@ -566,25 +570,27 @@ public class UI extends Application {
 	 * 
 	 * @param crm the ConnectRequestMessage sent from the online user.
 	 */
-	public void openConnectMessage(ConnectRequestMessage crm) {
+	public void openConnectMessage(ConnectRequestMessage connectRequestMessage) {
 
 		Platform.runLater(new Runnable() {
 
 			public void run() {
 				boolean answer;
 
-				answer = new ConnectWindow(crm.getMessage()).display();
+				answer = new ConnectWindow(connectRequestMessage.getMessage()).display();
 
-				crm.setConnectRequest(answer);
+				connectRequestMessage.setConnectRequest(answer);
 
-				controller.sendResponse(crm);
+				controller.sendResponse(connectRequestMessage);
 
 				if (answer) {
 
-					updateMenueConnected(crm.getSenderUsername());
+					updateMenuConnected(connectRequestMessage.getSenderUsername());
 					controller.removeShapesFromGrid();
 				}
+				
 			}
+			
 		});
 
 	}
@@ -604,11 +610,9 @@ public class UI extends Application {
 		usernameText = new Text(username);
 
 		connectMessage = new Label("Connect with user:");
-
 		connectMessage.setFont(new Font("Arial Bold", 14));
 
 		onlineCircle = new Circle(5);
-
 		onlineCircle.setFill(Color.GREEN);
 
 		connectButton = new Button("Connect");
@@ -620,9 +624,10 @@ public class UI extends Application {
 
 				controller.connectToUser(selectedUsername);
 
-				updateMenueWaiting(selectedUsername);
+				updateMenuWaiting(selectedUsername);
 
 			}
+			
 		});
 
 		Platform.runLater(new Runnable() {
@@ -633,7 +638,6 @@ public class UI extends Application {
 				toolbar.getItems().remove(exitButton);
 
 				onlineButton.setText("Go offline");
-
 				onlineButton.setOnAction(e -> {
 
 					controller.disconnect();
@@ -656,20 +660,15 @@ public class UI extends Application {
 				});
 
 				toolbar.getItems().add(connectMessage);
-
 				toolbar.getItems().add(listOfUsers);
-
 				toolbar.getItems().add(connectButton);
 
 				onlineSeperator = new Separator();
 				onlineSeperator.setHalignment(HPos.RIGHT);
 
 				toolbar.getItems().add(onlineSeperator);
-
 				toolbar.getItems().add(usernameText);
-
 				toolbar.getItems().add(onlineCircle);
-
 				toolbar.getItems().add(rightSpacer);
 				toolbar.getItems().add(exitButton);
 
@@ -683,7 +682,7 @@ public class UI extends Application {
 	 * 
 	 * @param username the username of the selected user.
 	 */
-	public void updateMenueConnected(String username) {
+	public void updateMenuConnected(String username) {
 
 		Platform.runLater(new Runnable() {
 
@@ -694,6 +693,7 @@ public class UI extends Application {
 				connectMessage.setText("Connected to: " + username);
 
 			}
+			
 		});
 
 	}
@@ -704,7 +704,7 @@ public class UI extends Application {
 	 * 
 	 * @param username the username of the selected user.
 	 */
-	public void updateMenueWaiting(String username) {
+	public void updateMenuWaiting(String username) {
 
 		listOfUsers.setDisable(true);
 		connectButton.setDisable(true);
@@ -716,7 +716,7 @@ public class UI extends Application {
 	 * Method for resetting the UI menu bar.
 	 * 
 	 */
-	public void updateMenueDefault() {
+	public void updateMenuDefault() {
 
 		Platform.runLater(new Runnable() {
 
@@ -747,7 +747,9 @@ public class UI extends Application {
 	 * @return The poolgroup ui component
 	 */
 	public Group getPoolGroup() {
+		
 		return poolGroup;
+		
 	}
 	
 	/**
