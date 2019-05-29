@@ -654,6 +654,8 @@ public class UI extends Application {
 					toolbar.getItems().remove(onlineCircle);
 					toolbar.getItems().remove(onlineSeperator);
 					toolbar.getItems().remove(connectMessage);
+					
+					listOfOnlineUser.remove(0, listOfOnlineUser.size());
 
 					onlineButton.setText("Go online");
 					onlineButton.setOnAction(e1 -> {
