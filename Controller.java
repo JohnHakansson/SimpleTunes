@@ -32,6 +32,7 @@ public class Controller {
 	private Random rand = new Random();
 	private String[] colors = { "Blue", "Orange", "Red", "Green", "Purple" };
 	private Client client;
+	private String receivingUser;
 
 	private boolean online = false;
 
@@ -542,7 +543,11 @@ public class Controller {
 			UserDisconnectMessage udm = (UserDisconnectMessage) obj;
 
 			ui.removeFromUserList(udm.getUsername());
-
+			
+			if(receivingUser.equals(udm.getUsername())) {
+				receivingUser = null;
+			}
+			
 		}
 
 		/**
