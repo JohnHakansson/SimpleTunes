@@ -84,6 +84,7 @@ public class UI extends Application {
 
 	private Cursor deleteCursor = new ImageCursor(new Image("images/trashCanImage.png"));
 	private Cursor handCursor = new ImageCursor(new Image("images/handClick.png"));
+	
 	private Separator onlineSeperator;
 
 	private ObservableList<String> listOfOnlineUser = FXCollections.observableList(new ArrayList<String>());
@@ -403,7 +404,13 @@ public class UI extends Application {
 		poolGroup.getChildren().add(shape.getShape());
 
 	}
-
+	
+	/**
+	 * 
+	 * Removes a shape from the UI
+	 * 
+	 * @param shape Shape to be removed
+	 */
 	public void removeShape(MusicShape shape) {
 
 		Platform.runLater(new Runnable() {
@@ -463,8 +470,6 @@ public class UI extends Application {
 		shape.setLayoutX(squares[row][column].getX());
 
 		shape.setLayoutY(squares[row][column].getY());
-
-//		shape.nullifyEventHandlers();
 
 		shape.getShape().setOnMouseClicked(null);
 		shape.getShape().setOnMouseReleased(getMouseEventReleasedInGrid(shape));
