@@ -14,6 +14,7 @@ public class ClientHandler extends Thread {
 	private ObjectInputStream input;
 	private ClientMap clientMap;
 	private String receivingUser;
+
 	private String username;
 	private Server server;
 
@@ -40,7 +41,7 @@ public class ClientHandler extends Thread {
 	 * @param obj Object
 	 */
 	public void send(Object obj) {
-
+		
 		try {
 			output.writeObject(obj);
 			output.flush();
@@ -58,6 +59,10 @@ public class ClientHandler extends Thread {
 	public void setReceivingUser(String receivingUser) {
 		this.receivingUser = receivingUser;
 
+	}
+	
+	public String getReceivingUser() {
+		return receivingUser;
 	}
 
 	/**
@@ -80,12 +85,18 @@ public class ClientHandler extends Thread {
 					ConnectToUserMessage connectToUserMessage = (ConnectToUserMessage) obj;
 
 					ClientHandler tempReceiver = clientMap.get(connectToUserMessage.getReceiverUsername());
+					
+					if(tempReceiver.getReceivingUser() == null) {
+						ConnectRequestMessage connectRequestMessage = new ConnectRequestMessage(connectToUserMessage.getSenderUsername(),
+								connectToUserMessage.getReceiverUsername());
 
-					ConnectRequestMessage connectRequestMessage = new ConnectRequestMessage(connectToUserMessage.getSenderUsername(),
-							connectToUserMessage.getReceiverUsername());
+						connectRequestMessage.setIsResponse(true);
+						tempReceiver.send(connectRequestMessage);
+					}
 
-					connectRequestMessage.setIsResponse(true);
-					tempReceiver.send(connectRequestMessage);
+					else {
+						tempReceiver.send(new String("User is already making music with someone else"));
+					}
 
 				} else if (obj instanceof ConnectRequestMessage) {
 

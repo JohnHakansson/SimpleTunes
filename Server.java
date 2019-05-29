@@ -39,12 +39,13 @@ public class Server implements Runnable {
 
 		clientMap.remove(disconnectedUser);
 
-		UserDisconnectMessage udm = new UserDisconnectMessage(disconnectedUser);
+		UserDisconnectMessage userDisconnectMessage = new UserDisconnectMessage(disconnectedUser);
 
 		for (String user : clientMap.getKeySet()) {
 
-			clientMap.get(user).send(udm);
-
+			clientMap.get(user).send(userDisconnectMessage);
+			
+			System.out.println(user);
 		}
 
 	}
@@ -98,6 +99,7 @@ public class Server implements Runnable {
 
 	public static void main(String[] args) {
 		new Server(5555);
+		
 	}
 
 }

@@ -593,6 +593,7 @@ public class UI extends Application {
 
 					updateMenuConnected(connectRequestMessage.getSenderUsername());
 					controller.removeShapesFromGrid();
+					controller.setReceivingUser(connectRequestMessage.getSenderUsername());
 				}
 				
 			}
@@ -670,6 +671,8 @@ public class UI extends Application {
 				toolbar.getItems().add(connectMessage);
 				toolbar.getItems().add(listOfUsers);
 				toolbar.getItems().add(connectButton);
+				
+				listOfUsers.setDisable(false);
 
 				onlineSeperator = new Separator();
 				onlineSeperator.setHalignment(HPos.RIGHT);
@@ -739,6 +742,18 @@ public class UI extends Application {
 		});
 
 	}
+	
+	public void updateUIAfterDisconnect() {
+		Platform.runLater( new Runnable() {
+			
+			public void run() {
+				connectMessage.setText("Connect with user:");
+				listOfUsers.setDisable(false);
+				connectButton.setDisable(false);
+			}
+		});
+	
+	}
 
 	/*
 	 * Method for updating the message in the log in window.
@@ -749,6 +764,23 @@ public class UI extends Application {
 
 		login.userNameNotOK(info);
 
+	}
+	
+	public void openRejecction(String rejected) {
+		
+		Platform.runLater( new Runnable() {
+			public void run() {
+				
+				Label label = new Label(rejected);
+				Scene scene = new Scene(label, 200, 200);
+				Stage stage = new Stage();
+				stage.setScene(scene);
+				stage.show();
+				
+			}
+			
+		});
+		
 	}
 	
 	/**
