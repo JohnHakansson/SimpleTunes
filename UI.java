@@ -78,9 +78,6 @@ public class UI extends Application {
 
 	private Text usernameText;
 
-	private Cursor deleteCursor = new ImageCursor(new Image("images/trashCanImage.png"));
-	private Cursor handCursor = new ImageCursor(new Image("images/handClick.png"));
-
 	private Separator onlineSeperator;
 
 	private ObservableList<String> listOfOnlineUser = FXCollections.observableList(new ArrayList<String>());
@@ -291,8 +288,6 @@ public class UI extends Application {
 
 			public void handle(MouseEvent t) {
 
-				shape.getShape().setCursor(handCursor);
-
 				for (int i = 0; i < squares.length; i++) {
 
 					for (int j = 0; j < squares[i].length; j++) {
@@ -328,8 +323,6 @@ public class UI extends Application {
 		EventHandler<MouseEvent> onMouseReleased = new EventHandler<MouseEvent>() {
 
 			public void handle(MouseEvent t) {
-
-				shape.getShape().setCursor(handCursor);
 
 				controller.removeSound(shape.getRow(), shape.getColumn());
 
@@ -483,14 +476,6 @@ public class UI extends Application {
 
 		}
 
-		Platform.runLater(new Runnable() {
-			public void run() {
-				shape.getShape().setCursor(deleteCursor);
-
-			}
-
-		});
-
 	}
 
 	/*
@@ -513,7 +498,6 @@ public class UI extends Application {
 		shape.getShape().setOnMouseClicked(null);
 		shape.getShape().setOnMouseReleased(getMouseEventReleasedInGrid(shape));
 		shape.getShape().setOnDragDetected(getDragEventDetected(shape));
-		shape.getShape().setCursor(deleteCursor);
 
 		Platform.runLater(new Runnable() {
 

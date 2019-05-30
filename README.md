@@ -1,7 +1,7 @@
 # SimpleTunes
 
-On Windows the application can be launched via the attached simpleTunes.exe file
-On MacOs the application can be launched via the attached simpleTunes.app file
+On Windows the application can be launched via the attached SimpleTunes.exe file
+On MacOs the application can be launched via the attached SimpleTunes.app file
 Note that the macOS version does not make use of custom cursors.
 
 These require Java to be installed on the operating system.
@@ -19,5 +19,8 @@ Press the play button to start playing your music!
 
 To generate new shapes press the button with shapes on it.
 In order to reset the UI press the reset button( button with an X sign ).
+
+The link to our git repository is:
+https://github.com/JohnHakansson/SimpleTunes
 
 Thank You and have fun!

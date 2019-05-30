@@ -24,9 +24,6 @@ public abstract class MusicShape {
 
 	protected Shape shape;
 	
-	private Cursor dragCursor = new ImageCursor(new Image("images/handDrag.png"));
-	protected Cursor handCursor = new ImageCursor(new Image("images/handClick.png"));
-
 	private double orgSceneX;
 	private double orgSceneY;
 	private double orgTranslateX;
@@ -184,8 +181,6 @@ public abstract class MusicShape {
 
 				shape.toFront();
 				
-				shape.setCursor(dragCursor);
-
 			}
 		};
 

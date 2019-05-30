@@ -30,8 +30,6 @@ public class MusicCircle extends MusicShape {
 		shape.setOnMousePressed(getMouseEventPressed());
 		shape.setOnMouseDragged(getMouseEventDragged());
 		
-		shape.setCursor(handCursor);
-
 	}
 	
 	public Shape getShape() {
