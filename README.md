@@ -1,19 +1,22 @@
 # SimpleTunes
 
-In order to use the program JavaFX is required.
+On Windows the application can be launched via the attached simpleTunes.exe file
+On MacOs the application can be launched via the attached simpleTunes.app file
+
+These require Java to be installed on the operating system.
+To use the networking functionality a server needs to be running.
+The Server is launched from the main method in the Server.java file.
+The IP adress to the server is defined within the application.
+
+In order to launch the application inside an IDE JavaFX is required.
 For help in installing JavaFX check the following link:
 https://www.youtube.com/watch?v=t4ehYIynI34
+The application can then be launched from the main method in the "UI" class.
 
-The application is launched from the main method in the "UI" class
+Shapes will automatically begin generating. Try placing shapes in the grid.
+Press the play button to start playing your music!
 
-Shapes will automatically begin generating. Try placing shapes in the grid-
-Press the play music!
-
+To generate new shapes press the button with shapes on it.
 In order to reset the UI press the reset button( button with an X sign ).
 
-In order to connect to another user the server needs to be running. 
-To be able to play on two seperate computers the server need to be running on one computer
-The ip address of the computer running the server need to be configured in the client on all other computers
-This is done on line 303 in the controller class. Its an argument in the client constructor.
-
-Thank You!
+Thank You and have fun!
