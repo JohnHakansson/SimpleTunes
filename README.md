@@ -2,11 +2,12 @@
 
 On Windows the application can be launched via the attached simpleTunes.exe file
 On MacOs the application can be launched via the attached simpleTunes.app file
+Note that the macOS version does not make use of custom cursors.
 
 These require Java to be installed on the operating system.
 To use the networking functionality a server needs to be running.
 The Server is launched from the main method in the Server.java file.
-The IP adress to the server is defined within the application.
+The IP address to the server is defined within the application.
 
 In order to launch the application inside an IDE JavaFX is required.
 For help in installing JavaFX check the following link:
