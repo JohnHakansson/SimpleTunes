@@ -18,19 +18,19 @@ public class SoundBass {
 
 		try {
 			bassSounds.put("Blue1",
-					new Media(getClass().getClassLoader().getResource("Bas - A#.wav").toURI().toString()));
+					new Media(getClass().getClassLoader().getResource("resources/Bas - A#.wav").toURI().toString()));
 
 			bassSounds.put("Blue2",
-					new Media(getClass().getClassLoader().getResource("Bas - D#.wav").toURI().toString()));
+					new Media(getClass().getClassLoader().getResource("resources/Bas - D#.wav").toURI().toString()));
 
 			bassSounds.put("Blue3",
-					new Media(getClass().getClassLoader().getResource("Bas - F.wav").toURI().toString()));
+					new Media(getClass().getClassLoader().getResource("resources/Bas - F.wav").toURI().toString()));
 
 			bassSounds.put("Blue4",
-					new Media(getClass().getClassLoader().getResource("Bas - G.wav").toURI().toString()));
+					new Media(getClass().getClassLoader().getResource("resources/Bas - G.wav").toURI().toString()));
 
 			bassSounds.put("Blue5",
-					new Media(getClass().getClassLoader().getResource("Bas - G#.wav").toURI().toString()));
+					new Media(getClass().getClassLoader().getResource("resources/Bas - G#.wav").toURI().toString()));
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

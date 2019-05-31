@@ -7,7 +7,7 @@ import javafx.scene.shape.Shape;
  * This class represents a hexagon that has a color and the
  * corresponding sound from the color.
  * 
- * @author Roland Askelöf och John Håkansson
+ * @author Roland Askelï¿½f och John Hï¿½kansson
  *
  */
 public class MusicHexagon extends MusicShape {
@@ -30,8 +30,6 @@ public class MusicHexagon extends MusicShape {
 		shape.setOnMousePressed(getMouseEventPressed());
 		shape.setOnMouseDragged(getMouseEventDragged());
 
-		shape.setCursor(handCursor);
-		
 	}
 
 	public Shape getShape() {

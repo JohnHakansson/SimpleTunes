@@ -16,19 +16,19 @@ public class SoundSynthChords {
 
 		try {
 			synthChordsSounds.put("Green1",
-					new Media(getClass().getClassLoader().getResource("Chord - Ab Major.wav").toURI().toString()));
+					new Media(getClass().getClassLoader().getResource("resources/Chord - Ab Major.wav").toURI().toString()));
 
 			synthChordsSounds.put("Green2",
-					new Media(getClass().getClassLoader().getResource("Chord - Bb Major.wav").toURI().toString()));
+					new Media(getClass().getClassLoader().getResource("resources/Chord - Bb Major.wav").toURI().toString()));
 
 			synthChordsSounds.put("Green3",
-					new Media(getClass().getClassLoader().getResource("Chord - Db Major.wav").toURI().toString()));
+					new Media(getClass().getClassLoader().getResource("resources/Chord - Db Major.wav").toURI().toString()));
 
 			synthChordsSounds.put("Green4",
-					new Media(getClass().getClassLoader().getResource("Chord - Eb Major.wav").toURI().toString()));
+					new Media(getClass().getClassLoader().getResource("resources/Chord - Eb Major.wav").toURI().toString()));
 
 			synthChordsSounds.put("Green5",
-					new Media(getClass().getClassLoader().getResource("Chord - F Minor.wav").toURI().toString()));
+					new Media(getClass().getClassLoader().getResource("resources/Chord - F Minor.wav").toURI().toString()));
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -17,19 +17,19 @@ public class SoundDrums {
 
 		try {
 			drumSounds.put("Purple1",
-					new Media(getClass().getClassLoader().getResource("Clap.wav").toURI().toString()));
+					new Media(getClass().getClassLoader().getResource("resources/Clap.wav").toURI().toString()));
 
 			drumSounds.put("Purple2",
-					new Media(getClass().getClassLoader().getResource("Hi-Hat.wav").toURI().toString()));
+					new Media(getClass().getClassLoader().getResource("resources/Hi-Hat.wav").toURI().toString()));
 
 			drumSounds.put("Purple3",
-					new Media(getClass().getClassLoader().getResource("Kick.wav").toURI().toString()));
+					new Media(getClass().getClassLoader().getResource("resources/Kick.wav").toURI().toString()));
 
 			drumSounds.put("Purple4",
-					new Media(getClass().getClassLoader().getResource("Open-Hat.wav").toURI().toString()));
+					new Media(getClass().getClassLoader().getResource("resources/Open-Hat.wav").toURI().toString()));
 
 			drumSounds.put("Purple5",
-					new Media(getClass().getClassLoader().getResource("Snare.wav").toURI().toString()));
+					new Media(getClass().getClassLoader().getResource("resources/Snare.wav").toURI().toString()));
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

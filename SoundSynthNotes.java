@@ -16,19 +16,19 @@ public class SoundSynthNotes {
 
 		try {
 			synthNotesMap.put("Orange1",
-					new Media(getClass().getClassLoader().getResource("Synth1 - A#.wav").toURI().toString()));
+					new Media(getClass().getClassLoader().getResource("resources/Synth1 - A#.wav").toURI().toString()));
 
 			synthNotesMap.put("Orange2",
-					new Media(getClass().getClassLoader().getResource("Synth1 - D#.wav").toURI().toString()));
+					new Media(getClass().getClassLoader().getResource("resources/Synth1 - D#.wav").toURI().toString()));
 
 			synthNotesMap.put("Orange3",
-					new Media(getClass().getClassLoader().getResource("Synth1 - F.wav").toURI().toString()));
+					new Media(getClass().getClassLoader().getResource("resources/Synth1 - F.wav").toURI().toString()));
 
 			synthNotesMap.put("Orange4",
-					new Media(getClass().getClassLoader().getResource("Synth1 - G.wav").toURI().toString()));
+					new Media(getClass().getClassLoader().getResource("resources/Synth1 - G.wav").toURI().toString()));
 
 			synthNotesMap.put("Orange5",
-					new Media(getClass().getClassLoader().getResource("Synth1 - G#.wav").toURI().toString()));
+					new Media(getClass().getClassLoader().getResource("resources/Synth1 - G#.wav").toURI().toString()));
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

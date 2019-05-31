@@ -18,15 +18,15 @@ public class SoundArp {
 	public SoundArp() {
 
 		try {
-			arpSounds.put("Red1", new Media(getClass().getClassLoader().getResource("Arp-Ab.wav").toURI().toString()));
+			arpSounds.put("Red1", new Media(getClass().getClassLoader().getResource("resources/Arp-Ab.wav").toURI().toString()));
 
-			arpSounds.put("Red2", new Media(getClass().getClassLoader().getResource("Arp-Bb.wav").toURI().toString()));
+			arpSounds.put("Red2", new Media(getClass().getClassLoader().getResource("resources/Arp-Bb.wav").toURI().toString()));
 
-			arpSounds.put("Red3", new Media(getClass().getClassLoader().getResource("Arp-Db.wav").toURI().toString()));
+			arpSounds.put("Red3", new Media(getClass().getClassLoader().getResource("resources/Arp-Db.wav").toURI().toString()));
 
-			arpSounds.put("Red4", new Media(getClass().getClassLoader().getResource("Arp-Eb.wav").toURI().toString()));
+			arpSounds.put("Red4", new Media(getClass().getClassLoader().getResource("resources/Arp-Eb.wav").toURI().toString()));
 
-			arpSounds.put("Red5", new Media(getClass().getClassLoader().getResource("Arp-G#.wav").toURI().toString()));
+			arpSounds.put("Red5", new Media(getClass().getClassLoader().getResource("resources/Arp-G#.wav").toURI().toString()));
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
