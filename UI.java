@@ -78,8 +78,8 @@ public class UI extends Application {
 
 	private Text usernameText;
 
-	private Cursor deleteCursor = new ImageCursor(new Image("images/trashCanImage.png"));
-	private Cursor handCursor = new ImageCursor(new Image("images/handClick.png"));
+//	private Cursor deleteCursor = new ImageCursor(new Image("images/trashCanImage.png"));
+//	private Cursor handCursor = new ImageCursor(new Image("images/handClick.png"));
 
 	private Separator onlineSeperator;
 
@@ -291,7 +291,7 @@ public class UI extends Application {
 
 			public void handle(MouseEvent t) {
 
-				shape.getShape().setCursor(handCursor);
+//				shape.getShape().setCursor(handCursor);
 
 				for (int i = 0; i < squares.length; i++) {
 
@@ -329,7 +329,7 @@ public class UI extends Application {
 
 			public void handle(MouseEvent t) {
 
-				shape.getShape().setCursor(handCursor);
+//				shape.getShape().setCursor(handCursor);
 
 				controller.removeSound(shape.getRow(), shape.getColumn());
 
@@ -483,13 +483,13 @@ public class UI extends Application {
 
 		}
 
-		Platform.runLater(new Runnable() {
-			public void run() {
-				shape.getShape().setCursor(deleteCursor);
-
-			}
-
-		});
+//		Platform.runLater(new Runnable() {
+//			public void run() {
+//				shape.getShape().setCursor(deleteCursor);
+//
+//			}
+//
+//		});
 
 	}
 
@@ -513,7 +513,7 @@ public class UI extends Application {
 		shape.getShape().setOnMouseClicked(null);
 		shape.getShape().setOnMouseReleased(getMouseEventReleasedInGrid(shape));
 		shape.getShape().setOnDragDetected(getDragEventDetected(shape));
-		shape.getShape().setCursor(deleteCursor);
+//		shape.getShape().setCursor(deleteCursor);
 
 		Platform.runLater(new Runnable() {
 
