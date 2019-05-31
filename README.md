@@ -12,6 +12,7 @@ The IP address to the server is defined within the application.
 In order to launch the application inside an IDE JavaFX is required.
 For help in installing JavaFX check the following link:
 https://www.youtube.com/watch?v=t4ehYIynI34
+The following folders need to be added to the build path: SoundBass, SoundDrums, SoundSynthNotes, SoundArp, SoundSynthChords
 The application can then be launched from the main method in the "UI" class.
 
 Shapes will automatically begin generating. Try placing shapes in the grid.

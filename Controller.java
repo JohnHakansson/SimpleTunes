@@ -16,7 +16,7 @@ import javafx.scene.Group;
 public class Controller {
 	private UI ui;
 	private Client client;
-	
+
 	private Thread soundPlayerThread;
 	private Thread shapeGenerator;
 
@@ -47,10 +47,11 @@ public class Controller {
 	}
 
 	/**
-	 * Generates random shapes(Triangle, Circle or Square) of a random color(Red,
-	 * Green or Blue) until the total number of shapes in the UI is 10. Adds the
-	 * shape to a shapelist and set Mouse-events for when Pressed,Dragged,Clicked
-	 * and Released. Then adds the shape to the UI.
+	 * Generates random shapes(circle, diamond, hexagon, right triangle, triangle)
+	 * of a random color(circle = blue, diamond = red, hexagon = purple, right
+	 * triangle = green, triangle = orange) until the total number of shapes in the
+	 * UI is 10. Adds the shape to a shapelist and set Mouse-events for when
+	 * Pressed,Dragged,Clicked and Released. Then adds the shape to the UI.
 	 * 
 	 * @param limit an integer the number of shapes that needs to be generated
 	 */
@@ -71,17 +72,17 @@ public class Controller {
 				color = colors[1] + (rand.nextInt(5) + 1);
 				randomShape = new MusicTriangle(color, soundSynthNotes.getSynthNotes(color));
 				break;
-				
+
 			case 2:
 				color = colors[2] + (rand.nextInt(5) + 1);
 				randomShape = new MusicDiamond(color, soundArp.getArpSound(color));
 				break;
-				
+
 			case 3:
 				color = colors[3] + (rand.nextInt(5) + 1);
 				randomShape = new MusicRightTriangle(color, soundSynthChords.getSynthChordSound(color));
 				break;
-				
+
 			case 4:
 				color = colors[4] + (rand.nextInt(5) + 1);
 				randomShape = new MusicHexagon(color, soundDrums.getDrumSounds(color));
@@ -161,7 +162,7 @@ public class Controller {
 	 */
 	public boolean isOnline() {
 		return online;
-		
+
 	}
 
 	/**
@@ -175,7 +176,7 @@ public class Controller {
 		int counter = 0;
 
 		for (int i = 0; i < sounds.length; i++) {
-			
+
 			if (sounds[i][column] != null) {
 				counter++;
 
@@ -207,7 +208,8 @@ public class Controller {
 
 			if (online) {
 
-				MusicShapeMessage musicShapeMessage = new MusicShapeMessage(shape.toString(), shape.getColorName(), row, column);
+				MusicShapeMessage musicShapeMessage = new MusicShapeMessage(shape.toString(), shape.getColorName(), row,
+						column);
 
 				client.sendObject(musicShapeMessage);
 
@@ -216,9 +218,9 @@ public class Controller {
 		} else {
 
 			for (int i = 0; !shapePlaced; i++) {
-				
+
 				if (checkColumnSpace(shape.getColumn())) {
-					
+
 					if (sounds[i][column] == null) {
 						sounds[i][column] = shape;
 						shapePlaced = true;
@@ -228,8 +230,8 @@ public class Controller {
 
 						if (online) {
 
-							MusicShapeMessage musicShapeMessage = new MusicShapeMessage(shape.toString(), shape.getColorName(), i,
-									column);
+							MusicShapeMessage musicShapeMessage = new MusicShapeMessage(shape.toString(),
+									shape.getColorName(), i, column);
 
 							client.sendObject(musicShapeMessage);
 
@@ -258,7 +260,7 @@ public class Controller {
 	 */
 	public void removeSound(int row, int column) {
 		sounds[row][column] = null;
-		
+
 	}
 
 	/**
@@ -298,7 +300,7 @@ public class Controller {
 			RemoveShapeMessage removeShapeMessage = new RemoveShapeMessage(true);
 
 			client.sendObject(removeShapeMessage);
-			
+
 		}
 
 		sounds = new MusicShape[4][16];
@@ -315,31 +317,31 @@ public class Controller {
 	public void removeShapesFromGrid() {
 
 		Platform.runLater(new Runnable() {
-			
+
 			public void run() {
-				
+
 				Group group = ui.getPoolGroup();
 
 				for (int i = 0; i < sounds.length; i++) {
-					
+
 					for (int j = 0; j < sounds[i].length; j++) {
-						
+
 						if (sounds[i][j] != null) {
 
 							group.getChildren().remove(sounds[i][j].getShape());
-							
+
 						}
 
 					}
 
 				}
-				
+
 				sounds = new MusicShape[4][16];
-				
+
 			}
-			
+
 		});
-		
+
 	}
 
 	/**
@@ -403,7 +405,8 @@ public class Controller {
 
 			if (musicShapeMessage.getShape().equals("diamond")) {
 
-				MusicDiamond musicDiamond = new MusicDiamond(musicShapeMessage.getColor(), soundArp.getArpSound(musicShapeMessage.getColor()));
+				MusicDiamond musicDiamond = new MusicDiamond(musicShapeMessage.getColor(),
+						soundArp.getArpSound(musicShapeMessage.getColor()));
 
 				musicDiamond.setRow(musicShapeMessage.getRow());
 				musicDiamond.setColumn(musicShapeMessage.getColumn());
@@ -418,7 +421,8 @@ public class Controller {
 
 			else if (musicShapeMessage.getShape().equals("triangle")) {
 
-				MusicTriangle musicTriangle = new MusicTriangle(musicShapeMessage.getColor(), soundSynthNotes.getSynthNotes(musicShapeMessage.getColor()));
+				MusicTriangle musicTriangle = new MusicTriangle(musicShapeMessage.getColor(),
+						soundSynthNotes.getSynthNotes(musicShapeMessage.getColor()));
 
 				musicTriangle.setRow(musicShapeMessage.getRow());
 				musicTriangle.setColumn(musicShapeMessage.getColumn());
@@ -433,7 +437,8 @@ public class Controller {
 
 			else if (musicShapeMessage.getShape().equals("circle")) {
 
-				MusicCircle musicCircle = new MusicCircle(musicShapeMessage.getColor(), soundBass.getBassSound(musicShapeMessage.getColor()));
+				MusicCircle musicCircle = new MusicCircle(musicShapeMessage.getColor(),
+						soundBass.getBassSound(musicShapeMessage.getColor()));
 
 				musicCircle.setRow(musicShapeMessage.getRow());
 				musicCircle.setColumn(musicShapeMessage.getColumn());
@@ -448,7 +453,8 @@ public class Controller {
 
 			else if (musicShapeMessage.getShape().equals("hexagon")) {
 
-				MusicHexagon musicHexagon = new MusicHexagon(musicShapeMessage.getColor(), soundDrums.getDrumSounds(musicShapeMessage.getColor()));
+				MusicHexagon musicHexagon = new MusicHexagon(musicShapeMessage.getColor(),
+						soundDrums.getDrumSounds(musicShapeMessage.getColor()));
 
 				musicHexagon.setRow(musicShapeMessage.getRow());
 				musicHexagon.setColumn(musicShapeMessage.getColumn());
@@ -458,7 +464,7 @@ public class Controller {
 				shapeList.add(musicHexagon);
 
 				sounds[musicShapeMessage.getRow()][musicShapeMessage.getColumn()] = musicHexagon;
-				
+
 			}
 
 			else if (musicShapeMessage.getShape().equals("righttriangle")) {
@@ -474,7 +480,7 @@ public class Controller {
 				shapeList.add(musicRightTriangle);
 
 				sounds[musicShapeMessage.getRow()][musicShapeMessage.getColumn()] = musicRightTriangle;
-				
+
 			}
 
 		}
@@ -498,13 +504,13 @@ public class Controller {
 					ui.updateMenuConnected(connectRequestMessage.getReceiverUsername());
 					removeShapesFromGrid();
 					setReceivingUser(connectRequestMessage.getReceiverUsername());
-					
+
 				} else {
 
 					ui.updateMenuDefault();
-					
+
 				}
-				
+
 			}
 
 		}
@@ -533,11 +539,11 @@ public class Controller {
 				ui.loginNotOK(str);
 
 			}
-			
-			else if(str.equals("User is already making music with someone else")) {
-				
+
+			else if (str.equals("User is already making music with someone else")) {
+
 				ui.openRejection(str);
-				
+
 			}
 
 		}
@@ -551,13 +557,13 @@ public class Controller {
 			UserDisconnectMessage userDisconnectMessage = (UserDisconnectMessage) obj;
 
 			ui.removeFromUserList(userDisconnectMessage.getUsername());
-			
-			if(receivingUser != null && receivingUser.equals(userDisconnectMessage.getUsername())) {
+
+			if (receivingUser != null && receivingUser.equals(userDisconnectMessage.getUsername())) {
 				receivingUser = null;
 				ui.revertUIToStandard();
-				
+
 			}
-			
+
 		}
 
 		/**
@@ -618,31 +624,31 @@ public class Controller {
 	 * Called when a user has either accepted or declined a connection request from
 	 * another user
 	 * 
-	 * @param connectRequestMessage ConnectRequestMessage containing either a true or false response
-	 *            boolean
+	 * @param connectRequestMessage ConnectRequestMessage containing either a true
+	 *                              or false response boolean
 	 */
 	public void sendResponse(ConnectRequestMessage connectRequestMessage) {
 
 		client.sendObject(connectRequestMessage);
 
 	}
-	
+
 	/**
 	 * 
 	 * @return Receiving user
 	 */
 	public String getReceivingUser() {
 		return receivingUser;
-		
+
 	}
-	
+
 	/**
 	 * 
 	 * @param receivingUser The connected user
 	 */
 	public void setReceivingUser(String receivingUser) {
 		this.receivingUser = receivingUser;
-		
+
 	}
 
 	/**
@@ -717,7 +723,7 @@ public class Controller {
 							generateShape(1);
 
 						}
-						
+
 					});
 
 				}
@@ -725,11 +731,11 @@ public class Controller {
 				stopShapeGenerator();
 
 			} catch (InterruptedException e) {
-				
+
 			}
 
 		}
-		
+
 	}
 
 }
