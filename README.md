@@ -21,4 +21,7 @@ Press the play button to start playing your music!
 To generate new shapes press the button with shapes on it.
 In order to reset the UI press the reset button( button with an X sign ).
 
+github-link to the project:
+https://github.com/JohnHakansson/SimpleTunes
+
 Thank You and have fun!
